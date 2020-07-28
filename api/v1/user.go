@@ -35,7 +35,7 @@ func AddUser(c *gin.Context) {
 func GetUsers(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
-	_ = c.ShouldBindJSON("")
+
 	if pageSize == 0 {
 		pageSize = -1
 	}
