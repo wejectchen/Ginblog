@@ -25,10 +25,12 @@ func InitRouter() {
 		// 文章模块的路由接口
 		router.POST("article/add", v1.AddArticle)
 		router.GET("article", v1.GetArt)
+		router.GET("article/list/:id", v1.GetCateArt)
+		router.GET("article/info/:id", v1.GetArtInfo)
 		router.PUT("article/:id", v1.EditArt)
 		router.DELETE("article/:id", v1.DeleteArt)
 	}
 
-	r.Run(utils.HttpPort)
+	_ = r.Run(utils.HttpPort)
 
 }
