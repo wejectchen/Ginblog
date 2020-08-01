@@ -41,14 +41,15 @@ func SetToken(username string) (string, int) {
 
 func CheckToken(token string) (*MyClaims, int) {
 	var claims MyClaims
-	setToken, err := jwt.ParseWithClaims(token, &claims, func(token *jwt.Token) (interface{}, error) {
+	var err error
+	setToken, _ := jwt.ParseWithClaims(token, &claims, func(token *jwt.Token) (interface{}, error) {
 		return JwtKey, nil
 	})
 
-	if setToken.Valid {
-		return setToken.Claims.(*MyClaims), errmsg.SUCCSE
-	} else if ve, ok := err.(*jwt.ValidationError); ok {
-
+	if key, ok := setToken.Claims.(*MyClaims); ok && setToken.Valid {
+		return key, errmsg.SUCCSE
+	} else {
+		ve := err.(*jwt.ValidationError)
 		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
 			return nil, errmsg.ERROR_TOKEN_WRONG
 		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
@@ -57,7 +58,7 @@ func CheckToken(token string) (*MyClaims, int) {
 			return nil, errmsg.ERROR_TOKEN_TYPE_WRONG
 		}
 	}
-	return nil, errmsg.ERROR
+
 }
 
 // jwt中间件
