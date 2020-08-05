@@ -41,24 +41,30 @@ func SetToken(username string) (string, int) {
 
 func CheckToken(token string) (*MyClaims, int) {
 	var claims MyClaims
-	var err error
-	setToken, _ := jwt.ParseWithClaims(token, &claims, func(token *jwt.Token) (interface{}, error) {
+
+	setToken, err := jwt.ParseWithClaims(token, &claims, func(token *jwt.Token) (i interface{}, e error) {
 		return JwtKey, nil
 	})
 
-	if key, ok := setToken.Claims.(*MyClaims); ok && setToken.Valid {
-		return key, errmsg.SUCCSE
-	} else {
-		ve := err.(*jwt.ValidationError)
-		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-			return nil, errmsg.ERROR_TOKEN_WRONG
-		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-			return nil, errmsg.ERROR_TOKEN_RUNTIME
-		} else {
-			return nil, errmsg.ERROR_TOKEN_TYPE_WRONG
+	if err != nil {
+		if ve, ok := err.(*jwt.ValidationError); ok { //官方写法招抄就行
+			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
+				return nil, errmsg.ERROR_TOKEN_WRONG
+			} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
+				return nil, errmsg.ERROR_TOKEN_RUNTIME
+			} else {
+				return nil, errmsg.ERROR_TOKEN_TYPE_WRONG
+			}
 		}
 	}
-
+	if setToken != nil {
+		if key, ok := setToken.Claims.(*MyClaims); ok && setToken.Valid {
+			return key, errmsg.SUCCSE
+		} else {
+			return nil, errmsg.ERROR_TOKEN_WRONG
+		}
+	}
+	return nil, errmsg.ERROR_TOKEN_WRONG
 }
 
 // jwt中间件
@@ -67,7 +73,7 @@ func JwtToken() gin.HandlerFunc {
 		var code int
 		tokenHerder := c.Request.Header.Get("Authorization")
 		if tokenHerder == "" {
-			code = errmsg.ERROR_TOKEN_TYPE_WRONG
+			code = errmsg.ERROR_TOKEN_EXIST
 			c.JSON(http.StatusOK, gin.H{
 				"code":    code,
 				"message": errmsg.GetErrMsg(code),
