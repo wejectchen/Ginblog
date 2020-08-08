@@ -29,8 +29,6 @@ func CreateCate(data *Category) int {
 	return errmsg.SUCCSE
 }
 
-// todo 查询分类下的所有文章
-
 // 查询分类列表
 func GetCate(pageSize int, pageNum int) []Category {
 	var cate []Category
