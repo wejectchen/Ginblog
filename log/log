@@ -1,2 +1,4 @@
-time="2020-08-08T21:20:10+08:00" level=info Agent="ApiPOST Runtime +https://www.apipost.cn" DataSize=367 HostName=weject Ip="::1" Method=GET Path="/api/v1/users?pagesize=&pagenum=" SpendTime="8 ms" status=200
-
+time="2020-08-11T00:38:46+08:00" level=info Agent="ApiPOST Runtime +https://www.apipost.cn" DataSize=702 HostName=weject Ip="::1" Method=GET Path="/api/v1/users?pagesize=&pagenum=" SpendTime="9 ms" status=200
+time="2020-08-11T00:39:10+08:00" level=info Agent="ApiPOST Runtime +https://www.apipost.cn" DataSize=1513 HostName=weject Ip="::1" Method=GET Path="/api/v1/article?pagesize=5&pagenum=1" SpendTime="18 ms" status=200
+time="2020-08-11T00:39:20+08:00" level=info Agent="ApiPOST Runtime +https://www.apipost.cn" DataSize=920 HostName=weject Ip="::1" Method=GET Path="/api/v1/article/list/2?pagesize=3&pagenum=1" SpendTime="3 ms" status=200
+time="2020-08-11T00:39:37+08:00" level=info Agent="ApiPOST Runtime +https://www.apipost.cn" DataSize=1500 HostName=weject Ip="::1" Method=GET Path="/api/v1/article/list/2?pagesize=5&pagenum=1" SpendTime="2 ms" status=200
