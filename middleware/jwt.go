@@ -71,8 +71,8 @@ func CheckToken(token string) (*MyClaims, int) {
 func JwtToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var code int
-		tokenHerder := c.Request.Header.Get("Authorization")
-		if tokenHerder == "" {
+		tokenHeader := c.Request.Header.Get("Authorization")
+		if tokenHeader == "" {
 			code = errmsg.ERROR_TOKEN_EXIST
 			c.JSON(http.StatusOK, gin.H{
 				"code":    code,
@@ -81,7 +81,7 @@ func JwtToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		checkToken := strings.Split(tokenHerder, " ")
+		checkToken := strings.Split(tokenHeader, " ")
 		if len(checkToken) == 0 {
 			code = errmsg.ERROR_TOKEN_TYPE_WRONG
 			c.JSON(http.StatusOK, gin.H{
