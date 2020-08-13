@@ -17,5 +17,4 @@ func Cors() gin.HandlerFunc {
 			MaxAge:           12 * time.Hour,
 		},
 	)
-
 }

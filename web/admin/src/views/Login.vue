@@ -18,6 +18,7 @@
             v-model="formdata.password"
             placeholder="请输入密码"
             type="password"
+            v-on:keyup.enter="login"
           >
             <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
           </a-input>
