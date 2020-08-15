@@ -10,6 +10,12 @@ import ArtList from '../components/article/ArtList.vue'
 import CateList from '../components/category/CateList.vue'
 import UserList from '../components/user/UserList.vue'
 
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push(location, onResolve, onReject) {
+//   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+//   return originalPush.call(this, location).catch(err => err)
+// }
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,11 +29,11 @@ const routes = [
     name: 'admin',
     component: Admin,
     children: [
-      { path: '/index', component: Index },
-      { path: '/addart', component: AddArt },
-      { path: '/artlist', component: ArtList },
-      { path: '/catelist', component: CateList },
-      { path: '/userlist', component: UserList }
+      { path: 'index', component: Index },
+      { path: 'addart', component: AddArt },
+      { path: 'artlist', component: ArtList },
+      { path: 'catelist', component: CateList },
+      { path: 'userlist', component: UserList }
     ]
   }
 ]
@@ -39,7 +45,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem('token')
   if (to.path === '/login') return next()
-  if (!token && to.path === '/admin') {
+  if (!token) {
     next('/login')
   } else {
     next()

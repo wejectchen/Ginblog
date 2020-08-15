@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import {
+  ConfigProvider,
   Button,
   FormModel,
   Input,
   Icon,
   message,
   Layout,
-  Menu
+  Menu,
+  Row,
+  Col,
+  Table,
+  Card,
+  Pagination
 } from 'ant-design-vue'
 
 message.config({
@@ -23,3 +29,9 @@ Vue.use(Input)
 Vue.use(Icon)
 Vue.use(Layout)
 Vue.use(Menu)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Table)
+Vue.use(Card)
+Vue.use(Pagination)
+Vue.use(ConfigProvider)
