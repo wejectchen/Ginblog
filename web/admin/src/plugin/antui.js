@@ -6,7 +6,12 @@ import {
   Icon,
   message,
   Layout,
-  Menu
+  Menu,
+  Card,
+  Table,
+  Row,
+  Col,
+  ConfigProvider
 } from 'ant-design-vue'
 
 message.config({
@@ -23,3 +28,8 @@ Vue.use(Input)
 Vue.use(Icon)
 Vue.use(Layout)
 Vue.use(Menu)
+Vue.use(Card)
+Vue.use(Table)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(ConfigProvider)

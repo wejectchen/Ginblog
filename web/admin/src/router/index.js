@@ -23,11 +23,11 @@ const routes = [
     name: 'admin',
     component: Admin,
     children: [
-      { path: '/index', component: Index },
-      { path: '/addart', component: AddArt },
-      { path: '/artlist', component: ArtList },
-      { path: '/catelist', component: CateList },
-      { path: '/userlist', component: UserList }
+      { path: 'index', component: Index },
+      { path: 'addart', component: AddArt },
+      { path: 'artlist', component: ArtList },
+      { path: 'catelist', component: CateList },
+      { path: 'userlist', component: UserList }
     ]
   }
 ]

@@ -47,7 +47,7 @@ func CheckToken(token string) (*MyClaims, int) {
 	})
 
 	if err != nil {
-		if ve, ok := err.(*jwt.ValidationError); ok { //官方写法招抄就行
+		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
 				return nil, errmsg.ERROR_TOKEN_WRONG
 			} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
