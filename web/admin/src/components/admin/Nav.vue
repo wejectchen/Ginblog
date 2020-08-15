@@ -4,7 +4,7 @@
       <span>{{ collapsed ? 'Blog' : 'My Blog' }}</span>
     </div>
 
-    <a-menu theme="dark" mode="inline" @click="goToPage" :default-selected-keys="['index']">
+    <a-menu theme="dark" mode="inline" @click="goToPage">
       <a-menu-item key="index">
         <a-icon type="dashboard"></a-icon>
         <span>仪表盘</span>
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     goToPage(item) {
-      this.$router.push(item.key)
+      this.$router.push('/admin/' + item.key).catch((err) => err)
     },
   },
 }

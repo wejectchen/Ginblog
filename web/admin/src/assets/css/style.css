@@ -5,3 +5,25 @@ body,
   margin: 0;
   padding: 0;
 }
+
+.ant-card {
+<<<<<<< HEAD
+  background-color: #fff;
+  margin: 10px 10px;
+}
+
+.ant-table {
+  margin-top: 10px;
+}
+
+.ant-pagination {
+  margin-top: 10px;
+=======
+  margin: 10px;
+  background-color: #fff;
+}
+
+.ant-table {
+  margin-top: 15px;
+>>>>>>> webdevl
+}
