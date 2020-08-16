@@ -12,7 +12,8 @@ import {
   Col,
   Table,
   Card,
-  Pagination
+  Pagination,
+  Modal
 } from 'ant-design-vue'
 
 message.config({
@@ -22,6 +23,7 @@ message.config({
 })
 
 Vue.prototype.$message = message
+Vue.prototype.$confirm = Modal.confirm
 
 Vue.use(Button)
 Vue.use(FormModel)
@@ -35,3 +37,4 @@ Vue.use(Table)
 Vue.use(Card)
 Vue.use(Pagination)
 Vue.use(ConfigProvider)
+Vue.use(Modal)
