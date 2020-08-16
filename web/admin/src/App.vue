@@ -15,8 +15,4 @@ export default {
     }
   },
 }
-<<<<<<< HEAD
 </script>
-=======
-</script>
->>>>>>> webdevl
