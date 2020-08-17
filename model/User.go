@@ -36,13 +36,16 @@ func CreateUser(data *User) int {
 }
 
 // 查询用户列表
-func GetUsers(username string,pageSize int, pageNum int) ([]User, int) {
+func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
+	var user User
 	var users []User
 	var total int
-	if username == ""{
-		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users).Count(&total).Error
+	db.Model(&user).Count(&total)
+	if username == "" {
+		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users).Error
 	}
-	err = db.Where("username LIKE ?","%"+username+"%").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users).Count(&total).Error
+	err = db.Where("username LIKE ?", username+"%").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users).Error
+
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, 0
 	}

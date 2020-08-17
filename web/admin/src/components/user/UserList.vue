@@ -7,8 +7,8 @@
           <a-input-search
             v-model="queryParam.username"
             placeholder="输入用户名查找"
-            allowClear
             enter-button
+            allowClear
             @search="getUserList"
           />
         </a-col>
@@ -29,24 +29,8 @@
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
             <!--  @search="onSearch" -->
-            <a-button type="primary" style="margin-right:15px" @click="showModal(data.ID)">编辑</a-button>
-            <a-button type="danger" @click="deleteUser(data.id)">删除</a-button>
-
-            <!-- 编辑对话框 -->
-            <a-modal
-              width="50%"
-              title="编辑用户"
-              :visible="visible"
-              @ok="handleOk"
-              @cancel="handleCancel"
-            >
-              <a-form-model>
-                <a-form-model-item label="用户名">
-                  <a-input></a-input>
-                  {{data}}
-                </a-form-model-item>
-              </a-form-model>
-            </a-modal>
+            <a-button type="primary" style="margin-right:15px">编辑</a-button>
+            <a-button type="danger" @click="deleteUser(data.ID)">删除</a-button>
           </div>
         </template>
       </a-table>
@@ -123,42 +107,36 @@ export default {
       this.userlist = res.data
       this.pagination.total = res.total
     },
-
+    // 更改分页
     handleTableChange(pagination, filters, sorter) {
-      const pager = { ...this.pagination }
+      var pager = { ...this.pagination }
       pager.current = pagination.current
       pager.pageSize = pagination.pageSize
+      this.queryParam.pagesize = pagination.pageSize
+      this.queryParam.pagenum = pagination.current
+
       if (pagination.pageSize !== this.pagination.pageSize) {
+        this.queryParam.pagenum = 1
         pager.current = 1
       }
       this.pagination = pager
       this.getUserList()
     },
-
-    deleteUser(ID) {
+    // 删除用户
+    deleteUser(id) {
       this.$confirm({
-        title: '确定删除该用户?',
-        content: '一旦删除，无法恢复',
+        title: '提示：请再次确认',
+        content: '确定要删除该用户吗？一旦删除，无法恢复',
         onOk: async () => {
-          const { data: res } = await this.$http.delete(`user/${ID}`)
+          const res = await this.$http.delete(`user/${id}`)
           if (res.status != 200) return this.$message.error(res.message)
-          this.$message.success('删除成功！')
+          this.$message.success('删除成功')
           this.getUserList()
         },
         onCancel: () => {
-          this.$message.info('删除已取消')
+          this.$message.info('已取消删除')
         },
       })
-    },
-
-    showModal() {
-      this.visible = true
-    },
-    handleOk(e) {
-      this.visible = false
-    },
-    handleCancel() {
-      this.visible = false
     },
   },
 }
