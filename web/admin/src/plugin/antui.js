@@ -13,7 +13,9 @@ import {
   Table,
   Card,
   Pagination,
-  Modal
+  Modal,
+  Select,
+  Form
 } from 'ant-design-vue'
 
 message.config({
@@ -38,3 +40,5 @@ Vue.use(Card)
 Vue.use(Pagination)
 Vue.use(ConfigProvider)
 Vue.use(Modal)
+Vue.use(Select)
+Vue.use(Form)

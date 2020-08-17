@@ -34,6 +34,7 @@ func InitRouter() {
 	router := r.Group("api/v1")
 	{
 		router.POST("user/add", v1.AddUser)
+		router.GET("user/:id",v1.GetUserInfo)
 		router.GET("users", v1.GetUsers)
 		router.GET("category", v1.GetCate)
 		router.GET("article", v1.GetArt)
