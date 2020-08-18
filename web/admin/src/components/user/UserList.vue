@@ -13,7 +13,7 @@
           />
         </a-col>
         <a-col :span="4">
-          <a-button type="primary">新增</a-button>
+          <a-button type="primary" @click="addUserVisible = true">新增</a-button>
         </a-col>
       </a-row>
 
@@ -25,16 +25,67 @@
         bordered
         @change="handleTableChange"
       >
-        <span slot="role" slot-scope="role">{{role == 1 ? '管理员':'订阅者'}}</span>
+        <span slot="role" slot-scope="data">{{data == 1 ? '管理员':'订阅者'}}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
             <!--  @search="onSearch" -->
-            <a-button type="primary" style="margin-right:15px">编辑</a-button>
+            <a-button type="primary" style="margin-right:15px" @click="editUser(data.ID)">编辑</a-button>
             <a-button type="danger" @click="deleteUser(data.ID)">删除</a-button>
           </div>
         </template>
       </a-table>
     </a-card>
+
+    <!-- 新增用户区域 -->
+    <a-modal
+      closable
+      title="新增用户"
+      :visible="addUserVisible"
+      width="60%"
+      @ok="addUserOk"
+      @cancel="addUserCancel"
+      :destroyOnClose="true"
+    >
+      <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
+        <a-form-model-item label="用户名" prop="username">
+          <a-input v-model="userInfo.username"></a-input>
+        </a-form-model-item>
+        <a-form-model-item has-feedback label="密码" prop="password">
+          <a-input-password v-model="userInfo.password"></a-input-password>
+        </a-form-model-item>
+        <a-form-model-item has-feedback label="确认密码" prop="checkpass">
+          <a-input-password v-model="userInfo.checkpass"></a-input-password>
+        </a-form-model-item>
+        <a-form-model-item label="是否为管理员">
+          <a-select defaultValue="2" style="120px" @change="adminChange">
+            <a-select-option value="1">是</a-select-option>
+            <a-select-option value="2">否</a-select-option>
+          </a-select>
+        </a-form-model-item>
+      </a-form-model>
+    </a-modal>
+
+    <!-- 编辑用户区域 -->
+    <a-modal
+      closable
+      title="编辑用户"
+      :visible="editUserVisible"
+      width="60%"
+      @ok="editUserOk"
+      @cancel="editUserCancel"
+    >
+      <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
+        <a-form-model-item label="用户名" prop="username">
+          <a-input v-model="userInfo.username"></a-input>
+        </a-form-model-item>
+        <a-form-model-item label="是否为管理员">
+          <a-select defaultValue="2" style="120px" @change="adminChange">
+            <a-select-option value="1">是</a-select-option>
+            <a-select-option value="2">否</a-select-option>
+          </a-select>
+        </a-form-model-item>
+      </a-form-model>
+    </a-modal>
   </div>
 </template>
 
@@ -88,7 +139,63 @@ export default {
         pagesize: 5,
         pagenum: 1,
       },
+      userInfo: {
+        id: 0,
+        username: '',
+        password: '',
+        checkpass: '',
+        role: 0,
+      },
       visible: false,
+      addUserVisible: false,
+      userRules: {
+        username: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.userInfo.username == '') {
+                callback(new Error('请输入用户名'))
+              }
+              if ([...this.userInfo.username].length < 4 || [...this.userInfo.username].length > 12) {
+                callback(new Error('用户名应当在4到12个字符之间'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+        password: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.userInfo.password == '') {
+                callback(new Error('请输入密码'))
+              }
+              if ([...this.userInfo.password].length < 6 || [...this.userInfo.password].length > 20) {
+                callback(new Error('密码应当在6到20位之间'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+        checkpass: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.userInfo.checkpass == '') {
+                callback(new Error('请输入密码'))
+              }
+              if (this.userInfo.password !== this.userInfo.checkpass) {
+                callback(new Error('密码不一致，请重新输入'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+      },
+      editUserVisible: false,
     }
   },
   created() {
@@ -137,6 +244,54 @@ export default {
           this.$message.info('已取消删除')
         },
       })
+    },
+    // 新增用户
+    addUserOk() {
+      this.$refs.addUserRef.validate(async (valid) => {
+        if (!valid) return this.$message.error('参数不符合要求，请重新输入')
+        const { data: res } = await this.$http.post('user/add', {
+          username: this.userInfo.username,
+          password: this.userInfo.password,
+          role: this.userInfo.role,
+        })
+        if (res.status != 200) return this.$message.error(res.message)
+        this.addUserVisible = false
+        this.$message.success('添加用户成功')
+        this.getUserList()
+      })
+    },
+    addUserCancel() {
+      this.$refs.addUserRef.resetFields()
+      this.addUserVisible = false
+      this.$message.info('编辑已取消')
+    },
+    adminChange(value) {
+      this.userInfo.role = value
+    },
+    // 编辑用户
+    async editUser(id) {
+      this.editUserVisible = true
+      const { data: res } = await this.$http.get(`user/${id}`)
+      this.userInfo = res.data
+      this.userInfo.id = id
+    },
+    editUserOk() {
+      this.$refs.addUserRef.validate(async (valid) => {
+        if (!valid) return this.$message.error('参数不符合要求，请重新输入')
+        const { data: res } = await this.$http.put(`user/${this.userInfo.id}`, {
+          username: this.userInfo.username,
+          role: this.userInfo.role,
+        })
+        if (res.status != 200) return this.$message.error(res.message)
+        this.editUserVisible = false
+        this.$message.success('更新用户信息成功')
+        this.getUserList()
+      })
+    },
+    editUserCancel() {
+      this.$refs.addUserRef.resetFields()
+      this.editUserVisible = false
+      this.$message.info('编辑已取消')
     },
   },
 }
