@@ -35,6 +35,7 @@ func CreateUser(data *User) int {
 	return errmsg.SUCCSE
 }
 
+<<<<<<< HEAD
 // 查询用户
 func GetUser(id int) (User, int) {
 	var user User
@@ -43,16 +44,40 @@ func GetUser(id int) (User, int) {
 		return user, errmsg.ERROR
 	}
 	return user, errmsg.SUCCSE
+=======
+// 查询单个用户
+func GetUser(id int) (User,int) {
+	var user User
+	err = db.Where("ID = ?",id).First(&user).Error
+	if err != nil {
+		return user,errmsg.ERROR
+	}
+	return user,errmsg.SUCCSE
+
+>>>>>>> master
 }
 
 // 查询用户列表
 func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
 	var users []User
+<<<<<<< HEAD
 	var count int
 
 	if username != "" {
 		db.Where("username LIKE ?", username+"%").Find(&users).Limit(pageSize).Offset((pageNum - 1) * pageSize).Count(&count)
 		return users,count
+=======
+	var total int
+
+	if username == "" {
+		db.Find(&users).Count(&total).Limit(pageSize).Offset((pageNum - 1) * pageSize)
+		return users,total
+	}
+	db.Where("username LIKE ?", username+"%").Find(&users).Count(&total).Limit(pageSize).Offset((pageNum - 1) * pageSize)
+
+	if err == gorm.ErrRecordNotFound {
+		return nil, 0
+>>>>>>> master
 	}
 	db.Find(&users).Count(&count).Limit(pageSize).Offset((pageNum - 1) * pageSize)
 	//if err != gorm.ErrRecordNotFound {
