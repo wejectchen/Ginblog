@@ -14,7 +14,8 @@ import {
   Card,
   Pagination,
   Modal,
-  Select
+  Select,
+  Switch
 } from 'ant-design-vue'
 
 message.config({
@@ -40,3 +41,4 @@ Vue.use(Pagination)
 Vue.use(ConfigProvider)
 Vue.use(Modal)
 Vue.use(Select)
+Vue.use(Switch)

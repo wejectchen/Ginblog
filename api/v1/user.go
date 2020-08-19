@@ -19,10 +19,12 @@ func AddUser(c *gin.Context) {
 
 	msg, code = validator.Validate(&data)
 	if code != errmsg.SUCCSE {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  code,
-			"message": msg,
-		})
+		c.JSON(
+			http.StatusOK, gin.H{
+				"status":  code,
+				"message": msg,
+			},
+		)
 		c.Abort()
 	}
 
@@ -34,23 +36,29 @@ func AddUser(c *gin.Context) {
 		code = errmsg.ERROR_USERNAME_USED
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 }
 
 // 查询单个用户
-func GetUserInfo(c *gin.Context)  {
-	id,_ := strconv.Atoi(c.Param("id"))
-	data,code := model.GetUser(id)
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   1,
-		"message": errmsg.GetErrMsg(code),
-	})
+func GetUserInfo(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var maps = make(map[string]interface{})
+	data, code := model.GetUser(id)
+	maps["username"] = data.Username
+	maps["role"] = data.Role
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"data":    data,
+			"total":   1,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 
 }
 
@@ -66,14 +74,18 @@ func GetUsers(c *gin.Context) {
 	if pageNum == 0 {
 		pageNum = -1
 	}
+
 	data, total := model.GetUsers(username, pageSize, pageNum)
+
 	code = errmsg.SUCCSE
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
-	})
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"data":    data,
+			"total":   total,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 }
 
 // 编辑用户
@@ -81,7 +93,8 @@ func EditUser(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
-	code = model.CheckUser(data.Username)
+
+	code = model.CheckUpUser(id, data.Username)
 	if code == errmsg.SUCCSE {
 		model.EditUser(id, &data)
 	}
@@ -89,10 +102,26 @@ func EditUser(c *gin.Context) {
 		c.Abort()
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
+}
+
+// 重置密码
+func GetPass(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	password := c.Param("password")
+
+	code = model.UpPass(id, password)
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 }
 
 // 删除用户
@@ -101,8 +130,10 @@ func DeleteUser(c *gin.Context) {
 
 	code = model.DeleteUser(id)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  code,
+			"message": errmsg.GetErrMsg(code),
+		},
+	)
 }
