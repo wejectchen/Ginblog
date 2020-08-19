@@ -18,7 +18,7 @@
       </a-row>
 
       <a-table
-        rowKey="username"
+        rowKey="ID"
         :columns="columns"
         :pagination="pagination"
         :dataSource="userlist"
@@ -44,7 +44,7 @@
       width="60%"
       @ok="addUserOk"
       @cancel="addUserCancel"
-      :destroyOnClose="true"
+      destroyOnClose
     >
       <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
         <a-form-model-item label="用户名" prop="username">
@@ -58,8 +58,8 @@
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
           <a-select defaultValue="2" style="120px" @change="adminChange">
-            <a-select-option value="1">是</a-select-option>
-            <a-select-option value="2">否</a-select-option>
+            <a-select-option key="1" value="1">是</a-select-option>
+            <a-select-option kay="2" value="2">否</a-select-option>
           </a-select>
         </a-form-model-item>
       </a-form-model>
@@ -146,15 +146,30 @@ export default {
         pagenum: 1,
       },
       editVisible: false,
-      editUserRules: {
+      userRules: {
+        username: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.userInfo.username == '') {
+                callback(new Error('请输入用户名'))
+              }
+              if ([...this.userInfo.username].length < 4 || [...this.userInfo.username].length > 12) {
+                callback(new Error('用户名应当在4到12个字符之间'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
         password: [
           {
             validator: (rule, value, callback) => {
-              if (this.userInfo.password === '') {
+              if (this.userInfo.password == '') {
                 callback(new Error('请输入密码'))
               }
               if ([...this.userInfo.password].length < 6 || [...this.userInfo.password].length > 20) {
-                callback(new Error('密码应当在6到20个字符之间'))
+                callback(new Error('密码应当在6到20位之间'))
               } else {
                 callback()
               }
@@ -179,6 +194,7 @@ export default {
         ],
       },
       editUserVisible: false,
+      addUserVisible: false,
     }
   },
   created() {
@@ -250,7 +266,8 @@ export default {
       this.$message.info('编辑已取消')
     },
     adminChange(value) {
-      this.userInfo.role = value
+      this.userInfo.role = parseInt(value)
+      console.log(this.userInfo.role, typeof this.userInfo.role)
     },
     // 编辑用户
     async editUser(id) {

@@ -23,7 +23,7 @@ func AddUser(c *gin.Context) {
 			"status":  code,
 			"message": msg,
 		})
-		return
+		c.Abort()
 	}
 
 	code = model.CheckUser(data.Username)

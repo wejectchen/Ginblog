@@ -17,9 +17,9 @@ type User struct {
 
 // 查询用户是否存在
 func CheckUser(name string) (code int) {
-	var users User
-	db.Select("id").Where("username = ?", name).First(&users)
-	if users.ID > 0 {
+	var user User
+	db.Select("id").Where("username = ?", name).First(&user)
+	if user.ID > 0 {
 		return errmsg.ERROR_USERNAME_USED //1001
 	}
 	return errmsg.SUCCSE
@@ -48,13 +48,11 @@ func GetUser(id int) (User, int) {
 // 查询用户列表
 func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
 	var users []User
-
 	var total int
 
 	if username != "" {
 		db.Where("username LIKE ?", username+"%").Find(&users).Limit(pageSize).Offset((pageNum - 1) * pageSize).Count(&total)
 		return users, total
-
 	}
 	db.Find(&users).Limit(pageSize).Offset((pageNum - 1) * pageSize).Count(&total)
 	if err == gorm.ErrRecordNotFound {
@@ -64,26 +62,26 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
 }
 
 // 编辑用户信息
-func EditUser(id int, data * User) int{
-var user User
-var maps = make(map[string]interface{})
-maps["username"] = data.Username
-maps["role"] = data.Role
-err = db.Model(&user).Where("id = ? ", id).Updates(maps).Error
-if err != nil{
-return errmsg.ERROR
-}
-return errmsg.SUCCSE
+func EditUser(id int, data *User) int {
+	var user User
+	var maps = make(map[string]interface{})
+	maps["username"] = data.Username
+	maps["role"] = data.Role
+	err = db.Model(&user).Where("id = ? ", id).Updates(maps).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCSE
 }
 
 // 删除用户
-func DeleteUser(id int) int{
-var user User
-err = db.Where("id = ? ", id).Delete(&user).Error
-if err != nil{
-return errmsg.ERROR
-}
-return errmsg.SUCCSE
+func DeleteUser(id int) int {
+	var user User
+	err = db.Where("id = ? ", id).Delete(&user).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCSE
 }
 
 // 密码加密
@@ -91,33 +89,33 @@ func (u *User) BeforeSave() {
 	u.Password = ScryptPw(u.Password)
 }
 
-func ScryptPw(password string) string{
-const KeyLen = 10
-salt := make([]byte, 8)
-salt = []byte{12, 32, 4, 6, 66, 22, 222, 11}
+func ScryptPw(password string) string {
+	const KeyLen = 10
+	salt := make([]byte, 8)
+	salt = []byte{12, 32, 4, 6, 66, 22, 222, 11}
 
-HashPw, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, KeyLen)
-if err != nil{
-log.Fatal(err)
-}
-fpw := base64.StdEncoding.EncodeToString(HashPw)
-return fpw
+	HashPw, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, KeyLen)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fpw := base64.StdEncoding.EncodeToString(HashPw)
+	return fpw
 }
 
 // 登录验证
-func CheckLogin(username string, password string) int{
-var user User
+func CheckLogin(username string, password string) int {
+	var user User
 
-db.Where("username = ?", username).First(&user)
+	db.Where("username = ?", username).First(&user)
 
-if user.ID == 0{
-return errmsg.ERROR_USER_NOT_EXIST
-}
-if ScryptPw(password) != user.Password{
-return errmsg.ERROR_PASSWORD_WRONG
-}
-if user.Role != 1{
-return errmsg.ERROR_USER_NO_RIGHT
-}
-return errmsg.SUCCSE
+	if user.ID == 0 {
+		return errmsg.ERROR_USER_NOT_EXIST
+	}
+	if ScryptPw(password) != user.Password {
+		return errmsg.ERROR_PASSWORD_WRONG
+	}
+	if user.Role != 1 {
+		return errmsg.ERROR_USER_NO_RIGHT
+	}
+	return errmsg.SUCCSE
 }
