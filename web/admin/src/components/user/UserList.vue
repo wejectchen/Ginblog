@@ -28,10 +28,7 @@
         <span slot="role" slot-scope="data">{{data == 1 ? '管理员':'订阅者'}}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-<<<<<<< HEAD
-=======
             <!--  @search="onSearch" -->
->>>>>>> master
             <a-button type="primary" style="margin-right:15px" @click="editUser(data.ID)">编辑</a-button>
             <a-button type="danger" @click="deleteUser(data.ID)">删除</a-button>
           </div>
@@ -39,32 +36,6 @@
       </a-table>
     </a-card>
 
-<<<<<<< HEAD
-    <!-- 编辑用户对话框 -->
-    <a-modal
-      width="60%"
-      closable
-      v-model="editVisible"
-      title="编辑用户"
-      @ok="editOk"
-      @cancel="editCancel"
-      :destroyOnClose="true"
-    >
-      <a-form-model ref="editUserRef" :rules="editUserRules" :model="userInfo">
-        <a-form-model-item label="用户名">
-          <a-input disabled v-model="userInfo.username"></a-input>
-        </a-form-model-item>
-        <a-form-model-item has-feedback label="修改密码" prop="password">
-          <a-input-password v-model="userInfo.password" type="password" placeholder="请修改密码"></a-input-password>
-        </a-form-model-item>
-        <a-form-model-item has-feedback label="确认修改密码" prop="checkPass">
-          <a-input-password v-model="userInfo.checkPass" placeholder="再次输入密码确认" autocomplete="off"></a-input-password>
-        </a-form-model-item>
-        <a-form-model-item label="是否为管理员" prop="role">
-          <a-select defaultValue="2" style="width: 120px" @change="editAdminChange">
-            <a-select-option key="1" value="1">是</a-select-option>
-            <a-select-option key="2" value="2">否</a-select-option>
-=======
     <!-- 新增用户区域 -->
     <a-modal
       closable
@@ -111,7 +82,6 @@
           <a-select defaultValue="2" style="120px" @change="adminChange">
             <a-select-option value="1">是</a-select-option>
             <a-select-option value="2">否</a-select-option>
->>>>>>> master
           </a-select>
         </a-form-model-item>
       </a-form-model>
@@ -175,7 +145,6 @@ export default {
         pagesize: 5,
         pagenum: 1,
       },
-<<<<<<< HEAD
       editVisible: false,
       editUserRules: {
         password: [
@@ -186,25 +155,6 @@ export default {
               }
               if ([...this.userInfo.password].length < 6 || [...this.userInfo.password].length > 20) {
                 callback(new Error('密码应当在6到20个字符之间'))
-=======
-      userInfo: {
-        id: 0,
-        username: '',
-        password: '',
-        checkpass: '',
-        role: 0,
-      },
-      visible: false,
-      addUserVisible: false,
-      userRules: {
-        username: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.userInfo.username == '') {
-                callback(new Error('请输入用户名'))
-              }
-              if ([...this.userInfo.username].length < 4 || [...this.userInfo.username].length > 12) {
-                callback(new Error('用户名应当在4到12个字符之间'))
               } else {
                 callback()
               }
@@ -212,32 +162,6 @@ export default {
             trigger: 'blur',
           },
         ],
-        password: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.userInfo.password == '') {
-                callback(new Error('请输入密码'))
-              }
-              if ([...this.userInfo.password].length < 6 || [...this.userInfo.password].length > 20) {
-                callback(new Error('密码应当在6到20位之间'))
->>>>>>> master
-              } else {
-                callback()
-              }
-            },
-            trigger: 'blur',
-          },
-        ],
-<<<<<<< HEAD
-        checkPass: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.userInfo.checkPass === '') {
-                callback(new Error('请输入密码'))
-              }
-              if (this.userInfo.checkPass !== this.userInfo.password) {
-                callback(new Error('密码与之前输入不一致'))
-=======
         checkpass: [
           {
             validator: (rule, value, callback) => {
@@ -246,7 +170,6 @@ export default {
               }
               if (this.userInfo.password !== this.userInfo.checkpass) {
                 callback(new Error('密码不一致，请重新输入'))
->>>>>>> master
               } else {
                 callback()
               }
@@ -255,10 +178,7 @@ export default {
           },
         ],
       },
-<<<<<<< HEAD
-=======
       editUserVisible: false,
->>>>>>> master
     }
   },
   created() {
@@ -309,32 +229,6 @@ export default {
         },
       })
     },
-<<<<<<< HEAD
-
-    // 编辑用户
-    async editUser(id) {
-      const { data: res } = await this.$http.get(`user/${id}`)
-      this.userInfo = res.data
-      this.userInfo.password = ''
-      this.editVisible = true
-    },
-    editAdminChange(value) {
-      this.userInfo.role = value
-    },
-    editCancel() {
-      this.$message.info('编辑已取消')
-      this.editVisible = false
-    },
-    async editOk() {
-      await this.$nextTick(() => {
-        console.log(this.$refs)
-        this.$refs.editUserRef.validate((valid) => {
-          console.log(valid)
-        })
-      })
-
-      this.editVisible = false
-=======
     // 新增用户
     addUserOk() {
       this.$refs.addUserRef.validate(async (valid) => {
@@ -382,7 +276,6 @@ export default {
       this.$refs.addUserRef.resetFields()
       this.editUserVisible = false
       this.$message.info('编辑已取消')
->>>>>>> master
     },
   },
 }

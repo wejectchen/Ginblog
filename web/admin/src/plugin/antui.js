@@ -14,12 +14,7 @@ import {
   Card,
   Pagination,
   Modal,
-<<<<<<< HEAD
-  Select,
-  Form
-=======
   Select
->>>>>>> master
 } from 'ant-design-vue'
 
 message.config({
@@ -45,7 +40,3 @@ Vue.use(Pagination)
 Vue.use(ConfigProvider)
 Vue.use(Modal)
 Vue.use(Select)
-<<<<<<< HEAD
-Vue.use(Form)
-=======
->>>>>>> master
