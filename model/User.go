@@ -56,7 +56,7 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
 		return users, total
 
 	}
-	db.Find(&users).Count(&total).Limit(pageSize).Offset((pageNum - 1) * pageSize)
+	db.Find(&users).Limit(pageSize).Offset((pageNum - 1) * pageSize).Count(&total)
 	if err == gorm.ErrRecordNotFound {
 		return users, 0
 	}
