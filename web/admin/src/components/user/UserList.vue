@@ -40,7 +40,7 @@
               style="margin-right:15px"
               @click="deleteUser(data.ID)"
             >删除</a-button>
-            <a-button type="info" icon="info" @click="updatePass(data.ID)">重置密码</a-button>
+            <a-button type="info" icon="info" @click="updatePass(data.ID)">重置</a-button>
           </div>
         </template>
       </a-table>

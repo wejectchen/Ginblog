@@ -29,6 +29,16 @@ func CreateCate(data *Category) int {
 	return errmsg.SUCCSE
 }
 
+// 查询分类信息
+func GetCateInfo(id int) (Category,int) {
+	var cate Category
+	err = db.Where("id = ?",id).First(&cate).Error
+	if err != nil {
+		return cate,errmsg.ERROR
+	}
+	return cate,errmsg.SUCCSE
+}
+
 // 查询分类列表
 func GetCate(pageSize int, pageNum int) ([]Category, int) {
 	var cate []Category
@@ -40,7 +50,7 @@ func GetCate(pageSize int, pageNum int) ([]Category, int) {
 	return cate, total
 }
 
-// 编辑分类信息
+// 编辑分类列表信息
 func EditCate(id int, data *Category) int {
 	var cate Category
 	var maps = make(map[string]interface{})

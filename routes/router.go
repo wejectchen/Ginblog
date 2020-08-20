@@ -22,6 +22,7 @@ func InitRouter() {
 		auth.DELETE("user/:id", v1.DeleteUser)
 		// 分类模块的路由接口
 		auth.POST("category/add", v1.AddCategory)
+		auth.GET("category/:id",v1.GetCateInfo)
 		auth.PUT("category/:id", v1.EditCate)
 		auth.DELETE("category/:id", v1.DeleteCate)
 		// 文章模块的路由接口
@@ -30,7 +31,6 @@ func InitRouter() {
 		auth.DELETE("article/:id", v1.DeleteArt)
 		// 上传文件
 		auth.POST("upload", v1.UpLoad)
-		auth.PUT("resetpass", v1.GetPass)
 	}
 	router := r.Group("api/v1")
 	{
