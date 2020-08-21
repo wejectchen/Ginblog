@@ -89,17 +89,6 @@ func EditUser(id int, data *User) int {
 	return errmsg.SUCCSE
 }
 
-// 重置密码
-func UpPass(id int, password string) int {
-	var user User
-	var maps = make(map[string]string)
-	maps["password"] = user.Password
-	err = db.Model(&user).Where("id = ?", id).Update(maps).Error
-	if err != nil {
-		return errmsg.ERROR
-	}
-	return errmsg.SUCCSE
-}
 
 // 删除用户
 func DeleteUser(id int) int {

@@ -30,14 +30,16 @@ func InitRouter() {
 		auth.DELETE("article/:id", v1.DeleteArt)
 		// 上传文件
 		auth.POST("upload", v1.UpLoad)
-		auth.PUT("resetpass", v1.GetPass)
 	}
 	router := r.Group("api/v1")
 	{
+
 		router.POST("user/add", v1.AddUser)
 		router.GET("user/:id", v1.GetUserInfo)
+
 		router.GET("users", v1.GetUsers)
 		router.GET("category", v1.GetCate)
+		router.GET("category/:id", v1.GetCateInfo)
 		router.GET("article", v1.GetArt)
 		router.GET("article/list/:id", v1.GetCateArt)
 		router.GET("article/info/:id", v1.GetArtInfo)

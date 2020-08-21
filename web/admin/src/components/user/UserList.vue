@@ -40,7 +40,7 @@
               style="margin-right:15px"
               @click="deleteUser(data.ID)"
             >删除</a-button>
-            <a-button type="info" icon="info" @click="updatePass(data.ID)">重置密码</a-button>
+            <a-button type="info" icon="info" @click="updatePass(data.ID)">重置</a-button>
           </div>
         </template>
       </a-table>
@@ -353,14 +353,6 @@ export default {
       this.editUserVisible = false
       this.$message.info('编辑已取消')
     },
-
-    // !todo 修改密码
-    // async editUser(id) {
-    //   this.editUserVisible = true
-    //   const { data: res } = await this.$http.get(`user/${id}`)
-    //   this.userInfo = res.data
-    //   this.userInfo.id = id
-    // },
   },
 }
 </script>

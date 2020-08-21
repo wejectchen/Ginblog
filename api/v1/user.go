@@ -110,19 +110,6 @@ func EditUser(c *gin.Context) {
 	)
 }
 
-// 重置密码
-func GetPass(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	password := c.Param("password")
-
-	code = model.UpPass(id, password)
-	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
-		},
-	)
-}
 
 // 删除用户
 func DeleteUser(c *gin.Context) {
