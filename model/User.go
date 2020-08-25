@@ -66,10 +66,15 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
 	if username != "" {
 		db.Select("id,username,role").Where(
 			"username LIKE ?", username+"%",
-		).Find(&users).Count(&total).Limit(pageSize).Offset((pageNum - 1) * pageSize)
+		).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
+		db.Model(&users).Where(
+			"username LIKE ?", username+"%",
+		).Count(&total)
 		return users, total
 	}
-	db.Select("id,username,role").Find(&users).Count(&total).Limit(pageSize).Offset((pageNum - 1) * pageSize)
+	db.Select("id,username,role").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
+	db.Model(&users).Count(&total)
+
 	if err == gorm.ErrRecordNotFound {
 		return users, 0
 	}
@@ -88,7 +93,6 @@ func EditUser(id int, data *User) int {
 	}
 	return errmsg.SUCCSE
 }
-
 
 // 删除用户
 func DeleteUser(id int) int {

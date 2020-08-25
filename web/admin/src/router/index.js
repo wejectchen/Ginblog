@@ -31,6 +31,7 @@ const routes = [
     children: [
       { path: 'index', component: Index },
       { path: 'addart', component: AddArt },
+      { path: 'addart/:id', component: AddArt, props: true },
       { path: 'artlist', component: ArtList },
       { path: 'catelist', component: CateList },
       { path: 'userlist', component: UserList }

@@ -13,7 +13,7 @@
           />
         </a-col>
         <a-col :span="4">
-          <a-button type="primary" @click="addArtVisible = true">新增</a-button>
+          <a-button type="primary" @click="$router.push('/admin/addart')">新增</a-button>
         </a-col>
 
         <a-col :span="6" :offset="4">
@@ -41,7 +41,7 @@
               type="primary"
               icon="edit"
               style="margin-right:15px"
-              @click="editArt(data.ID)"
+              @click="$router.push(`/admin/addart/${data.ID}`)"
             >编辑</a-button>
             <a-button
               size="small"
