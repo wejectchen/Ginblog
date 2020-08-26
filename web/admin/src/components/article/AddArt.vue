@@ -49,9 +49,9 @@
           <a-button
             type="danger"
             style="margin-right:15px"
-            @click="artOk(artInfo.id)"
+            @click.once="artOk(artInfo.id)"
           >{{artInfo.id?'更新':"提交"}}</a-button>
-          <a-button type="primary" @click="addCancel">取消</a-button>
+          <a-button type="primary" @click.once="addCancel">取消</a-button>
         </a-form-model-item>
       </a-form-model>
     </a-card>
@@ -128,6 +128,7 @@ export default {
     // 提交&&更新文章
     artOk(id) {
       this.$refs.artInfoRef.validate(async (valid) => {
+        if (!valid) return this.$message.error('参数验证未通过，请按要求录入文章内容')
         if (id === 0) {
           const { data: res } = await this.$http.post('article/add', this.artInfo)
           if (res.status !== 200) return this.$message.error(res.message)
