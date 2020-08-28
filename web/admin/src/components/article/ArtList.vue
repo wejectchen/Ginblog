@@ -16,10 +16,13 @@
           <a-button type="primary" @click="$router.push('/admin/addart')">新增</a-button>
         </a-col>
 
-        <a-col :span="6" :offset="4">
-          <a-select defaultValue="请选择分类" style="width:200px" @change="CateChange">
+        <a-col :span="3">
+          <a-select placeholder="请选择分类" style="width:200px" @change="CateChange">
             <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{item.name}}</a-select-option>
           </a-select>
+        </a-col>
+        <a-col :span="1">
+          <a-button type="info" @click="getArtList()">显示全部</a-button>
         </a-col>
       </a-row>
 
