@@ -12,4 +12,4 @@
 *.out
 /upload/
 /log/
-log/log
+config/config.ini

@@ -43,7 +43,7 @@
           </a-upload>
         </a-form-model-item>
         <a-form-model-item label="文章内容" prop="content">
-          <a-input v-model="artInfo.content"></a-input>
+          <Editor v-model="artInfo.content"></Editor>
         </a-form-model-item>
         <a-form-model-item>
           <a-button
@@ -60,7 +60,9 @@
 
 <script>
 import { Url } from '../../plugin/http'
+import Editor from '../editor/index'
 export default {
+  components: { Editor },
   props: ['id'],
   data() {
     return {
