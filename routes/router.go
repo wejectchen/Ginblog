@@ -10,11 +10,15 @@ import (
 func InitRouter() {
 	gin.SetMode(utils.AppMode)
 	r := gin.New()
-
+	r.LoadHTMLGlob("static/admin/index.html")
+	r.Static("admin/static","static/admin/static/")
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
-	
+
+	r.GET("admin", func(c *gin.Context) {
+		c.HTML(200,"index.html",nil)
+	})
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	{
