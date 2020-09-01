@@ -6,7 +6,7 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-import tinymce from './tinymce.min.js'
+import './tinymce.min.js'
 import './icons/default/icons.min.js'
 import './themes/silver/theme.min.js'
 import './langs/zh_CN'
