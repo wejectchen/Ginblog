@@ -1,7 +1,7 @@
 <template>
-  <dir>
+  <div>
     <Editor :init="init" v-model="content"></Editor>
-  </dir>
+  </div>
 </template>
 
 <script>
@@ -19,6 +19,10 @@ import './plugins/code/plugin.min.js'
 
 import './plugins/image/plugin.min.js'
 import './plugins/imagetools/plugin.min.js'
+import './plugins/media/plugin.min.js'
+import './plugins/codesample/plugin.min.js'
+import './plugins/lists/plugin.min.js'
+import './plugins/table/plugin.min.js'
 
 export default {
   components: { Editor },
@@ -33,13 +37,11 @@ export default {
       init: {
         language: 'zh_CN',
         height: '500px',
-        margin: '0',
-        padding: '0',
-        plugins: 'preview paste wordcount code imagetools image',
+        plugins: 'preview paste wordcount code imagetools image media codesample lists table',
         branding: false,
         toolbar: [
-          'undo redo | formatselect |alignleft aligncenter alignright alignjustify',
-          'preview paste code |image',
+          'undo redo | styleselect |fontsizeselect| bold italic underline strikethrough |alignleft aligncenter alignright alignjustify |blockquote removeformat |numlist bullist table',
+          'preview paste code codesample |image imagetools media',
         ],
         //上传图片
         images_upload_handler: async (blobInfo, succFun, failFun) => {
