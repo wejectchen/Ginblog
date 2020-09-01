@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: './',
+  publicPath: '/admin/',
   outputDir: 'dist',
   assetsDir: 'static'
 }
