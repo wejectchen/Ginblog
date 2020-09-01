@@ -20,7 +20,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: Login
   },
@@ -29,12 +29,12 @@ const routes = [
     name: 'admin',
     component: Admin,
     children: [
-      { path: 'index', component: Index },
-      { path: 'addart', component: AddArt },
-      { path: 'addart/:id', component: AddArt, props: true },
-      { path: 'artlist', component: ArtList },
-      { path: 'catelist', component: CateList },
-      { path: 'userlist', component: UserList }
+      { path: '/index', component: Index },
+      { path: '/addart', component: AddArt },
+      { path: '/addart/:id', component: AddArt, props: true },
+      { path: '/artlist', component: ArtList },
+      { path: '/catelist', component: CateList },
+      { path: '/userlist', component: UserList }
     ]
   }
 ]
@@ -45,9 +45,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem('token')
-  if (to.path === '/login') return next()
+  if (to.path === '/') return next()
   if (!token) {
-    next('/login')
+    next('/')
   } else {
     next()
   }
