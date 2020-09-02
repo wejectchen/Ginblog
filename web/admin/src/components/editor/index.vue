@@ -6,7 +6,6 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-
 import './tinymce.min.js'
 import './icons/default/icons.min.js'
 import './themes/silver/theme.min.js'
@@ -70,5 +69,5 @@ export default {
 </script>
 
 <style>
-@import url('./skins/content/default/content.min.css');
+@import url('./skins/ui/oxide/skin.min.css');
 </style>
