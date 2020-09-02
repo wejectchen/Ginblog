@@ -6,23 +6,23 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-import tinymce from '../../static/tinymce/tinymce.min.js'
-import '../../static/tinymce/icons/default/icons.min.js'
-import '../../static/tinymce/themes/silver/theme.min.js'
-import '../../static/tinymce/langs/zh_CN'
+import './tinymce.min.js'
+import './icons/default/icons.min.js'
+import './themes/silver/theme.min.js'
+import './langs/zh_CN'
 
 // 注册插件
-import '../../static/tinymce/plugins/preview/plugin.min.js'
-import '../../static/tinymce/plugins/paste/plugin.min.js'
-import '../../static/tinymce/plugins/wordcount/plugin.min.js'
-import '../../static/tinymce/plugins/code/plugin.min.js'
+import './plugins/preview/plugin.min.js'
+import './plugins/paste/plugin.min.js'
+import './plugins/wordcount/plugin.min.js'
+import './plugins/code/plugin.min.js'
 
-import '../../static/tinymce/plugins/image/plugin.min.js'
-import '../../static/tinymce/plugins/imagetools/plugin.min.js'
-import '../../static/tinymce/plugins/media/plugin.min.js'
-import '../../static/tinymce/plugins/codesample/plugin.min.js'
-import '../../static/tinymce/plugins/lists/plugin.min.js'
-import '../../static/tinymce/plugins/table/plugin.min.js'
+import './plugins/image/plugin.min.js'
+import './plugins/imagetools/plugin.min.js'
+import './plugins/media/plugin.min.js'
+import './plugins/codesample/plugin.min.js'
+import './plugins/lists/plugin.min.js'
+import './plugins/table/plugin.min.js'
 
 export default {
   components: { Editor },
@@ -51,6 +51,8 @@ export default {
           succFun(res.url)
           failFun(this.$message.error('上传图片失败'))
         },
+        imagetools_cors_hosts: ['*'],
+        imagetools_proxy: '*',
       },
       content: this.value,
     }
@@ -67,5 +69,5 @@ export default {
 </script>
 
 <style>
-@import url('../../static/tinymce/skins/ui/oxide/skin.min.css');
+@import url('./skins/ui/oxide/skin.min.css');
 </style>

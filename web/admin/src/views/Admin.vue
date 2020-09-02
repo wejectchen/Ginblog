@@ -7,7 +7,7 @@
         <Header></Header>
       </a-layout-header>
       <a-layout-content>
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.path"></router-view>
       </a-layout-content>
       <a-layout-footer class="footer">
         <Footer></Footer>
