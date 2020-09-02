@@ -7,23 +7,23 @@
 <script>
 import Editor from '@tinymce/tinymce-vue'
 
-import '../../public/tinymce/tinymce.min.js'
-import '../../public/tinymce/icons/default/icons.min.js'
-import '../../public/tinymce/themes/silver/theme.min.js'
-import '../../public/tinymce/langs/zh_CN'
+import './tinymce.min.js'
+import './icons/default/icons.min.js'
+import './themes/silver/theme.min.js'
+import './langs/zh_CN'
 
 // 注册插件
-import '../../public/tinymce/plugins/preview/plugin.min.js'
-import '../../public/tinymce/plugins/paste/plugin.min.js'
-import '../../public/tinymce/plugins/wordcount/plugin.min.js'
-import '../../public/tinymce/plugins/code/plugin.min.js'
+import './plugins/preview/plugin.min.js'
+import './plugins/paste/plugin.min.js'
+import './plugins/wordcount/plugin.min.js'
+import './plugins/code/plugin.min.js'
 
-import '../../public/tinymce/plugins/image/plugin.min.js'
-import '../../public/tinymce/plugins/imagetools/plugin.min.js'
-import '../../public/tinymce/plugins/media/plugin.min.js'
-import '../../public/tinymce/plugins/codesample/plugin.min.js'
-import '../../public/tinymce/plugins/lists/plugin.min.js'
-import '../../public/tinymce/plugins/table/plugin.min.js'
+import './plugins/image/plugin.min.js'
+import './plugins/imagetools/plugin.min.js'
+import './plugins/media/plugin.min.js'
+import './plugins/codesample/plugin.min.js'
+import './plugins/lists/plugin.min.js'
+import './plugins/table/plugin.min.js'
 
 export default {
   components: { Editor },
@@ -70,5 +70,5 @@ export default {
 </script>
 
 <style>
-@import url('../../public/tinymce/skins/content/default/content.min.css');
+@import url('./skins/content/default/content.min.css');
 </style>
