@@ -42,7 +42,7 @@ export default {
         branding: false,
         toolbar: [
           'undo redo | styleselect |fontsizeselect| bold italic underline strikethrough |alignleft aligncenter alignright alignjustify |blockquote removeformat |numlist bullist table',
-          'preview paste code codesample |image imagetools media',
+          'preview paste code codesample |image media',
         ],
         //上传图片
         images_upload_handler: async (blobInfo, succFun, failFun) => {
@@ -52,6 +52,8 @@ export default {
           succFun(res.url)
           failFun(this.$message.error('上传图片失败'))
         },
+        imagetools_cors_hosts: ['*'],
+        imagetools_proxy: '*',
       },
       content: this.value,
     }
