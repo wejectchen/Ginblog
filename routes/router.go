@@ -12,6 +12,7 @@ func InitRouter() {
 	r := gin.New()
 	r.LoadHTMLGlob("static/admin/index.html")
 	r.Static("admin/static","static/admin/static/")
+	r.StaticFile("admin/favicon.ico","static/admin/favicon.ico")
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
