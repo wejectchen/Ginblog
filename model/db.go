@@ -20,7 +20,7 @@ func InitDb() {
 		utils.DbName,
 	))
 	if err != nil {
-		fmt.Printf("连接数据库失败，请检查参数：", err)
+		fmt.Println("连接数据库失败，请检查参数：", err)
 	}
 	// 禁用默认表名的复数形式
 	db.SingularTable(true)
