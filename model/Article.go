@@ -8,11 +8,11 @@ import (
 type Article struct {
 	Category Category `gorm:"foreignkey:Cid"`
 	gorm.Model
-	Title string   `gorm:"type:varchar(100);not null" json:"title"`
-	Cid int        `gorm:"type:int;not null" json:"cid"`
-	Desc string    `gorm:"type:varchar(200)" json:"desc"`
+	Title   string `gorm:"type:varchar(100);not null" json:"title"`
+	Cid     int    `gorm:"type:int;not null" json:"cid"`
+	Desc    string `gorm:"type:varchar(200)" json:"desc"`
 	Content string `gorm:"type:longtext" json:"content"`
-	Img string     `gorm:"type:varchar(100)" json:"img"`
+	Img     string `gorm:"type:varchar(100)" json:"img"`
 }
 
 // 新增文章
@@ -29,8 +29,7 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int) {
 	var cateArtList []Article
 	var total int
 	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
-		"cid =?", id,
-	).Find(&cateArtList).Count(&total).Error
+		"cid =?", id).Find(&cateArtList).Count(&total).Error
 	if err != nil {
 		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
 	}
