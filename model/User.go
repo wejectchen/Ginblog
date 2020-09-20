@@ -3,8 +3,8 @@ package model
 import (
 	"encoding/base64"
 	"ginblog/utils/errmsg"
-	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/scrypt"
+	"gorm.io/gorm"
 	"log"
 )
 
@@ -59,9 +59,9 @@ func GetUser(id int) (User, int) {
 }
 
 // 查询用户列表
-func GetUsers(username string, pageSize int, pageNum int) ([]User, int) {
+func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 	var users []User
-	var total int
+	var total int64
 
 	if username != "" {
 		db.Select("id,username,role").Where(
@@ -105,8 +105,9 @@ func DeleteUser(id int) int {
 }
 
 // 密码加密
-func (u *User) BeforeSave() {
+func (u *User) BeforeSave(tx *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
+	return nil
 }
 
 func ScryptPw(password string) string {

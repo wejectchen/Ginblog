@@ -2,7 +2,7 @@ package model
 
 import (
 	"ginblog/utils/errmsg"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 type Article struct {
@@ -25,9 +25,9 @@ func CreateArt(data *Article) int {
 }
 
 //  查询分类下的所有文章
-func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int) {
+func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	var cateArtList []Article
-	var total int
+	var total int64
 	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
 		"cid =?", id).Find(&cateArtList).Count(&total).Error
 	if err != nil {
@@ -47,10 +47,10 @@ func GetArtInfo(id int) (Article, int) {
 }
 
 //  查询文章列表
-func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int) {
+func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var articleList []Article
 	var err error
-	var total int
+	var total int64
 	if title == "" {
 		err = db.Order("Updated_At DESC").Preload("Category").Find(&articleList).Limit(pageSize).Offset((
 			pageNum - 1) * pageSize).Error
