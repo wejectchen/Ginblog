@@ -81,3 +81,30 @@ gin+vue 全栈制作一个博客。
 7.  自定义日志功能
 8.  跨域 cors 设置
 9.  todo 文章评论功能
+
+## 技术栈
+
+- golang
+  - Gin web framework
+  - gorm(v1 && v2)
+  - jwt-go
+  - scrypt
+  - logrus
+  - gin-contrib/cors
+  - go-playground/validator/v10
+  - go-ini
+- JavaScript
+  - vue
+  - vue cli
+  - vue router
+  - ant design vue
+  - axios
+  - tinymce
+
+## 项目预览
+
+- 后台登录页面
+
+	
+
+- 后台管理页面
