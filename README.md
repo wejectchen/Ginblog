@@ -100,6 +100,7 @@ gin+vue 全栈制作一个博客。
   - ant design vue
   - axios
   - tinymce
+- MySQL version:8.0.21
 
 ## 项目预览
 
