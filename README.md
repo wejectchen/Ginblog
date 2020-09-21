@@ -105,6 +105,8 @@ gin+vue 全栈制作一个博客。
 
 - 后台登录页面
 
-	
+	![](https://github.com/wejectchen/ginblog/blob/master/upload/admin.jpg?raw=true)
 
 - 后台管理页面
+
+	![](https://github.com/wejectchen/ginblog/blob/master/upload/admin2.jpg?raw=true)
