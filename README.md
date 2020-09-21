@@ -36,7 +36,7 @@ gin+vue 全栈制作一个博客。
 
 [第十二节 完成上传接口（GIN+七牛对象储存）](https://www.bilibili.com/video/BV17V411z7cW)
 
-[第十三节 https://www.bilibili.com/video/BV16v411v7D7](处理日志系统（自定义日志、按时间分割日志、软连接最新日志）)
+[第十三节 处理日志系统（自定义日志、按时间分割日志、软连接最新日志）](https://www.bilibili.com/video/BV16v411v7D7)
 
 [第十四节 后端数据验证、跨域参数配置、增加列表查询的总数返回](https://www.bilibili.com/video/BV1Hi4y1g7aj)
 
