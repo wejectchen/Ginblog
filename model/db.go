@@ -22,6 +22,7 @@ func InitDb() {
 	)
 	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,// 外键约束
+		SkipDefaultTransaction: true, // 禁用默认事务（提高运行速度）
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true, // 使用单数表名，启用该选项，此时，`User` 的表名应该是 `user`
 		},
