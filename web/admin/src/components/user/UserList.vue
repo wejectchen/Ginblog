@@ -84,7 +84,12 @@
           <a-input v-model="userInfo.username"></a-input>
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
-          <a-switch checked-children="是" un-checked-children="否" @change="adminChange" />
+          <a-switch
+            :checked="IsAdmin"
+            checked-children="是"
+            un-checked-children="否"
+            @change="adminChange"
+          />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -254,6 +259,15 @@ export default {
   },
   created() {
     this.getUserList()
+  },
+  computed: {
+    IsAdmin: function () {
+      if (this.userInfo.role === 1) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   methods: {
     // 获取用户列表
