@@ -56,7 +56,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 			pageNum - 1) * pageSize).Error
 		// 单独计数
 		db.Model(&articleList).Count(&total)
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil {
 			return nil, errmsg.ERROR, 0
 		}
 		return articleList, errmsg.SUCCSE, total
@@ -66,7 +66,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	).Find(&articleList).Limit(pageSize).Offset((pageNum - 1) * pageSize).Error
 	// 单独计数
 	db.Model(&articleList).Where("title LIKE ?", title+"%").Count(&total)
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
 	return articleList, errmsg.SUCCSE, total
