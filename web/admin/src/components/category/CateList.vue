@@ -189,7 +189,7 @@ export default {
         title: '提示：请再次确认',
         content: '确定要删除该分类吗？一旦删除，无法恢复',
         onOk: async () => {
-          const res = await this.$http.delete(`category/${id}`)
+          const { data: res } = await this.$http.delete(`category/${id}`)
           if (res.status != 200) return this.$message.error(res.message)
           this.$message.success('删除成功')
           this.getCateList()
