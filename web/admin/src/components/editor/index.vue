@@ -52,7 +52,7 @@ export default {
           failFun(this.$message.error('上传图片失败'))
         },
         imagetools_cors_hosts: ['*'],
-        imagetools_proxy: '*',
+        imagetools_proxy: '',
       },
       content: this.value,
     }

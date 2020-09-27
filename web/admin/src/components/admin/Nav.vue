@@ -1,4 +1,4 @@
-<template>
+<template >
   <a-layout-sider breakpoint="lg" v-model="collapsed">
     <div class="log">
       <span>{{ collapsed ? 'Blog' : 'My Blog' }}</span>

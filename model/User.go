@@ -75,7 +75,7 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 	db.Select("id,username,role").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
 	db.Model(&users).Count(&total)
 
-	if err == gorm.ErrRecordNotFound {
+	if err != nil {
 		return users, 0
 	}
 	return users, total
@@ -105,7 +105,7 @@ func DeleteUser(id int) int {
 }
 
 // 密码加密
-func (u *User) BeforeSave(tx *gorm.DB) (err error) {
+func (u *User) BeforeSave(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
 	return nil
 }
