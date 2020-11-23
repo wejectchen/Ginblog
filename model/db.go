@@ -13,6 +13,8 @@ var db *gorm.DB
 var err error
 
 func InitDb() {
+
+
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		utils.DbUser,
 		utils.DbPassWord,
@@ -21,6 +23,7 @@ func InitDb() {
 		utils.DbName,
 	)
 	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
+		//Logger:logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
 		DisableForeignKeyConstraintWhenMigrating: true,// 外键约束
 		SkipDefaultTransaction: true, // 禁用默认事务（提高运行速度）
 		NamingStrategy: schema.NamingStrategy{
