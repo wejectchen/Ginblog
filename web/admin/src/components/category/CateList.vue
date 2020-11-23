@@ -159,10 +159,8 @@ export default {
     // 获取分类列表
     async getCateList() {
       const { data: res } = await this.$http.get('category', {
-        params: {
-          pagesize: this.queryParam.pagesize,
-          pagenum: this.queryParam.pagenum,
-        },
+        pagesize: this.queryParam.pagesize,
+        pagenum: this.queryParam.pagenum,
       })
       if (res.status !== 200) return this.$message.error(res.message)
       this.Catelist = res.data

@@ -18,6 +18,7 @@ const UserList = () => import(/* webpackChunkName: "UserList" */ '../components/
 // import CateList from '../components/category/CateList.vue'
 // import UserList from '../components/user/UserList.vue'
 
+// 路由重复点击捕获错误
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
@@ -30,11 +31,17 @@ const routes = [
   {
     path: '/login',
     name: 'login',
+    meta: {
+      title: '请登录'
+    },
     component: Login
   },
   {
     path: '/',
     name: 'admin',
+    meta: {
+      title: 'GinBlog 后台管理页面'
+    },
     component: Admin,
     children: [
       { path: 'index', component: Index },
@@ -52,6 +59,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.meta && to.meta.title) {
+    window.document.title = to.meta.title
+  }
+
   const token = window.sessionStorage.getItem('token')
   if (to.path === '/login') return next()
   if (!token) {
