@@ -116,4 +116,6 @@ gin+vue 全栈制作一个博客。
 
 ## Thanks for free JetBrains Open Source license
 
-<img src="https://github.com/wejectchen/ginblog/blob/master/upload/jet.png?raw=true" style="zoom: 10%;" />
+感谢JetBrains免费开源授权
+
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://github.com/wejectchen/ginblog/blob/master/upload/jet.png?raw=true" height="200" /></a>
