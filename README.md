@@ -111,6 +111,9 @@ gin+vue 全栈制作一个博客。
 - 后台管理页面
 
 	![](https://github.com/wejectchen/ginblog/blob/master/upload/admin2.jpg?raw=true)
+	
+	
 
 ## Thanks for free JetBrains Open Source license
-    ![]()
+
+<img src="https://github.com/wejectchen/ginblog/blob/master/upload/jet.png?raw=true" style="zoom: 10%;" />
