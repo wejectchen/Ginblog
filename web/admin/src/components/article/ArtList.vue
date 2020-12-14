@@ -154,7 +154,7 @@ export default {
         },
       })
       if (res.status != 200) return this.$message.error(res.message)
-      console.log(res)
+      // console.log(res)
       this.Artlist = res.data
       this.pagination.total = res.total
     },
