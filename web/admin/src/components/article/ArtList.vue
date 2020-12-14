@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 const columns = [
   {
     title: 'ID',
@@ -68,6 +70,16 @@ const columns = [
     width: '5%',
     key: 'id',
     align: 'center',
+  },
+  {
+    title: '更新日期',
+    dataIndex: 'CreatedAt',
+    width: '10%',
+    key: 'CreatedAt',
+    align: 'center',
+    customRender: (val) => {
+      return val ? moment(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
+    },
   },
   {
     title: '分类',
@@ -142,6 +154,7 @@ export default {
         },
       })
       if (res.status != 200) return this.$message.error(res.message)
+      console.log(res)
       this.Artlist = res.data
       this.pagination.total = res.total
     },
