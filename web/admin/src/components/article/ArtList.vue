@@ -73,9 +73,9 @@ const columns = [
   },
   {
     title: '更新日期',
-    dataIndex: 'CreatedAt',
+    dataIndex: 'UpdatedAt',
     width: '10%',
-    key: 'CreatedAt',
+    key: 'UpdatedAt',
     align: 'center',
     customRender: (val) => {
       return val ? moment(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
@@ -124,7 +124,7 @@ export default {
     return {
       pagination: {
         pageSizeOptions: ['5', '10', '20'],
-        pageSize: 5,
+        pageSize: 0,
         total: 0,
         showSizeChanger: true,
         showTotal: (total) => `共${total}条`,
@@ -154,7 +154,7 @@ export default {
         },
       })
       if (res.status != 200) return this.$message.error(res.message)
-      // console.log(res)
+
       this.Artlist = res.data
       this.pagination.total = res.total
     },
@@ -178,7 +178,8 @@ export default {
         pager.current = 1
       }
       this.pagination = pager
-      this.getArtList()
+      this.fetch({})
+      // this.getArtList()
     },
     // 删除文章
     deleteArt(id) {
@@ -198,10 +199,12 @@ export default {
     },
     // 查询分类下的文章
     CateChange(value) {
-      this.getCateAet(value)
+      this.getCateArt(value)
     },
-    async getCateAet(id) {
-      const { data: res } = await this.$http.get(`article/list/${id}`)
+    async getCateArt(id) {
+      const { data: res } = await this.$http.get(`article/list/${id}`, {
+        params: { pagesize: this.queryParam.pagesize, pagenum: this.queryParam.pagenum },
+      })
       if (res.status !== 200) return this.$message.error(res.message)
       this.Artlist = res.data
       this.pagination.total = res.total

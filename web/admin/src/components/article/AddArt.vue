@@ -60,7 +60,7 @@
 
 <script>
 import { Url } from '../../plugin/http'
-import Editor from '@/editor/index'
+import Editor from '../editor/index'
 export default {
   components: { Editor },
   props: ['id'],

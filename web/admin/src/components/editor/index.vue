@@ -9,6 +9,7 @@ import Editor from '@tinymce/tinymce-vue'
 import './tinymce.min.js'
 import './icons/default/icons.min.js'
 import './themes/silver/theme.min.js'
+
 import './langs/zh_CN'
 
 // 注册插件
@@ -39,6 +40,7 @@ export default {
         height: '500px',
         plugins: 'preview paste wordcount code imagetools image media codesample lists table',
         branding: false,
+        paste_data_images: true,
         toolbar: [
           'undo redo | styleselect |fontsizeselect| bold italic underline strikethrough |alignleft aligncenter alignright alignjustify |blockquote removeformat |numlist bullist table',
           'preview paste code codesample |image media',
@@ -68,6 +70,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('./skins/ui/oxide/skin.min.css');
 </style>
