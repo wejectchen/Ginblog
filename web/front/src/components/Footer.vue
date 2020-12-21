@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless color="primary">
+  <v-footer padless color="indigo darken-2">
     <v-col class="text-center white--text">{{new Date().getFullYear()}} - GinBlog</v-col>
   </v-footer>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-app-bar app color="primary" flat>
-      <v-avatar size="40" color="grey"></v-avatar>
+    <v-app-bar app color="indigo darken-2">
       <v-container class="py-0 fill-height">
-        <v-btn text color="white">首页</v-btn>
+        <v-avatar class="mx-12" size="40" color="grey"></v-avatar>
+        <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
         <v-btn v-for="item in cateList" :key="item.id" text color="white">{{item.name}}</v-btn>
       </v-container>
 
@@ -20,21 +20,21 @@
 export default {
   data() {
     return {
-      cateList: [],
-    };
+      cateList: []
+    }
   },
   created() {
-    this.GetCateList();
+    this.GetCateList()
   },
   methods: {
     // 获取分类
     async GetCateList() {
-      const { data: res } = await this.$http.get("category");
-      this.cateList = res.data;
-      console.log(res);
-    },
-  },
-};
+      const { data: res } = await this.$http.get('category')
+      this.cateList = res.data
+      console.log(res)
+    }
+  }
+}
 </script>
 
 <style>
