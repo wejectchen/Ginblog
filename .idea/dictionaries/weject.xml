@@ -2,10 +2,12 @@
   <dictionary name="weject">
     <words>
       <w>foreignkey</w>
+      <w>gavhql</w>
       <w>ginblog</w>
       <w>gorm</w>
       <w>pagenum</w>
       <w>pagesize</w>
+      <w>qiniu</w>
       <w>retalog</w>
     </words>
   </dictionary>

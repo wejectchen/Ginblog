@@ -124,7 +124,7 @@ export default {
     return {
       pagination: {
         pageSizeOptions: ['5', '10', '20'],
-        pageSize: 0,
+        pageSize: 5,
         total: 0,
         showSizeChanger: true,
         showTotal: (total) => `共${total}条`,
@@ -178,8 +178,7 @@ export default {
         pager.current = 1
       }
       this.pagination = pager
-      this.fetch({})
-      // this.getArtList()
+      this.getArtList()
     },
     // 删除文章
     deleteArt(id) {

@@ -59,8 +59,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta && to.meta.title) {
-    window.document.title = to.meta.title
+  if (to.meta.title) {
+    document.title = to.meta.title
   }
 
   const token = window.sessionStorage.getItem('token')
