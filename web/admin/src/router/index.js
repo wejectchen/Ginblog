@@ -56,7 +56,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-
+  next()
   const token = window.sessionStorage.getItem('token')
   if (to.path === '/login') return next()
   if (!token) {

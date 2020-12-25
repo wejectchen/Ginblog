@@ -136,7 +136,7 @@ export default {
     },
 
     // 更新
-    async updateProfile(id) {
+    async updateProfile() {
       const { data: res } = await this.$http.put(`profile/${this.profileInfo.id}`, this.profileInfo)
       if (res.status !== 200) return this.$message.error(res.message)
       this.$message.success(`个人信息更新成功`)
