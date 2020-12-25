@@ -38,6 +38,8 @@ func InitRouter() {
 		auth.DELETE("article/:id", v1.DeleteArt)
 		// 上传文件
 		auth.POST("upload", v1.UpLoad)
+		// 更新个人设置
+		auth.PUT("profile/:id",v1.UpdateProfile)
 	}
 	router := r.Group("api/v1")
 	{
@@ -51,6 +53,7 @@ func InitRouter() {
 		router.GET("article/list/:id", v1.GetCateArt)
 		router.GET("article/info/:id", v1.GetArtInfo)
 		router.POST("login", v1.Login)
+		router.GET("profile/:id",v1.GetProfile)
 	}
 
 	_ = r.Run(utils.HttpPort)

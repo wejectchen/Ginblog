@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 const Login = () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
 const Admin = () => import(/* webpackChunkName: "Admin" */ '../views/Admin.vue')
-// import Login from '../views/Login.vue'
-// import Admin from '../views/Admin.vue'
 
 // 页面路由组件
 const Index = () => import(/* webpackChunkName: "Index" */ '../components/admin/Index.vue')
@@ -11,12 +9,7 @@ const AddArt = () => import(/* webpackChunkName: "AddArt" */ '../components/arti
 const ArtList = () => import(/* webpackChunkName: "ArtList" */ '../components/article/ArtList.vue')
 const CateList = () => import(/* webpackChunkName: "CateList" */ '../components/category/CateList.vue')
 const UserList = () => import(/* webpackChunkName: "UserList" */ '../components/user/UserList.vue')
-
-// import Index from '../components/admin/Index.vue'
-// import AddArt from '../components/article/AddArt.vue'
-// import ArtList from '../components/article/ArtList.vue'
-// import CateList from '../components/category/CateList.vue'
-// import UserList from '../components/user/UserList.vue'
+const Profile = () => import(/* webpackChunkName: "UserList" */ '../components/user/Profile.vue')
 
 // 路由重复点击捕获错误
 const originalPush = VueRouter.prototype.push
@@ -49,7 +42,8 @@ const routes = [
       { path: 'addart/:id', component: AddArt, props: true },
       { path: 'artlist', component: ArtList },
       { path: 'catelist', component: CateList },
-      { path: 'userlist', component: UserList }
+      { path: 'userlist', component: UserList },
+      { path: 'profile', component: Profile }
     ]
   }
 ]
