@@ -37,13 +37,56 @@ const routes = [
     },
     component: Admin,
     children: [
-      { path: 'index', component: Index },
-      { path: 'addart', component: AddArt },
-      { path: 'addart/:id', component: AddArt, props: true },
-      { path: 'artlist', component: ArtList },
-      { path: 'catelist', component: CateList },
-      { path: 'userlist', component: UserList },
-      { path: 'profile', component: Profile }
+      {
+        path: 'index',
+        component: Index,
+        meta: {
+          title: 'GinBlog 后台管理页面'
+        }
+      },
+      {
+        path: 'addart',
+        component: AddArt,
+        meta: {
+          title: '新增文章'
+        }
+      },
+      {
+        path: 'addart/:id',
+        component: AddArt,
+        meta: {
+          title: '编辑文章'
+        },
+        props: true
+      },
+      {
+        path: 'artlist',
+        component: ArtList,
+        meta: {
+          title: '文章列表'
+        }
+      },
+      {
+        path: 'catelist',
+        component: CateList,
+        meta: {
+          title: '分类列表'
+        }
+      },
+      {
+        path: 'userlist',
+        component: UserList,
+        meta: {
+          title: '用户列表'
+        }
+      },
+      {
+        path: 'profile',
+        component: Profile,
+        meta: {
+          title: '个人设置'
+        }
+      }
     ]
   }
 ]

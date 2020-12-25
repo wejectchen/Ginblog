@@ -1,7 +1,6 @@
 <template>
   <div>
     <a-card>
-      <h3>个人设置</h3>
       <a-form-model>
         <a-form-model-item label="作者名称">
           <a-input style="width:300px" v-model="profileInfo.name"></a-input>

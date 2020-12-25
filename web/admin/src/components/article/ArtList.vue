@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>文章列表页面</h3>
     <a-card>
       <a-row :gutter="20">
         <a-col :span="6">

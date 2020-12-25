@@ -74,6 +74,9 @@ export default {
         `profile/${this.profileInfo.id}`
       )
       this.profileInfo = res.data
+    },
+    gotod(id) {
+      console.log(id)
     }
   }
 }
