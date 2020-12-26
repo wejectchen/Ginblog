@@ -1,6 +1,12 @@
 <template>
   <v-col>
-    <v-card class="ma-3" v-for="item in artList" :key="item.id" link>
+    <v-card
+      class="ma-3"
+      v-for="item in artList"
+      :key="item.id"
+      link
+      @click="$router.push(`detail/${item.ID}`)"
+    >
       <v-row no-gutters class="d-flex align-center">
         <v-col class="d-flex justify-center align-center ma-3" cols="1">
           <v-img max-height="100" max-width="100" :src="item.img"></v-img>
@@ -14,7 +20,7 @@
           <v-divider class="mx-4"></v-divider>
           <v-card-text class="d-flex align-center">
             <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
-            <span>{{item.CreatedAt}}</span>
+            <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:SS')}}</span>
           </v-card-text>
         </v-col>
       </v-row>
@@ -23,7 +29,7 @@
       <v-pagination
         total-visible="7"
         v-model="queryParam.pagenum"
-        :length="Math.ceil(this.total/queryParam.pagesize)"
+        :length="Math.ceil(total/queryParam.pagesize)"
         @input="getArtList()"
       ></v-pagination>
     </div>
@@ -44,6 +50,7 @@ export default {
   created() {
     this.getArtList()
   },
+  computed: {},
   methods: {
     // 获取文章列表
     async getArtList() {
@@ -53,6 +60,7 @@ export default {
           pagenum: this.queryParam.pagenum
         }
       })
+
       this.artList = res.data
       this.total = res.total
     }
