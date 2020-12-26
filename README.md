@@ -118,7 +118,7 @@ gin+vue 全栈制作一个博客。
 
 - 后台管理页面
 
-	![](https://gitee.com/wejectchan/ginblog/blob/master/upload/admin2.jpg)
+	![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin2.jpg)
 	
 	
 
@@ -126,4 +126,4 @@ gin+vue 全栈制作一个博客。
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="http://test.scjglaw.cn/jet.png" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/jet.png" height="200" /></a>
