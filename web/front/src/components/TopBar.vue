@@ -31,7 +31,6 @@ export default {
     async GetCateList() {
       const { data: res } = await this.$http.get('category')
       this.cateList = res.data
-      console.log(res)
     }
   }
 }

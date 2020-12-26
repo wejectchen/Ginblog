@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home,
+    meta: { title: '欢迎来到GinBlog' },
     children: [
       { path: '/', component: ArticleList, meta: { title: '欢迎来到GinBlog' } }
     ]
@@ -24,7 +24,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
-    document.title = to.meta.title
+    document.title = to.meta.title ? to.meta.title : '加载中'
   }
   next()
 })
