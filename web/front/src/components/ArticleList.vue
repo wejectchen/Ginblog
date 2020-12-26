@@ -1,17 +1,17 @@
 <template>
   <v-col>
     <v-card class="ma-3" v-for="item in artList" :key="item.id" link>
-      <v-row no-gutters>
-        <v-col class="d-flex justify-center align-center mx-3" cols="1">
+      <v-row no-gutters class="d-flex align-center">
+        <v-col class="d-flex justify-center align-center ma-3" cols="1">
           <v-img max-height="100" max-width="100" :src="item.img"></v-img>
         </v-col>
         <v-col>
-          <v-card-title class="my-2">
+          <v-card-title>
             <v-chip color="pink" label class="mr-3 white--text">{{item.Category.name}}</v-chip>
-            {{item.title}}
+            <div>{{item.title}}</div>
           </v-card-title>
-          <v-card-subtitle v-text="item.desc"></v-card-subtitle>
-          <v-divider></v-divider>
+          <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
+          <v-divider class="mx-4"></v-divider>
           <v-card-text class="d-flex align-center">
             <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
             <span>{{item.CreatedAt}}</span>
