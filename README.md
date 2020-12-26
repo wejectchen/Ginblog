@@ -114,11 +114,11 @@ gin+vue 全栈制作一个博客。
 
 - 后台登录页面
 
-	![](http://test.scjglaw.cn/admin.jpg)
+	![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin.jpg)
 
 - 后台管理页面
 
-	![](http://test.scjglaw.cn/admin2.jpg)
+	![](https://gitee.com/wejectchan/ginblog/blob/master/upload/admin2.jpg)
 	
 	
 
