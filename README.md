@@ -68,7 +68,15 @@ gin+vue 全栈制作一个博客。
 
 [第十三节 后台页面完结，vue 打包部署](https://www.bilibili.com/video/BV12i4y1M7eD)
 
-### [ ]todo 前端展示页面
+### 前端展示页面（正在更新中）
+
+[第一节 搭建项目框架](https://www.bilibili.com/video/BV1LX4y1u7py)
+
+[第二节 编写主内容区+个人介绍](https://www.bilibili.com/video/BV1EZ4y137qG)
+
+[第三节 完成个人简介更新功能](https://www.bilibili.com/video/BV17v411t7Gw)
+
+[第四节 完成文章列表页面](https://www.bilibili.com/video/BV17y4y1U7FB)
 
 ## 实现功能
 
@@ -106,11 +114,11 @@ gin+vue 全栈制作一个博客。
 
 - 后台登录页面
 
-	![](https://github.com/wejectchen/ginblog/blob/master/upload/admin.jpg?raw=true)
+	![](http://test.scjglaw.cn/admin.jpg)
 
 - 后台管理页面
 
-	![](https://github.com/wejectchen/ginblog/blob/master/upload/admin2.jpg?raw=true)
+	![](http://test.scjglaw.cn/admin2.jpg)
 	
 	
 
@@ -118,4 +126,4 @@ gin+vue 全栈制作一个博客。
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="https://github.com/wejectchen/ginblog/blob/master/upload/jet.png?raw=true" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="http://test.scjglaw.cn/jet.png" height="200" /></a>
