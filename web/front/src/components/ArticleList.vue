@@ -5,7 +5,7 @@
       v-for="item in artList"
       :key="item.id"
       link
-      @click="$router.push(`detail/${item.ID}`)"
+      @click="$router.push(`/detail/${item.ID}`)"
     >
       <v-row no-gutters class="d-flex align-center">
         <v-col class="d-flex justify-center align-center ma-3" cols="1">

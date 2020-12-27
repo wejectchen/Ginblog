@@ -4,7 +4,13 @@
       <v-avatar class="mx-12" size="40" color="grey"></v-avatar>
       <v-container class="py-0 fill-height justify-center">
         <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
-        <v-btn v-for="item in cateList" :key="item.id" text color="white">{{item.name}}</v-btn>
+        <v-btn
+          v-for="item in cateList"
+          :key="item.id"
+          text
+          color="white"
+          @click="gotoCate(item.id)"
+        >{{item.name}}</v-btn>
       </v-container>
 
       <v-spacer></v-spacer>
@@ -31,6 +37,10 @@ export default {
     async GetCateList() {
       const { data: res } = await this.$http.get('category')
       this.cateList = res.data
+    },
+
+    gotoCate(cid) {
+      this.$router.push(`/category/${cid}`).catch((err) => err)
     }
   }
 }
