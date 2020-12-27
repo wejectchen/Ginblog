@@ -78,6 +78,8 @@ gin+vue 全栈制作一个博客。
 
 [第四节 完成文章列表页面](https://www.bilibili.com/video/BV17y4y1U7FB)
 
+[第四节 完成文章详情页面](https://www.bilibili.com/video/BV1Eo4y1Z7c9)
+
 ## 实现功能
 
 1.  简单的用户管理权限设置

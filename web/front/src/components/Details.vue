@@ -2,8 +2,10 @@
   <div>
     <div class="d-flex justify-center pa-3 text-h4 font-weight-bold">{{artInfo.title}}</div>
     <div class="d-flex justify-center align-center">
-      <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
-      <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:SS')}}</span>
+      <div class="d-flex justify-center">
+        <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
+        <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:SS')}}</span>
+      </div>
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
     <v-alert class="ma-4" elevation="1" color="indigo" dark border="left" outlined>{{artInfo.desc}}</v-alert>
@@ -31,9 +33,12 @@ export default {
 }
 </script>
 <style scoped>
+.content {
+  width: 90%;
+}
 .content >>> img,
 span,
 p {
-  width: 90%;
+  width: 100%;
 }
 </style>

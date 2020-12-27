@@ -5,11 +5,11 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
-          <v-col cols="3">
+          <v-col cols="2">
             <Nav></Nav>
           </v-col>
           <v-col>
-            <v-sheet max-width="65vw" min-height="80vh" rounded="lg">
+            <v-sheet min-height="80vh" rounded="lg">
               <router-view></router-view>
             </v-sheet>
           </v-col>
