@@ -22,6 +22,7 @@
           hide-details
           solo-inverted
           rounded
+          placeholder="请输入文章标题查找"
           dark
           append-icon="mdi-text-search"
           v-model="searchName"
