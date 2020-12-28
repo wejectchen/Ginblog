@@ -14,14 +14,23 @@ func InitRouter() {
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 
-	r.LoadHTMLGlob("static/admin/index.html")
-	r.Static("admin/static","static/admin/static")
-	r.StaticFile("admin/favicon.ico","static/admin/favicon.ico")
 
-	r.GET("admin", func(c *gin.Context) {
-		c.HTML(200,"index.html",nil)
+	r.LoadHTMLGlob("static/admin/index.html")
+	r.LoadHTMLGlob("static/front/front.html")
+
+	r.Static("/admin", "./static/admin")
+	//
+	r.Static("/css", "./static/front/css")
+	r.Static("/js", "./static/front/js")
+
+
+	r.GET("/admin", func(c *gin.Context) {
+		c.HTML(200, "index.html", nil)
 	})
 
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "front.html", nil)
+	})
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	{
@@ -39,7 +48,7 @@ func InitRouter() {
 		// 上传文件
 		auth.POST("upload", v1.UpLoad)
 		// 更新个人设置
-		auth.PUT("profile/:id",v1.UpdateProfile)
+		auth.PUT("profile/:id", v1.UpdateProfile)
 	}
 	router := r.Group("api/v1")
 	{
@@ -53,7 +62,7 @@ func InitRouter() {
 		router.GET("article/list/:id", v1.GetCateArt)
 		router.GET("article/info/:id", v1.GetArtInfo)
 		router.POST("login", v1.Login)
-		router.GET("profile/:id",v1.GetProfile)
+		router.GET("profile/:id", v1.GetProfile)
 	}
 
 	_ = r.Run(utils.HttpPort)

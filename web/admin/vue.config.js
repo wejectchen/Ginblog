@@ -1,7 +1,6 @@
 module.exports = {
   publicPath: '/admin/',
   outputDir: 'dist',
-  assetsDir: 'static',
   //警告 webpack 的性能提示
   configureWebpack: {
     performance: {
