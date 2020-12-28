@@ -10,7 +10,17 @@
       <v-spacer></v-spacer>
 
       <v-responsive max-width="260" color="white">
-        <v-text-field dense flat hide-details solo-inverted rounded dark></v-text-field>
+        <v-text-field
+          dense
+          flat
+          hide-details
+          solo-inverted
+          rounded
+          dark
+          append-icon="mdi-text-search"
+          v-model="searchName"
+          @click="searchTitle(searchName)"
+        ></v-text-field>
       </v-responsive>
     </v-app-bar>
   </div>
@@ -20,7 +30,8 @@
 export default {
   data() {
     return {
-      cateList: []
+      cateList: [],
+      searchName: ''
     }
   },
   created() {
@@ -31,6 +42,11 @@ export default {
     async GetCateList() {
       const { data: res } = await this.$http.get('category')
       this.cateList = res.data
+    },
+
+    // 查找文章标题
+    searchTitle(title) {
+      this.$router.push(`search/${title}`)
     }
   }
 }

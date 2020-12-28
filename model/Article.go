@@ -52,7 +52,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var err error
 	var total int64
 	if title == "" {
-		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Updated_At DESC").Preload("Category").Find(&articleList).Error
+		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Preload("Category").Find(&articleList).Error
 		// 单独计数
 		db.Model(&articleList).Count(&total)
 		if err != nil {
@@ -60,7 +60,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 		}
 		return articleList, errmsg.SUCCSE, total
 	}
-	err = db.Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Updated_At DESC").Preload("Category").Where("title LIKE ?", title+"%",
+	err = db.Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Preload("Category").Where("title LIKE ?", title+"%",
 	).Find(&articleList).Error
 	// 单独计数
 	db.Model(&articleList).Where("title LIKE ?", title+"%").Count(&total)
