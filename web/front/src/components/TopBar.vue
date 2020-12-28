@@ -4,7 +4,13 @@
       <v-avatar class="mx-12" size="40" color="grey"></v-avatar>
       <v-container class="py-0 fill-height justify-center">
         <v-btn text color="white" @click="$router.push('/')">首页</v-btn>
-        <v-btn v-for="item in cateList" :key="item.id" text color="white">{{item.name}}</v-btn>
+        <v-btn
+          v-for="item in cateList"
+          :key="item.id"
+          text
+          color="white"
+          @click="gotoCate(item.id)"
+        >{{item.name}}</v-btn>
       </v-container>
 
       <v-spacer></v-spacer>
@@ -19,7 +25,7 @@
           dark
           append-icon="mdi-text-search"
           v-model="searchName"
-          @click="searchTitle(searchName)"
+          @change="searchTitle(searchName)"
         ></v-text-field>
       </v-responsive>
     </v-app-bar>
@@ -46,7 +52,11 @@ export default {
 
     // 查找文章标题
     searchTitle(title) {
-      this.$router.push(`search/${title}`)
+      this.$router.push(`/search/${title}`)
+    },
+
+    gotoCate(cid) {
+      this.$router.push(`/category/${cid}`).catch((err) => err)
     }
   }
 }

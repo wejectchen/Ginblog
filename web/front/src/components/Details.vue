@@ -4,7 +4,7 @@
     <div class="d-flex justify-center align-center">
       <div class="d-flex justify-center">
         <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
-        <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:SS')}}</span>
+        <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
       </div>
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
