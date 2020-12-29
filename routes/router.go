@@ -4,33 +4,41 @@ import (
 	"ginblog/api/v1"
 	"ginblog/middleware"
 	"ginblog/utils"
+	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 )
+
+func createMyRender() multitemplate.Renderer {
+	p := multitemplate.NewRenderer()
+	p.AddFromFiles("index", "static/admin/index.html")
+	p.AddFromFiles("front", "static/front/front.html")
+	return p
+}
 
 func InitRouter() {
 	gin.SetMode(utils.AppMode)
 	r := gin.New()
+	r.HTMLRender = createMyRender()
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 
-
-	r.LoadHTMLGlob("static/admin/index.html")
-	r.LoadHTMLGlob("static/front/front.html")
-
-	r.Static("/admin", "./static/admin")
-	//
-	r.Static("/css", "./static/front/css")
-	r.Static("/js", "./static/front/js")
+	r.Static("/css","./static/front/css")
+	r.Static("/js","./static/front/js")
+	r.Static("/admin","./static/admin")
+	r.StaticFile("/favicon.ico","static/front/favicon.ico")
+	//r.StaticFile("/admin/favicon.ico","admin/favicon.ico")
 
 
-	r.GET("/admin", func(c *gin.Context) {
-		c.HTML(200, "index.html", nil)
-	})
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(200, "front.html", nil)
+		c.HTML(200,"front",nil)
 	})
+
+	r.GET("/admin", func(c *gin.Context) {
+		c.HTML(200,"index",nil)
+	})
+
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	{
