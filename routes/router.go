@@ -10,8 +10,8 @@ import (
 
 func createMyRender() multitemplate.Renderer {
 	p := multitemplate.NewRenderer()
-	p.AddFromFiles("index", "static/admin/index.html")
-	p.AddFromFiles("front", "static/front/front.html")
+	p.AddFromFiles("admin", "static/admin/index.html")
+	p.AddFromFiles("front", "static/front/index.html")
 	return p
 }
 
@@ -23,8 +23,7 @@ func InitRouter() {
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 
-	r.Static("/css","./static/front/css")
-	r.Static("/js","./static/front/js")
+	r.Static("/static","./static/front/static")
 	r.Static("/admin","./static/admin")
 	r.StaticFile("/favicon.ico","static/front/favicon.ico")
 
@@ -33,7 +32,7 @@ func InitRouter() {
 	})
 
 	r.GET("/admin", func(c *gin.Context) {
-		c.HTML(200,"index",nil)
+		c.HTML(200,"admin",nil)
 	})
 
 	auth := r.Group("api/v1")
