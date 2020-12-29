@@ -27,9 +27,6 @@ func InitRouter() {
 	r.Static("/js","./static/front/js")
 	r.Static("/admin","./static/admin")
 	r.StaticFile("/favicon.ico","static/front/favicon.ico")
-	//r.StaticFile("/admin/favicon.ico","admin/favicon.ico")
-
-
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200,"front",nil)
