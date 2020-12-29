@@ -159,10 +159,10 @@ enjoy~~~~
 ## 项目预览
 
 - 前端展示页面
-  ![](https://gitee.com/wejectchan/ginblog/raw/frontDev/upload/front1.png)
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front1.png)
 
 - 前端展示页面
-  ![](https://gitee.com/wejectchan/ginblog/raw/frontDev/upload/front2.png)
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front2.png)
 
 - 后台登录页面
 

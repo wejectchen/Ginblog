@@ -12,3 +12,4 @@
 *.out
 /log/
 config/config.ini
+.idea
