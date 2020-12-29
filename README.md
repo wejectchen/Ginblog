@@ -67,10 +67,10 @@ gin+vue 全栈制作一个博客。
 go mod tidy
 ```
 
-4. 启动数据库配置config.ini
+4. 初始化项目配置config.ini
 
 ```ini
-config.ini
+./config/config.ini
 
 [server]
 AppMode = debug # debug 开发模式，release 生产模式
@@ -120,7 +120,7 @@ http://localhost:3000/admin
 
 enjoy~~~~
 
-#### 使用、二开过程中，发现问题或者有功能需求欢迎提交 `Iusse` 或者直接 `PR`
+#### ==使用、二开过程中，发现问题或者有功能需求欢迎提交 `Iusse` 或者直接 `PR`==
 
 ## 实现功能
 
