@@ -9,7 +9,9 @@
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
     <v-alert class="ma-4" elevation="1" color="indigo" dark border="left" outlined>{{artInfo.desc}}</v-alert>
-    <div class="content ma-5 pa-3 text-justify" v-html="artInfo.content"></div>
+    <div class="content_box">
+      <div class="content ma-5 pa-3 text-justify" v-html="artInfo.content"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -33,12 +35,12 @@ export default {
 }
 </script>
 <style scoped>
-.content {
-  width: 90%;
+.content_box {
+  max-width: 100%;
 }
-.content >>> img,
-span,
-p {
-  width: 100%;
+
+.content >>> img {
+  width: auto;
+  max-width: 100%;
 }
 </style>

@@ -37,7 +37,7 @@ export default {
     return {
       init: {
         language: 'zh_CN',
-        height: '500px',
+        height: '600px',
         plugins: 'preview paste wordcount code imagetools image media codesample lists table',
         branding: false,
         paste_data_images: true,
@@ -72,4 +72,5 @@ export default {
 
 <style scoped>
 @import url('./skins/ui/oxide/skin.min.css');
+@import url('./skins/content/default/content.min.css');
 </style>

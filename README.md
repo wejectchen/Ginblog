@@ -99,8 +99,8 @@ QiniuSever =
 
 6. 启动项目
 
-```go
-go run main.go
+```shell
+ go run main.go
 ```
 
 

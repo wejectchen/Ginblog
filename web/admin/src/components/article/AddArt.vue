@@ -2,49 +2,62 @@
   <div>
     <a-card>
       <h3>{{id? '编辑文章':'新增文章'}}</h3>
+
       <a-form-model
         :model="artInfo"
         ref="artInfoRef"
         :rules="artInfoRules"
         :hideRequiredMark="true"
       >
-        <a-form-model-item label="文章标题" prop="title">
-          <a-input style="width:300px" v-model="artInfo.title"></a-input>
-        </a-form-model-item>
-        <a-form-model-item label="文章分类" prop="cid">
-          <a-select
-            style="width:200px"
-            v-model="artInfo.cid"
-            placeholder="请选择分类"
-            @change="cateChange"
-          >
-            <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{item.name}}</a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="文章描述" prop="desc">
-          <a-input type="textarea" v-model="artInfo.desc"></a-input>
-        </a-form-model-item>
-        <a-form-model-item label="文章缩略图" prop="img">
-          <a-upload
-            listType="picture"
-            :defaultFileList="fileList"
-            name="file"
-            :action="upUrl"
-            :headers="headers"
-            @change="upChange"
-          >
-            <a-button>
-              <a-icon type="upload" />点击上传
-            </a-button>
-            <br />
-            <template v-if="id">
-              <img :src="artInfo.img" style="width:120px;height:100px" />
-            </template>
-          </a-upload>
-        </a-form-model-item>
+        <a-row gutter="24">
+          <a-col :span="16">
+            <a-form-model-item label="文章标题" prop="title">
+              <a-input style="width:300px" v-model="artInfo.title"></a-input>
+            </a-form-model-item>
+            <a-form-model-item label="文章描述" prop="desc">
+              <a-input type="textarea" v-model="artInfo.desc"></a-input>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-model-item label="文章分类" prop="cid">
+              <a-select
+                style="width:200px"
+                v-model="artInfo.cid"
+                placeholder="请选择分类"
+                @change="cateChange"
+              >
+                <a-select-option
+                  v-for="item in Catelist"
+                  :key="item.id"
+                  :value="item.id"
+                >{{item.name}}</a-select-option>
+              </a-select>
+            </a-form-model-item>
+
+            <a-form-model-item label="文章缩略图" prop="img">
+              <a-upload
+                listType="picture"
+                :defaultFileList="fileList"
+                name="file"
+                :action="upUrl"
+                :headers="headers"
+                @change="upChange"
+              >
+                <a-button>
+                  <a-icon type="upload" />点击上传
+                </a-button>
+
+                <template v-if="id">
+                  <img :src="artInfo.img" style="width:120px;height:100px;margin-left:15px" />
+                </template>
+              </a-upload>
+            </a-form-model-item>
+          </a-col>
+        </a-row>
         <a-form-model-item label="文章内容" prop="content">
           <Editor v-model="artInfo.content"></Editor>
         </a-form-model-item>
+
         <a-form-model-item>
           <a-button
             type="danger"
