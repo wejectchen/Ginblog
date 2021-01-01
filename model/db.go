@@ -34,7 +34,7 @@ func InitDb() {
 		fmt.Println("连接数据库失败，请检查参数：", err)
 	}
 
-	_ = db.AutoMigrate(&User{}, &Article{}, &Category{},Profile{})
+	_ = db.AutoMigrate(&User{}, &Article{}, &Category{},Profile{},Comment{})
 
 	sqlDB, _ := db.DB()
 	// SetMaxIdleCons 设置连接池中的最大闲置连接数。

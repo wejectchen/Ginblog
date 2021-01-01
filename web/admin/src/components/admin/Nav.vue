@@ -24,10 +24,15 @@
           <span>文章列表</span>
         </a-menu-item>
       </a-sub-menu>
+      <a-menu-item key="commentlist">
+        <a-icon type="message" />
+        <span>评论管理</span>
+      </a-menu-item>
       <a-menu-item key="catelist">
         <a-icon type="book" />
         <span>分类列表</span>
       </a-menu-item>
+
       <a-menu-item key="userlist">
         <a-icon type="user" />
         <span>用户列表</span>

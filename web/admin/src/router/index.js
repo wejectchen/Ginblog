@@ -10,6 +10,7 @@ const ArtList = () => import(/* webpackChunkName: "ArtList" */ '../components/ar
 const CateList = () => import(/* webpackChunkName: "CateList" */ '../components/category/CateList.vue')
 const UserList = () => import(/* webpackChunkName: "UserList" */ '../components/user/UserList.vue')
 const Profile = () => import(/* webpackChunkName: "UserList" */ '../components/user/Profile.vue')
+const CommentList = () => import(/* webpackChunkName: "UserList" */ '../components/comment/commentList.vue')
 
 // 路由重复点击捕获错误
 const originalPush = VueRouter.prototype.push
@@ -85,6 +86,13 @@ const routes = [
         component: Profile,
         meta: {
           title: '个人设置'
+        }
+      },
+      {
+        path: 'commentlist',
+        component: CommentList,
+        meta: {
+          title: '评论管理'
         }
       }
     ]
