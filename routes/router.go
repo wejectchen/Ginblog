@@ -22,19 +22,19 @@ func InitRouter() {
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
-	
+
 	r.Static("/static", "./static/front/static")
 	r.Static("/admin", "./static/admin")
 	r.StaticFile("/favicon.ico", "static/front/favicon.ico")
-	
+
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "front", nil)
 	})
-	
+
 	r.GET("/admin", func(c *gin.Context) {
 		c.HTML(200, "admin", nil)
 	})
-	
+
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	{
@@ -54,6 +54,7 @@ func InitRouter() {
 		// 更新个人设置
 		auth.PUT("profile/:id", v1.UpdateProfile)
 		// 评论模块
+		auth.GET("comment", v1.GetCommentList)
 		auth.DELETE("delcomment/:id", v1.DeleteComment)
 		auth.PUT("checkcomment/:id", v1.Checkcomment)
 	}
@@ -71,11 +72,10 @@ func InitRouter() {
 		router.POST("login", v1.Login)
 		router.POST("loginfront", v1.LoginFront)
 		router.GET("profile/:id", v1.GetProfile)
-		router.GET("comment",v1.GetCommentList)
-		router.GET("commentfront",v1.GetCommentListFront)
-		router.GET("comment/:id",v1.GetArtComment)
+		router.GET("commentfront", v1.GetCommentListFront)
+		router.GET("comment/:id", v1.GetArtComment)
 	}
-	
+
 	_ = r.Run(utils.HttpPort)
-	
+
 }
