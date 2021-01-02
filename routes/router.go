@@ -54,13 +54,12 @@ func InitRouter() {
 		// 更新个人设置
 		auth.PUT("profile/:id", v1.UpdateProfile)
 		// 评论模块
-		auth.POST("addcomment", v1.AddComment)
 		auth.DELETE("delcomment/:id", v1.DeleteComment)
 		auth.PUT("checkcomment/:id", v1.Checkcomment)
 	}
 	router := r.Group("api/v1")
 	{
-		
+		router.POST("addcomment", v1.AddComment)
 		router.POST("user/add", v1.AddUser)
 		router.GET("user/:id", v1.GetUserInfo)
 		router.GET("users", v1.GetUsers)
@@ -70,8 +69,10 @@ func InitRouter() {
 		router.GET("article/list/:id", v1.GetCateArt)
 		router.GET("article/info/:id", v1.GetArtInfo)
 		router.POST("login", v1.Login)
+		router.POST("loginfront", v1.LoginFront)
 		router.GET("profile/:id", v1.GetProfile)
 		router.GET("comment",v1.GetCommentList)
+		router.GET("commentfront",v1.GetCommentListFront)
 		router.GET("comment/:id",v1.GetArtComment)
 	}
 	

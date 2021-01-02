@@ -16,13 +16,21 @@
     <v-divider class="ma-5"></v-divider>
     <v-sheet class="ma-3 pa-3">
       <div>
-        <v-list outlined class="ma-3 pa-3" v-for="item in commentList" :key="item.ID">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>{{item.username}} {{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</v-list-item-title>
-              <v-list-item-subtitle class="mr-3">{{item.content}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+        <v-list
+          outlined
+          class="ma-3 pa-3"
+          v-for="item in commentList"
+          :key="item.ID"
+          v-show="item.status === 1"
+        >
+          <template>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{item.username}} {{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</v-list-item-title>
+                <v-list-item-subtitle class="mr-3">{{item.content}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
         </v-list>
       </div>
       <div class="text-center">
@@ -31,20 +39,19 @@
           total-visible="7"
           v-model="queryParam.pagenum"
           :length="Math.ceil(total/queryParam.pagesize)"
-          @input="getArtList()"
+          @input="getCommentList()"
         ></v-pagination>
       </div>
       <div>
-        <v-card flat>
-          <v-text-field
-            class="mx-3"
-            max-width="20vw"
-            v-model="comment.username"
-            placeholder="请输入昵称"
-          ></v-text-field>
-          <v-textarea class="mx-3" outlined v-model="comment.content"></v-textarea>
-          <v-btn class="mx-3 mb-3" dark color="indigo" small @click="pushComment">确定</v-btn>
-        </v-card>
+        <template>
+          <v-card flat>
+            <v-alert v-if="!headers.username" class="ma-3" dense outlined type="error">你还未登录，请登录后留言</v-alert>
+            <div v-if="headers.username">
+              <v-textarea class="mx-3" outlined v-model="comment.content"></v-textarea>
+              <v-btn class="ml-3 mb-1" dark color="indigo" small @click="pushComment()">确定</v-btn>
+            </div>
+          </v-card>
+        </template>
       </div>
     </v-sheet>
   </div>
@@ -57,11 +64,13 @@ export default {
       artInfo: {},
       commentList: [],
       comment: {
-        username: '',
-        article_id: this.id,
         content: ''
       },
       total: 0,
+      headers: {
+        username: '',
+        user_id: 0
+      },
       queryParam: {
         pagesize: 5,
         pagenum: 1
@@ -71,6 +80,10 @@ export default {
   created() {
     this.getArtInfo()
     this.getCommentList()
+    this.headers = {
+      username: window.sessionStorage.getItem('username'),
+      user_id: window.sessionStorage.getItem('user_id')
+    }
   },
   methods: {
     // 查询文章
@@ -80,16 +93,27 @@ export default {
     },
     // 获取评论
     async getCommentList() {
-      const { data: res } = await this.$http.get('comment', {
-        pagesize: this.queryParam.pagesize,
-        pagenum: this.queryParam.pagenum
+      const { data: res } = await this.$http.get('commentfront', {
+        params: {
+          pagesize: this.queryParam.pagesize,
+          pagenum: this.queryParam.pagenum
+        }
       })
       this.commentList = res.data
-      console.log('this.commentList: ', this.commentList)
       this.total = res.total
     },
     // 发送评论
-    async pushComment() {}
+    async pushComment() {
+      console.log(this.id)
+      const { data: res } = await this.$http.post('addcomment', {
+        article_id: parseInt(this.id),
+        content: this.comment.content,
+        user_id: parseInt(this.headers.user_id),
+        username: this.headers.username
+      })
+      if (res.status !== 200) return this.$message.error(res.message)
+      this.$message.success('评论成功，待审核后显示')
+    }
   }
 }
 </script>

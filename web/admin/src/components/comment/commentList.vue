@@ -19,6 +19,12 @@
               @click="commentCheck(data.ID)"
             >通过审核</a-button>
             <a-button
+              type="primary"
+              icon="info"
+              style="margin-right:15px"
+              @click="commentUncheck(data.ID)"
+            >撤下评论</a-button>
+            <a-button
               type="danger"
               icon="delete"
               style="margin-right:15px"
@@ -122,6 +128,7 @@ export default {
       this.commentList = res.data
       this.pagination.total = res.total
     },
+
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
       var pager = { ...this.pagination }
@@ -137,6 +144,7 @@ export default {
       this.pagination = pager
       this.getCommentList()
     },
+
     // 通过审核
     commentCheck(id) {
       this.$confirm({
@@ -154,6 +162,26 @@ export default {
         },
       })
     },
+
+    // 撤下评论
+    commentUncheck(id) {
+      this.$confirm({
+        title: '提示：请再次确认',
+        content: '要撤下该评论吗？',
+        onOk: async () => {
+          this.commentInfo.status = 2
+          const { data: res } = await this.$http.put(`checkcomment/${id}`, this.commentInfo)
+          console.log('res: ', res)
+          if (res.status != 200) return this.$message.error(res.message)
+          this.$message.success('评论已撤下')
+          this.getCommentList()
+        },
+        onCancel: () => {
+          this.$message.info('已取消')
+        },
+      })
+    },
+
     // 删除评论
     deleteComment(id) {
       this.$confirm({

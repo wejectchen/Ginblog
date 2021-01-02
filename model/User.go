@@ -123,20 +123,35 @@ func ScryptPw(password string) string {
 	return fpw
 }
 
-// 登录验证
-func CheckLogin(username string, password string) int {
+// 后台登录验证
+func CheckLogin(username string, password string) (User,int) {
 	var user User
 
 	db.Where("username = ?", username).First(&user)
 
 	if user.ID == 0 {
-		return errmsg.ERROR_USER_NOT_EXIST
+		return user,errmsg.ERROR_USER_NOT_EXIST
 	}
 	if ScryptPw(password) != user.Password {
-		return errmsg.ERROR_PASSWORD_WRONG
+		return user,errmsg.ERROR_PASSWORD_WRONG
 	}
 	if user.Role != 1 {
-		return errmsg.ERROR_USER_NO_RIGHT
+		return user,errmsg.ERROR_USER_NO_RIGHT
 	}
-	return errmsg.SUCCSE
+	return user,errmsg.SUCCSE
+}
+
+// 前台登录
+func CheckLoginFront(username string, password string) (User,int) {
+	var user User
+
+	db.Where("username = ?", username).First(&user)
+
+	if user.ID == 0 {
+		return user,errmsg.ERROR_USER_NOT_EXIST
+	}
+	if ScryptPw(password) != user.Password {
+		return user,errmsg.ERROR_PASSWORD_WRONG
+	}
+	return user,errmsg.SUCCSE
 }
