@@ -54,7 +54,7 @@ func InitRouter() {
 		// 更新个人设置
 		auth.PUT("profile/:id", v1.UpdateProfile)
 		// 评论模块
-		auth.GET("comment", v1.GetCommentList)
+		auth.GET("comment/list", v1.GetCommentList)
 		auth.DELETE("delcomment/:id", v1.DeleteComment)
 		auth.PUT("checkcomment/:id", v1.Checkcomment)
 	}
@@ -72,8 +72,9 @@ func InitRouter() {
 		router.POST("login", v1.Login)
 		router.POST("loginfront", v1.LoginFront)
 		router.GET("profile/:id", v1.GetProfile)
-		router.GET("commentfront", v1.GetCommentListFront)
-		router.GET("comment/:id", v1.GetArtComment)
+
+		router.GET("commentfront/:id", v1.GetCommentListFront)
+		router.GET("commentcount/:id",v1.GetCommentCount)
 	}
 
 	_ = r.Run(utils.HttpPort)

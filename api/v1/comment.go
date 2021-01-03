@@ -31,7 +31,16 @@ func DeleteComment(c *gin.Context) {
 	})
 }
 
-// 查询评论列表
+// 获取评论数量
+func GetCommentCount(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	total := model.GetCommentCount(id)
+	c.JSON(http.StatusOK, gin.H{
+		"total": total,
+	})
+}
+
+// 后台查询评论列表
 func GetCommentList(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -59,7 +68,8 @@ func GetCommentList(c *gin.Context) {
 }
 
 // 展示页面显示评论列表
-func GetCommentListFront(c *gin.Context)  {
+func GetCommentListFront(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
 
@@ -74,7 +84,7 @@ func GetCommentListFront(c *gin.Context)  {
 		pageNum = 1
 	}
 
-	data, total, code := model.GetCommentListFront(pageSize, pageNum)
+	data, total, code := model.GetCommentListFront(id,pageSize, pageNum)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
@@ -86,37 +96,36 @@ func GetCommentListFront(c *gin.Context)  {
 }
 
 // 查询文章评论
-func GetArtComment(c *gin.Context) {
-	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
-	id, _ := strconv.Atoi(c.Param("id"))
-
-	switch {
-	case pageSize >= 100:
-		pageSize = 100
-	case pageSize <= 0:
-		pageSize = 10
-	}
-
-	if pageNum == 0 {
-		pageNum = 1
-	}
-	data, total, code := model.GetComment(id, pageSize, pageNum)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
-	})
-}
+//func GetArtComment(c *gin.Context) {
+//	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+//	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
+//
+//	switch {
+//	case pageSize >= 100:
+//		pageSize = 100
+//	case pageSize <= 0:
+//		pageSize = 10
+//	}
+//
+//	if pageNum == 0 {
+//		pageNum = 1
+//	}
+//	data, total, code := model.GetComment( pageSize, pageNum)
+//	c.JSON(http.StatusOK, gin.H{
+//		"status":  code,
+//		"data":    data,
+//		"total":   total,
+//		"message": errmsg.GetErrMsg(code),
+//	})
+//}
 
 // 通过审核
-func Checkcomment(c *gin.Context)  {
+func Checkcomment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code = model.CheckComment(id,&data)
+	code = model.CheckComment(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),

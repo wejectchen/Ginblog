@@ -19,8 +19,10 @@
           <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
           <v-divider class="mx-4"></v-divider>
           <v-card-text class="d-flex align-center">
-            <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
-            <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+            <div class="d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
+              <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+            </div>
           </v-card-text>
         </v-col>
       </v-row>
@@ -44,6 +46,7 @@ export default {
         pagesize: 5,
         pagenum: 1
       },
+
       total: 0
     }
   },
@@ -60,10 +63,18 @@ export default {
           pagenum: this.queryParam.pagenum
         }
       })
-
       this.artList = res.data
       this.total = res.total
     }
+    // 获取文章评论
+    // async getArtcomment_count() {
+    //   let commentCount
+    //   const { data: res } = await this.$http.get(
+    //     `commentcount/${this.artList.id}`
+    //   )
+    //   commentCount = res.total
+    //   return commentCount
+    // }
   }
 }
 </script>

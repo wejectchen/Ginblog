@@ -1,10 +1,14 @@
 <template >
   <div>
     <div class="d-flex justify-center pa-3 text-h4 font-weight-bold">{{artInfo.title}}</div>
-    <div class="d-flex justify-center align-center">
+    <div class="d-flex justify-space-around align-center">
       <div class="d-flex justify-center">
         <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
         <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+      </div>
+      <div class="d-flex justify-center">
+        <v-icon class="mr-1" small>{{'mdi-comment'}}</v-icon>
+        <span>{{total}}</span>
       </div>
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
@@ -93,7 +97,7 @@ export default {
     },
     // 获取评论
     async getCommentList() {
-      const { data: res } = await this.$http.get('commentfront', {
+      const { data: res } = await this.$http.get(`commentfront/${this.id}`, {
         params: {
           pagesize: this.queryParam.pagesize,
           pagenum: this.queryParam.pagenum

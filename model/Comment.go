@@ -24,48 +24,39 @@ func AddComment(data *Comment) int {
 	return errmsg.SUCCSE
 }
 
-// 获取评论列表
-
+// 后台所有获取评论列表
 func GetCommentList(pageSize int, pageNum int) ([]Comment, int64, int) {
+
 	var commentList []Comment
 	var total int64
-	db.Find(&Comment{}).Count(&total)
-	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Select("comment.id, article.title,user_id,article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Scan(&commentList).Error
+	db.Find(&commentList).Count(&total)
+	err = db.Model(&commentList).Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Select("comment.id, article.title,user_id,article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Scan(&commentList).Error
 	if err != nil {
 		return commentList, 0, errmsg.ERROR
 	}
 	return commentList, total, errmsg.SUCCSE
+}
+
+// 获取评论数量
+func GetCommentCount(id int) int64 {
+	var comment Comment
+	var total int64
+	db.Find(&comment).Where("article_id = ?", id).Where("status = ?", 1).Count(&total)
+	return total
 }
 
 // 展示页面获取评论列表
-func GetCommentListFront(pageSize int, pageNum int) ([]Comment, int64, int) {
+func GetCommentListFront(id int, pageSize int, pageNum int) ([]Comment, int64, int) {
 	var commentList []Comment
 	var total int64
-	db.Find(&Comment{}).Where("status = ?", 1).Count(&total)
-	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Select("comment.id, article.title, user_id, article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Where("status = ?", 1).Scan(&commentList).Error
+	db.Find(&Comment{}).Where("article_id = ?", id).Where("status = ?", 1).Count(&total)
+	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Select("comment.id, article.title, user_id, article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Where("article_id = ?", id).Where("status = ?", 1).Scan(&commentList).Error
 	if err != nil {
 		return commentList, 0, errmsg.ERROR
 	}
 	return commentList, total, errmsg.SUCCSE
 }
 
-// 获取文章评论
-func GetComment(id int, pageSize int, pageNum int) ([]Comment, int64, int) {
-	var commentList []Comment
-	var total int64
-	db.Where(
-		"article_id = ?", id,
-	).Find(&commentList).Count(&total)
-
-	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Select("comment.id, article.title,user_id,article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").
-		Where(
-			"article_id = ?", id,
-		).Scan(&commentList).Error
-	if err != nil {
-		return commentList, 0, errmsg.ERROR
-	}
-	return commentList, total, errmsg.SUCCSE
-}
 
 // 编辑评论（暂不允许编辑评论）
 
