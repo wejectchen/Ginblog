@@ -151,10 +151,13 @@ export default {
         title: '提示：请再次确认',
         content: '要通过审核吗？',
         onOk: async () => {
-          const { data: res } = await this.$http.put(`checkcomment/${id}`, this.commentInfo)
-          console.log('res: ', res)
+          const { data: res_status } = await this.$http.get(`comment/info/${id}`)
+          if (res_status.data.status === 1) return this.$message.error('该评论已处于显示状态，无需审核')
+          const { data: res } = await this.$http.put(`checkcomment/${id}`, {
+            status: 1,
+          })
           if (res.status != 200) return this.$message.error(res.message)
-          this.$message.success('成功')
+          this.$message.success('审核成功')
           this.getCommentList()
         },
         onCancel: () => {
@@ -169,9 +172,11 @@ export default {
         title: '提示：请再次确认',
         content: '要撤下该评论吗？',
         onOk: async () => {
-          this.commentInfo.status = 2
-          const { data: res } = await this.$http.put(`checkcomment/${id}`, this.commentInfo)
-          console.log('res: ', res)
+          const { data: res_status } = await this.$http.get(`comment/info/${id}`)
+          if (res_status.data.status === 2) return this.$message.error('该评论已处于未审核状态，无需撤下')
+          const { data: res } = await this.$http.put(`uncheckcomment/${id}`, {
+            status: 2,
+          })
           if (res.status != 200) return this.$message.error(res.message)
           this.$message.success('评论已撤下')
           this.getCommentList()

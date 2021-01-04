@@ -37,7 +37,7 @@
           </template>
         </v-list>
       </div>
-      <div class="text-center">
+      <div class="text-center" v-if="commentList">
         <v-pagination
           class="my-2"
           total-visible="7"
@@ -108,7 +108,6 @@ export default {
     },
     // 发送评论
     async pushComment() {
-      console.log(this.id)
       const { data: res } = await this.$http.post('addcomment', {
         article_id: parseInt(this.id),
         content: this.comment.content,

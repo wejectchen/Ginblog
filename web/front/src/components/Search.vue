@@ -19,14 +19,29 @@
           </v-col>
           <v-col>
             <v-card-title>
-              <v-chip color="pink" label class="mr-3 white--text">{{item.Category.name}}</v-chip>
+              <v-chip
+                color="green darken-2"
+                outlined
+                label
+                class="mr-3 white--text"
+              >{{item.Category.name}}</v-chip>
               <div>{{item.title}}</div>
             </v-card-title>
             <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
             <v-divider class="mx-4"></v-divider>
             <v-card-text class="d-flex align-center">
-              <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
-              <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:SS')}}</span>
+              <div class="d-flex align-center">
+                <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
+                <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+              </div>
+              <div class="mx-4 d-flex align-center">
+                <v-icon class="mr-1" small>{{'mdi-comment'}}</v-icon>
+                <span>{{item.comment_count}}</span>
+              </div>
+              <div class="mx-1 d-flex align-center">
+                <v-icon class="mr-1" small>{{'mdi-eye'}}</v-icon>
+                <span>{{item.read_count}}</span>
+              </div>
             </v-card-text>
           </v-col>
         </v-row>

@@ -13,7 +13,7 @@
         </v-col>
         <v-col>
           <v-card-title>
-            <v-chip color="pink" label class="mr-3 white--text">{{item.Category.name}}</v-chip>
+            <v-chip color="pink" outlined label class="mr-3 white--text">{{item.Category.name}}</v-chip>
             <div>{{item.title}}</div>
           </v-card-title>
           <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
@@ -23,12 +23,21 @@
               <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
               <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
             </div>
+            <div class="mx-4 d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-comment'}}</v-icon>
+              <span>{{item.comment_count}}</span>
+            </div>
+            <div class="mx-1 d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-eye'}}</v-icon>
+              <span>{{item.read_count}}</span>
+            </div>
           </v-card-text>
         </v-col>
       </v-row>
     </v-card>
     <div class="text-center">
       <v-pagination
+        color="indigo"
         total-visible="7"
         v-model="queryParam.pagenum"
         :length="Math.ceil(total/queryParam.pagesize)"
@@ -47,6 +56,7 @@ export default {
         pagenum: 1
       },
 
+      count: 0,
       total: 0
     }
   },
@@ -66,15 +76,6 @@ export default {
       this.artList = res.data
       this.total = res.total
     }
-    // 获取文章评论
-    // async getArtcomment_count() {
-    //   let commentCount
-    //   const { data: res } = await this.$http.get(
-    //     `commentcount/${this.artList.id}`
-    //   )
-    //   commentCount = res.total
-    //   return commentCount
-    // }
   }
 }
 </script>

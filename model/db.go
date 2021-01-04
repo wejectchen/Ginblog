@@ -5,6 +5,7 @@ import (
 	"ginblog/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"time"
 )
@@ -22,7 +23,7 @@ func InitDb() {
 		utils.DbName,
 	)
 	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
-		//Logger:logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
+		Logger:logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
 		DisableForeignKeyConstraintWhenMigrating: true, // 外键约束
 		SkipDefaultTransaction:                   true, // 禁用默认事务（提高运行速度）
 		NamingStrategy: schema.NamingStrategy{

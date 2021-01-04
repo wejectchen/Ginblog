@@ -24,9 +24,19 @@ func AddComment(data *Comment) int {
 	return errmsg.SUCCSE
 }
 
+// 查询单个评论
+func GetComment(id int) (Comment, int) {
+	var comment Comment
+	err = db.Where("id = ?",id).First(&comment).Error
+	if err != nil {
+		return comment,errmsg.ERROR
+	}
+	return comment,errmsg.SUCCSE
+}
+
 // 后台所有获取评论列表
 func GetCommentList(pageSize int, pageNum int) ([]Comment, int64, int) {
-
+	
 	var commentList []Comment
 	var total int64
 	db.Find(&commentList).Count(&total)
@@ -50,13 +60,13 @@ func GetCommentListFront(id int, pageSize int, pageNum int) ([]Comment, int64, i
 	var commentList []Comment
 	var total int64
 	db.Find(&Comment{}).Where("article_id = ?", id).Where("status = ?", 1).Count(&total)
-	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Select("comment.id, article.title, user_id, article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Where("article_id = ?", id).Where("status = ?", 1).Scan(&commentList).Error
+	err = db.Model(&Comment{}).Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Select("comment.id, article.title, user_id, article_id, user.username, comment.content, comment.status,comment.created_at,comment.deleted_at").Joins("LEFT JOIN article ON comment.article_id = article.id").Joins("LEFT JOIN user ON comment.user_id = user.id").Where("article_id = ?",
+		id).Where("status = ?", 1).Scan(&commentList).Error
 	if err != nil {
 		return commentList, 0, errmsg.ERROR
 	}
 	return commentList, total, errmsg.SUCCSE
 }
-
 
 // 编辑评论（暂不允许编辑评论）
 
@@ -73,10 +83,29 @@ func DeleteComment(id uint) int {
 // 通过评论
 func CheckComment(id int, data *Comment) int {
 	var comment Comment
+	var res Comment
+	var article Article
 	var maps = make(map[string]interface{})
 	maps["status"] = data.Status
+	
+	err = db.Model(&comment).Where("id = ?", id).Updates(maps).First(&res).Error
+	db.Model(&article).Where("id = ?", res.ArticleId).UpdateColumn("comment_count", gorm.Expr("comment_count + ?", 1))
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCSE
+}
 
-	err = db.Model(&comment).Where("id = ?", id).Updates(maps).Error
+// 撤下评论
+func UncheckComment(id int, data *Comment) int {
+	var comment Comment
+	var res Comment
+	var article Article
+	var maps = make(map[string]interface{})
+	maps["status"] = data.Status
+	
+	err = db.Model(&comment).Where("id = ?", id).Updates(maps).First(&res).Error
+	db.Model(&article).Where("id = ?", res.ArticleId).UpdateColumn("comment_count", gorm.Expr("comment_count - ?", 1))
 	if err != nil {
 		return errmsg.ERROR
 	}
