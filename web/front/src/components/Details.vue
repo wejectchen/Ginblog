@@ -1,14 +1,18 @@
 <template >
   <div>
-    <div class="d-flex justify-center pa-3 text-h4 font-weight-bold">{{artInfo.title}}</div>
-    <div class="d-flex justify-space-around align-center">
-      <div class="d-flex justify-center">
-        <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
+    <div class="d-flex justify-center pa-3 ma-1 text-h4 font-weight-bold">{{artInfo.title}}</div>
+    <div class="d-flex justify-center align-center">
+      <div class="d-flex mx-10 justify-center">
+        <v-icon class="mr-1" color="indigo" small>{{'mdi-calendar-month'}}</v-icon>
         <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
       </div>
-      <div class="d-flex justify-center">
-        <v-icon class="mr-1" small>{{'mdi-comment'}}</v-icon>
+      <div class="d-flex mr-10 justify-center">
+        <v-icon class="mr-1" color="pink" small>{{'mdi-comment'}}</v-icon>
         <span>{{total}}</span>
+      </div>
+      <div class="d-flex mr-10 justify-center">
+        <v-icon class="mr-1" color="green" small>{{'mdi-eye'}}</v-icon>
+        <span>{{artInfo.read_count}}</span>
       </div>
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
@@ -116,6 +120,7 @@ export default {
       })
       if (res.status !== 200) return this.$message.error(res.message)
       this.$message.success('评论成功，待审核后显示')
+      this.$router.go(0)
     }
   }
 }
