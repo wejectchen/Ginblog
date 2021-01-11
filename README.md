@@ -18,7 +18,7 @@ gin+vue 全栈制作一个博客。
 ## 目录结构
 
 ```shell
-│  .gitignore
+├─  .gitignore
 │  go.mod // 项目依赖
 │  go.sum
 │  latest_log.log

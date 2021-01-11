@@ -15,7 +15,7 @@ var err error
 
 func InitDb() {
 
-	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		utils.DbUser,
 		utils.DbPassWord,
 		utils.DbHost,
@@ -23,9 +23,9 @@ func InitDb() {
 		utils.DbName,
 	)
 	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
-		Logger:logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
-		DisableForeignKeyConstraintWhenMigrating: true, // 外键约束
-		SkipDefaultTransaction:                   true, // 禁用默认事务（提高运行速度）
+		Logger:                                   logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
+		DisableForeignKeyConstraintWhenMigrating: true,                                  // 外键约束
+		SkipDefaultTransaction:                   true,                                  // 禁用默认事务（提高运行速度）
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true, // 使用单数表名，启用该选项，此时，`User` 的表名应该是 `user`
 		},
@@ -35,7 +35,7 @@ func InitDb() {
 		fmt.Println("连接数据库失败，请检查参数：", err)
 	}
 
-	_ = db.AutoMigrate(&User{}, &Article{}, &Category{},Profile{},Comment{})
+	_ = db.AutoMigrate(&User{}, &Article{}, &Category{}, Profile{}, Comment{})
 
 	sqlDB, _ := db.DB()
 	// SetMaxIdleCons 设置连接池中的最大闲置连接数。
