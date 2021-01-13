@@ -16,8 +16,8 @@
         </a-col>
 
         <a-col :span="3">
-          <a-select placeholder="请选择分类" style="width:200px" @change="CateChange">
-            <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{item.name}}</a-select-option>
+          <a-select placeholder="请选择分类" style="width: 200px" @change="CateChange">
+            <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{ item.name }}</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="1">
@@ -42,16 +42,13 @@
               size="small"
               type="primary"
               icon="edit"
-              style="margin-right:15px"
+              style="margin-right: 15px"
               @click="$router.push(`/addart/${data.ID}`)"
-            >编辑</a-button>
-            <a-button
-              size="small"
-              type="danger"
-              icon="delete"
-              style="margin-right:15px"
-              @click="deleteArt(data.ID)"
-            >删除</a-button>
+              >编辑</a-button
+            >
+            <a-button size="small" type="danger" icon="delete" style="margin-right: 15px" @click="deleteArt(data.ID)"
+              >删除</a-button
+            >
           </div>
         </template>
       </a-table>
@@ -145,14 +142,20 @@ export default {
   methods: {
     // 获取文章列表
     async getArtList() {
-      const { data: res } = await this.$http.get('article', {
+      const { data: res } = await this.$http.get('admin/article', {
         params: {
           title: this.queryParam.title,
           pagesize: this.queryParam.pagesize,
           pagenum: this.queryParam.pagenum,
         },
       })
-      if (res.status != 200) return this.$message.error(res.message)
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
 
       this.Artlist = res.data
       this.pagination.total = res.total

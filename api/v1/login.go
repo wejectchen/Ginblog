@@ -46,3 +46,20 @@ func LoginFront(c *gin.Context) {
 		"token":   token,
 	})
 }
+
+type UpToken struct {
+	Token string `json:"token"`
+}
+
+// 验证token
+func CheckToken(c *gin.Context) {
+	var Token UpToken
+	_ = c.ShouldBindJSON(&Token)
+
+	_, code = middleware.CheckToken(Token.Token)
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  code,
+		"message": errmsg.GetErrMsg(code),
+	})
+}

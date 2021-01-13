@@ -24,21 +24,13 @@
         bordered
         @change="handleTableChange"
       >
-        <span slot="role" slot-scope="data">{{data == 1 ? '管理员':'订阅者'}}</span>
+        <span slot="role" slot-scope="data">{{ data == 1 ? '管理员' : '订阅者' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button
-              type="primary"
-              icon="edit"
-              style="margin-right:15px"
-              @click="editUser(data.ID)"
-            >编辑</a-button>
-            <a-button
-              type="danger"
-              icon="delete"
-              style="margin-right:15px"
-              @click="deleteUser(data.ID)"
-            >删除</a-button>
+            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editUser(data.ID)">编辑</a-button>
+            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteUser(data.ID)"
+              >删除</a-button
+            >
             <a-button type="info" icon="info" @click="updatePass(data.ID)">重置</a-button>
           </div>
         </template>
@@ -83,12 +75,7 @@
           <a-input v-model="userInfo.username"></a-input>
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
-          <a-switch
-            :checked="IsAdmin"
-            checked-children="是"
-            un-checked-children="否"
-            @change="adminChange"
-          />
+          <a-switch :checked="IsAdmin" checked-children="是" un-checked-children="否" @change="adminChange" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -271,14 +258,20 @@ export default {
   methods: {
     // 获取用户列表
     async getUserList() {
-      const { data: res } = await this.$http.get('users', {
+      const { data: res } = await this.$http.get('admin/users', {
         params: {
           username: this.queryParam.username,
           pagesize: this.queryParam.pagesize,
           pagenum: this.queryParam.pagenum,
         },
       })
-      if (res.status != 200) return this.$message.error(res.message)
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
       this.userlist = res.data
       this.pagination.total = res.total
     },

@@ -1,18 +1,13 @@
 <template>
   <div>
     <a-card>
-      <h3>{{id? '编辑文章':'新增文章'}}</h3>
+      <h3>{{ id ? '编辑文章' : '新增文章' }}</h3>
 
-      <a-form-model
-        :model="artInfo"
-        ref="artInfoRef"
-        :rules="artInfoRules"
-        :hideRequiredMark="true"
-      >
-        <a-row gutter="24">
+      <a-form-model :model="artInfo" ref="artInfoRef" :rules="artInfoRules" :hideRequiredMark="true">
+        <a-row :gutter="24">
           <a-col :span="16">
             <a-form-model-item label="文章标题" prop="title">
-              <a-input style="width:300px" v-model="artInfo.title"></a-input>
+              <a-input style="width: 300px" v-model="artInfo.title"></a-input>
             </a-form-model-item>
             <a-form-model-item label="文章描述" prop="desc">
               <a-input type="textarea" v-model="artInfo.desc"></a-input>
@@ -20,17 +15,10 @@
           </a-col>
           <a-col :span="8">
             <a-form-model-item label="文章分类" prop="cid">
-              <a-select
-                style="width:200px"
-                v-model="artInfo.cid"
-                placeholder="请选择分类"
-                @change="cateChange"
-              >
-                <a-select-option
-                  v-for="item in Catelist"
-                  :key="item.id"
-                  :value="item.id"
-                >{{item.name}}</a-select-option>
+              <a-select style="width: 200px" v-model="artInfo.cid" placeholder="请选择分类" @change="cateChange">
+                <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{
+                  item.name
+                }}</a-select-option>
               </a-select>
             </a-form-model-item>
 
@@ -43,12 +31,10 @@
                 :headers="headers"
                 @change="upChange"
               >
-                <a-button>
-                  <a-icon type="upload" />点击上传
-                </a-button>
+                <a-button> <a-icon type="upload" />点击上传 </a-button>
 
                 <template v-if="id">
-                  <img :src="artInfo.img" style="width:120px;height:100px;margin-left:15px" />
+                  <img :src="artInfo.img" style="width: 120px; height: 100px; margin-left: 15px" />
                 </template>
               </a-upload>
             </a-form-model-item>
@@ -59,11 +45,9 @@
         </a-form-model-item>
 
         <a-form-model-item>
-          <a-button
-            type="danger"
-            style="margin-right:15px"
-            @click.once="artOk(artInfo.id)"
-          >{{artInfo.id?'更新':"提交"}}</a-button>
+          <a-button type="danger" style="margin-right: 15px" @click.once="artOk(artInfo.id)">{{
+            artInfo.id ? '更新' : '提交'
+          }}</a-button>
           <a-button type="primary" @click.once="addCancel">取消</a-button>
         </a-form-model-item>
       </a-form-model>
@@ -113,15 +97,27 @@ export default {
   methods: {
     // 查询文章信息
     async getArtInfo(id) {
-      const { data: res } = await this.$http.get(`article/info/${id}`)
-      if (res.status !== 200) return this.$message.error(res.message)
+      const { data: res } = await this.$http.get(`admin/article/info/${id}`)
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
       this.artInfo = res.data
       this.artInfo.id = res.data.ID
     },
     // 获取分类列表
     async getCateList() {
-      const { data: res } = await this.$http.get('category')
-      if (res.status !== 200) return this.$message.error(res.message)
+      const { data: res } = await this.$http.get('admin/category')
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
       this.Catelist = res.data
     },
     // 选择分类

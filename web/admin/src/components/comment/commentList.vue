@@ -9,27 +9,18 @@
         bordered
         @change="handleTableChange"
       >
-        <span slot="status" slot-scope="data">{{data == 1 ? '审核通过':'未审核'}}</span>
+        <span slot="status" slot-scope="data">{{ data == 1 ? '审核通过' : '未审核' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button
-              type="primary"
-              icon="edit"
-              style="margin-right:15px"
-              @click="commentCheck(data.ID)"
-            >通过审核</a-button>
-            <a-button
-              type="primary"
-              icon="info"
-              style="margin-right:15px"
-              @click="commentUncheck(data.ID)"
-            >撤下评论</a-button>
-            <a-button
-              type="danger"
-              icon="delete"
-              style="margin-right:15px"
-              @click="deleteComment(data.ID)"
-            >删除</a-button>
+            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="commentCheck(data.ID)"
+              >通过审核</a-button
+            >
+            <a-button type="primary" icon="info" style="margin-right: 15px" @click="commentUncheck(data.ID)"
+              >撤下评论</a-button
+            >
+            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteComment(data.ID)"
+              >删除</a-button
+            >
           </div>
         </template>
       </a-table>
@@ -124,7 +115,14 @@ export default {
         pagesize: this.queryParam.pagesize,
         pagenum: this.queryParam.pagenum,
       })
-      if (res.status !== 200) return this.$message.error(res.message)
+
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
       this.commentList = res.data
       this.pagination.total = res.total
     },

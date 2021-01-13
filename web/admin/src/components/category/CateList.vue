@@ -17,18 +17,10 @@
       >
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button
-              type="primary"
-              icon="edit"
-              style="margin-right:15px"
-              @click="editCate(data.id)"
-            >编辑</a-button>
-            <a-button
-              type="danger"
-              icon="delete"
-              style="margin-right:15px"
-              @click="deleteCate(data.id)"
-            >删除</a-button>
+            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editCate(data.id)">编辑</a-button>
+            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteCate(data.id)"
+              >删除</a-button
+            >
           </div>
         </template>
       </a-table>
@@ -157,11 +149,18 @@ export default {
   methods: {
     // 获取分类列表
     async getCateList() {
-      const { data: res } = await this.$http.get('category', {
+      const { data: res } = await this.$http.get('admin/category', {
         pagesize: this.queryParam.pagesize,
         pagenum: this.queryParam.pagenum,
       })
-      if (res.status !== 200) return this.$message.error(res.message)
+
+      if (res.status !== 200) {
+        if (res.status === 1004 || 1005 || 1006 || 1007) {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        }
+        this.$message.error(res.message)
+      }
       this.Catelist = res.data
       this.pagination.total = res.total
     },
