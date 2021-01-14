@@ -27,11 +27,11 @@ func AddComment(data *Comment) int {
 // 查询单个评论
 func GetComment(id int) (Comment, int) {
 	var comment Comment
-	err = db.Where("id = ?",id).First(&comment).Error
+	err = db.Where("id = ?", id).First(&comment).Error
 	if err != nil {
-		return comment,errmsg.ERROR
+		return comment, errmsg.ERROR
 	}
-	return comment,errmsg.SUCCSE
+	return comment, errmsg.SUCCSE
 }
 
 // 后台所有获取评论列表

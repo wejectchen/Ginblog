@@ -55,6 +55,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var articleList []Article
 	var err error
 	var total int64
+	
 	if title == "" {
 		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Preload("Category").Find(&articleList).Error
 		// 单独计数
