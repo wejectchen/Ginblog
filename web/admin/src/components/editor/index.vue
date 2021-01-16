@@ -8,7 +8,7 @@
 import Editor from '@tinymce/tinymce-vue'
 import './tinymce.min.js'
 import './icons/default/icons.min.js'
-import './themes/silver/theme.min.js'
+import '../../assets/tinymce/themes/silver/theme.min.js'
 
 import './langs/zh_CN'
 
@@ -71,6 +71,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('./skins/ui/oxide/skin.min.css');
-@import url('./skins/content/default/content.min.css');
+@import url('../../assets/tinymce/skins/ui/oxide/skin.min.css');
+@import url('../../assets/tinymce/skins/content/default/content.min.css');
 </style>

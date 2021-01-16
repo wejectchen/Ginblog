@@ -31,7 +31,7 @@
             <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteUser(data.ID)"
               >删除</a-button
             >
-            <a-button type="info" icon="info" @click="updatePass(data.ID)">重置</a-button>
+            <a-button type="info" icon="info" @click="ChangePassword(data.ID)">修改密码</a-button>
           </div>
         </template>
       </a-table>
@@ -76,6 +76,26 @@
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
           <a-switch :checked="IsAdmin" checked-children="是" un-checked-children="否" @change="adminChange" />
+        </a-form-model-item>
+      </a-form-model>
+    </a-modal>
+
+    <!-- 修改密码 -->
+    <a-modal
+      closable
+      title="修改密码"
+      :visible="changePasswordVisible"
+      width="60%"
+      @ok="changePasswordOk"
+      @cancel="changePasswordCancel"
+      destroyOnClose
+    >
+      <a-form-model :model="changePassword" :rules="changePasswordRules" ref="changePasswordRef">
+        <a-form-model-item has-feedback label="密码" prop="password">
+          <a-input-password v-model="changePassword.password"></a-input-password>
+        </a-form-model-item>
+        <a-form-model-item has-feedback label="确认密码" prop="checkpass">
+          <a-input-password v-model="changePassword.checkpass"></a-input-password>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -136,6 +156,11 @@ export default {
         username: '',
         password: '',
         role: 2,
+        checkPass: '',
+      },
+      changePassword: {
+        id: 0,
+        password: '',
         checkPass: '',
       },
       columns,
@@ -239,8 +264,41 @@ export default {
           },
         ],
       },
+      changePasswordRules: {
+        password: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.changePassword.password == '') {
+                callback(new Error('请输入密码'))
+              }
+              if ([...this.changePassword.password].length < 6 || [...this.changePassword.password].length > 20) {
+                callback(new Error('密码应当在6到20位之间'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+        checkpass: [
+          {
+            validator: (rule, value, callback) => {
+              if (this.changePassword.checkpass == '') {
+                callback(new Error('请输入密码'))
+              }
+              if (this.changePassword.password !== this.changePassword.checkpass) {
+                callback(new Error('密码不一致，请重新输入'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
+        ],
+      },
       editUserVisible: false,
       addUserVisible: false,
+      changePasswordVisible: false,
     }
   },
   created() {
@@ -358,6 +416,30 @@ export default {
       this.$refs.addUserRef.resetFields()
       this.editUserVisible = false
       this.$message.info('编辑已取消')
+    },
+
+    // 修改密码
+    async ChangePassword(id) {
+      this.changePasswordVisible = true
+      const { data: res } = await this.$http.get(`user/${id}`)
+      this.changePassword.id = id
+    },
+    changePasswordOk() {
+      this.$refs.changePasswordRef.validate(async (valid) => {
+        if (!valid) return this.$message.error('参数不符合要求，请重新输入')
+        const { data: res } = await this.$http.put(`admin/changepw/${this.changePassword.id}`, {
+          password: this.changePassword.password,
+        })
+        if (res.status != 200) return this.$message.error(res.message)
+        this.changePasswordVisible = false
+        this.$message.success('修改密码成功')
+        this.getUserList()
+      })
+    },
+    changePasswordCancel() {
+      this.$refs.changePasswordRef.resetFields()
+      this.changePasswordVisible = false
+      this.$message.info('已取消')
     },
   },
 }
