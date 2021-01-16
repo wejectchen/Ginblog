@@ -185,16 +185,15 @@ export default {
       window.sessionStorage.setItem('username', res.data)
       window.sessionStorage.setItem('user_id', res.id)
       this.$message.success('登录成功')
-      this.$router.go('/')
+      this.$router.go(0)
     },
 
     // 退出
     loginout() {
       window.sessionStorage.clear('token')
       window.sessionStorage.clear('username')
-
-      this.$router.go('/')
       this.$message.success('退出成功')
+      this.$router.go(0)
     },
 
     // 注册
@@ -208,7 +207,7 @@ export default {
       })
       if (res.status !== 200) return this.$message.error(res.message)
       this.$message.success('注册成功')
-      this.$router.go('/')
+      this.$router.go(0)
     }
   }
 }

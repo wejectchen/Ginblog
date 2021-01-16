@@ -60,10 +60,11 @@ export default {
       total: 0
     }
   },
-  created() {
+  created() {},
+  mounted() {
     this.getArtList()
   },
-  computed: {},
+  filters: {},
   methods: {
     // 获取文章列表
     async getArtList() {
