@@ -7,7 +7,7 @@
 
       <div class="text-center white--text">
         <a class="text-center white--text" href="https://beian.miit.gov.cn/">
-          蜀ICP备19035448号
+          这里插入网站备案信息
         </a>
       </div>
     </v-row>
