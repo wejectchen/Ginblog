@@ -253,9 +253,15 @@ enjoy~~~~
 
 
 
+<<<<<<< HEAD
 ## Docker部署
 
 ### 	一、如何安装docker
+=======
+##  Docker部署
+
+### 一、如何安装docker
+>>>>>>> test
 
 官方文档：[Get Docker | Docker Documentation](https://docs.docker.com/get-docker/)
 
@@ -263,7 +269,11 @@ enjoy~~~~
 
 - 卸载旧版本
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
 Reading package lists... Done
@@ -279,7 +289,11 @@ Package 'runc' is not installed, so not removed
 
 - 添加新版本仓库
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 $ sudo apt-get update
 
 $ sudo apt-get install \
@@ -292,13 +306,21 @@ $ sudo apt-get install \
 
 - 获取官方GPG key
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 - 验证key,如果输出的是下列内容，则说明正确
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 $ sudo apt-key fingerprint 0EBFCD88
 
 pub  rsa4096 2017-02-22 [SCEA]
@@ -309,7 +331,11 @@ sub  rsa4096 2017-02-22 [S]
 
 - 添加仓库地址
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 $ sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
@@ -324,7 +350,11 @@ $ sudo add-apt-repository \
 
 - 更新仓库和安装
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
  $ sudo apt-get update
 
  $ sudo apt-get install docker-ce docker-ce-cli containerd.io
@@ -332,7 +362,11 @@ $ sudo add-apt-repository \
 
 - 进行验证，运行hello-world
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 docker search hello-world
 docker pull hello-world
 
@@ -356,7 +390,11 @@ https://docs.docker.com/get-started/
 
 - 额外：配置国内仓储镜像，保证拉取速度
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 # 这里以阿里云为例，阿里云为用户提供了私人仓库，配置有所不同。
 
 # 具体需要登录阿里云管理，进入控制台，找到 `镜像加速服务` -> `镜像工具` -> `镜像加速器`
@@ -384,11 +422,17 @@ sudo systemctl restart docker
 1. **必须做数据卷的映射，`千万不能` 将数据库数据放在docker容器中运行，否中一但删除容器数据将全部清空，所以一定要做数据持久化！！；**
 2. **不利于io，数据读写在容器中读写一次，在绑定的卷中还要读取一次，两倍读写压力，性能上要打折扣。**
 
+<<<<<<< HEAD
 
 
 如果非要在docker上部署mysql，可以这么做
 
 ```shell
+=======
+如果非要在docker上部署mysql，可以这么做
+
+```
+>>>>>>> test
 #首先确定mysql是否能被搜素到，这步可以跳过，也可以在dockerhub.com中搜索
 docker search mysql
 
@@ -427,13 +471,20 @@ mysql>
 # 之后就和一般情况下mysql的操作一样了,最好用
 ```
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> test
 ### 制作ginblog项目镜像
 
 - 首相要拉取我们的ginblog项目
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 # 新建一个项目文件夹，在你认为任何适合的地方都可以
 $ cd /
 $ mkdir app
@@ -443,7 +494,11 @@ $ git clone 项目地址
 
 - 编写Dockerfile
 
+<<<<<<< HEAD
 ```dockerfile
+=======
+```
+>>>>>>> test
 FROM golang:latest
 RUN go env -w GO111MODULE=on
 RUN go env -w GOPROXY=https://goproxy.cn,https://goproxy.io,direct
@@ -460,7 +515,11 @@ ENTRYPOINT ["./ginblog"]
 
 - 配置ginblog的config
 
+<<<<<<< HEAD
 ```ini
+=======
+```
+>>>>>>> test
 # config/config.ini
 # DbHost = ginblog-mysql 是为了后面容器互通做准备，对应的是mysql容器的name
 
@@ -476,7 +535,11 @@ DbName = ginblog
 
 - 最后我们在确定下前端 `web` 文件夹下的axios请求地址
 
+<<<<<<< HEAD
 ```javascript
+=======
+```
+>>>>>>> test
 // 在 web/admin/src/plugin/http.js 和 web/front/src/plugin/http.js 两个文件夹中,将 baseURL地址改为部署的服务器线上地址
 
 axios.defaults.baseURL = 'http://localhost:3000/api/v1'
@@ -484,12 +547,20 @@ axios.defaults.baseURL = 'http://localhost:3000/api/v1'
 // 修改为
 
 axios.defaults.baseURL = 'http://线上服务器ip或域名:3000/api/v1'
+<<<<<<< HEAD
 
 ```
 
 **别忘了，修改完地址后，重新打包下** 
 
 ```shell
+=======
+```
+
+**别忘了，修改完地址后，重新打包下**
+
+```
+>>>>>>> test
 $ yarn build
 
 $ npm run build
@@ -499,7 +570,11 @@ $ npm run build
 
 最后一步，就是生成我们的ginblog docker image了，这部很简单，运行下列命令
 
+<<<<<<< HEAD
 ```shell
+=======
+```
+>>>>>>> test
 $ docker build -t ginblog .
 $ docker run -d -p 3000:3000 --name ginblog ginblog
 ```

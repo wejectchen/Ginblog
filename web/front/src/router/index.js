@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import ArticleList from '../components/ArticleList.vue'
-import Detail from '../components/Details.vue'
-import Category from '../components/CateList.vue'
-import Search from '../components/Search.vue'
+// import Home from '../views/Home.vue'
+// import ArticleList from '../components/ArticleList.vue'
+// import Detail from '../components/Details.vue'
+// import Category from '../components/CateList.vue'
+// import Search from '../components/Search.vue'
+const Home = () => import(/* webpackChunkName: "group-index" */ '../views/Home.vue')
+const ArticleList = () => import(/* webpackChunkName: "group-index" */ '../components/ArticleList.vue')
+const Detail = () => import(/* webpackChunkName: "group-detail" */ '../components/Details.vue')
+const Category = () => import(/* webpackChunkName: "group-category" */'../components/CateList.vue')
+const Search = () => import(/* webpackChunkName: "group-search" */ '../components/Search.vue')
 
 Vue.use(VueRouter)
 
@@ -45,6 +50,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
