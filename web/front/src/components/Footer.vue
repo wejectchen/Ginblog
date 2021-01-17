@@ -6,10 +6,7 @@
       </v-col>
 
       <div class="text-center white--text">
-        <a
-          class="text-center white--text"
-          href="https://www.beian.miit.gov.cn/"
-        >
+        <a class="text-center white--text" href="https://beian.miit.gov.cn/">
           蜀ICP备19035448号
         </a>
       </div>
