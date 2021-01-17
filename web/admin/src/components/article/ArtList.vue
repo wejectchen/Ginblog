@@ -12,7 +12,7 @@
           />
         </a-col>
         <a-col :span="4">
-          <a-button type="primary" @click="$router.push('/addart')">新增</a-button>
+          <a-button icon="folder-add" type="primary" @click="$router.push('/addart')">新增</a-button>
         </a-col>
 
         <a-col :span="3">
@@ -149,23 +149,23 @@ export default {
           pagenum: this.queryParam.pagenum,
         },
       })
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
 
-      this.Artlist = res.data
-      this.pagination.total = res.total
+      this.Artlist = res.data.list
+      this.pagination.total = res.data.total
     },
     // 获取分类
     async getCateList() {
       const { data: res } = await this.$http.get('category')
-      if (res.status !== 200) return this.$message.error(res.message)
-      this.Catelist = res.data
-      this.pagination.total = res.total
+      if (res.code !== 200) return this.$message.error(res.message)
+      this.Catelist = res.data.list
+      this.pagination.total = res.data.total
     },
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
@@ -189,9 +189,9 @@ export default {
         content: '确定要删除该文章吗？一旦删除，无法恢复',
         onOk: async () => {
           const { data: res } = await this.$http.delete(`article/${id}`)
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code !== 200) return this.$message.error(res.message)
           this.$message.success('删除成功')
-          this.getArtList()
+          await this.getArtList()
         },
         onCancel: () => {
           this.$message.info('已取消删除')
@@ -206,9 +206,9 @@ export default {
       const { data: res } = await this.$http.get(`article/list/${id}`, {
         params: { pagesize: this.queryParam.pagesize, pagenum: this.queryParam.pagenum },
       })
-      if (res.status !== 200) return this.$message.error(res.message)
-      this.Artlist = res.data
-      this.pagination.total = res.total
+      if (res.code !== 200) return this.$message.error(res.message)
+      this.Artlist = res.data.list
+      this.pagination.total = res.data.total
     },
   },
 }

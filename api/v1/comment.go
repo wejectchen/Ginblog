@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"github.com/gin-gonic/gin"
@@ -14,10 +15,10 @@ func AddComment(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 
 	code = model.AddComment(&data)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    data,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -25,10 +26,10 @@ func AddComment(c *gin.Context) {
 func GetComment(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data,code := model.GetComment(id)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    data,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -36,9 +37,9 @@ func GetComment(c *gin.Context)  {
 func DeleteComment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	code = model.DeleteComment(uint(id))
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -46,8 +47,10 @@ func DeleteComment(c *gin.Context) {
 func GetCommentCount(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	total := model.GetCommentCount(id)
-	c.JSON(http.StatusOK, gin.H{
-		"total": total,
+	c.JSON(http.StatusOK, &server.Message1{
+		Data: map[string]interface{}{
+			"total":total,
+		},
 	})
 }
 
@@ -69,11 +72,13 @@ func GetCommentList(c *gin.Context) {
 
 	data, total, code := model.GetCommentList(pageSize, pageNum)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:  map[string]interface{}{
+			"list":data,
+			"total":total,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 
 }
@@ -97,11 +102,13 @@ func GetCommentListFront(c *gin.Context) {
 
 	data, total, code := model.GetCommentListFront(id,pageSize, pageNum)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    map[string]interface{}{
+			"list":data,
+			"total":total,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 
 }
@@ -114,9 +121,9 @@ func Checkcomment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	code = model.CheckComment(id, &data)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -125,10 +132,10 @@ func UnCheckcomment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
-	
+
 	code = model.UncheckComment(id, &data)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }

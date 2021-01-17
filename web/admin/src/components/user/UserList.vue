@@ -8,6 +8,7 @@
             placeholder="输入用户名查找"
             enter-button
             allowClear
+            destroyOnClose
             @search="getUserList"
           />
         </a-col>
@@ -24,7 +25,7 @@
         bordered
         @change="handleTableChange"
       >
-        <span slot="role" slot-scope="data">{{ data == 1 ? '管理员' : '订阅者' }}</span>
+        <span slot="role" slot-scope="data">{{ data === 1 ? '管理员' : '订阅者' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
             <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editUser(data.ID)">编辑</a-button>
@@ -49,13 +50,19 @@
     >
       <a-form-model :model="newUser" :rules="addUserRules" ref="addUserRef">
         <a-form-model-item label="用户名" prop="username">
-          <a-input v-model="newUser.username"></a-input>
+          <a-input v-model="newUser.username" allow-clear>
+            <a-icon slot="prefix" type="user" />
+          </a-input>
         </a-form-model-item>
-        <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input-password v-model="newUser.password"></a-input-password>
+        <a-form-model-item  has-feedback label="密码" prop="password">
+          <a-input-password allow-clear v-model="newUser.password">
+            <a-icon slot="prefix" type="lock" />
+          </a-input-password>
         </a-form-model-item>
         <a-form-model-item has-feedback label="确认密码" prop="checkpass">
-          <a-input-password v-model="newUser.checkpass"></a-input-password>
+          <a-input-password allow-clear v-model="newUser.checkpass">
+            <a-icon slot="prefix" type="lock" />
+          </a-input-password>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -72,14 +79,15 @@
     >
       <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
         <a-form-model-item label="用户名" prop="username">
-          <a-input v-model="userInfo.username"></a-input>
+          <a-input v-model="userInfo.username" allow-clear>
+            <a-icon slot="prefix" type="user" />
+          </a-input>
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
           <a-switch :checked="IsAdmin" checked-children="是" un-checked-children="否" @change="adminChange" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
-
     <!-- 修改密码 -->
     <a-modal
       closable
@@ -92,10 +100,14 @@
     >
       <a-form-model :model="changePassword" :rules="changePasswordRules" ref="changePasswordRef">
         <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input-password v-model="changePassword.password"></a-input-password>
+          <a-input-password allow-clear v-model="changePassword.password">
+            <a-icon slot="prefix" type="lock" />
+          </a-input-password>
         </a-form-model-item>
         <a-form-model-item has-feedback label="确认密码" prop="checkpass">
-          <a-input-password v-model="changePassword.checkpass"></a-input-password>
+          <a-input-password allow-clear v-model="changePassword.checkpass">
+            <a-icon slot="prefix" type="lock" />
+          </a-input-password>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -174,7 +186,7 @@ export default {
         username: [
           {
             validator: (rule, value, callback) => {
-              if (this.userInfo.username == '') {
+              if (this.userInfo.username === '') {
                 callback(new Error('请输入用户名'))
               }
               if ([...this.userInfo.username].length < 4 || [...this.userInfo.username].length > 12) {
@@ -189,7 +201,7 @@ export default {
         password: [
           {
             validator: (rule, value, callback) => {
-              if (this.userInfo.password == '') {
+              if (this.userInfo.password === '') {
                 callback(new Error('请输入密码'))
               }
               if ([...this.userInfo.password].length < 6 || [...this.userInfo.password].length > 20) {
@@ -204,7 +216,7 @@ export default {
         checkpass: [
           {
             validator: (rule, value, callback) => {
-              if (this.userInfo.checkpass == '') {
+              if (this.userInfo.checkpass === '') {
                 callback(new Error('请输入密码'))
               }
               if (this.userInfo.password !== this.userInfo.checkpass) {
@@ -221,7 +233,7 @@ export default {
         username: [
           {
             validator: (rule, value, callback) => {
-              if (this.newUser.username == '') {
+              if (this.newUser.username === '') {
                 callback(new Error('请输入用户名'))
               }
               if ([...this.newUser.username].length < 4 || [...this.newUser.username].length > 12) {
@@ -236,7 +248,7 @@ export default {
         password: [
           {
             validator: (rule, value, callback) => {
-              if (this.newUser.password == '') {
+              if (this.newUser.password === '') {
                 callback(new Error('请输入密码'))
               }
               if ([...this.newUser.password].length < 6 || [...this.newUser.password].length > 20) {
@@ -251,7 +263,7 @@ export default {
         checkpass: [
           {
             validator: (rule, value, callback) => {
-              if (this.newUser.checkpass == '') {
+              if (this.newUser.checkpass === '') {
                 callback(new Error('请输入密码'))
               }
               if (this.newUser.password !== this.newUser.checkpass) {
@@ -268,7 +280,7 @@ export default {
         password: [
           {
             validator: (rule, value, callback) => {
-              if (this.changePassword.password == '') {
+              if (this.changePassword.password === '') {
                 callback(new Error('请输入密码'))
               }
               if ([...this.changePassword.password].length < 6 || [...this.changePassword.password].length > 20) {
@@ -283,7 +295,7 @@ export default {
         checkpass: [
           {
             validator: (rule, value, callback) => {
-              if (this.changePassword.checkpass == '') {
+              if (this.changePassword.checkpass === '') {
                 callback(new Error('请输入密码'))
               }
               if (this.changePassword.password !== this.changePassword.checkpass) {
@@ -306,11 +318,7 @@ export default {
   },
   computed: {
     IsAdmin: function () {
-      if (this.userInfo.role === 1) {
-        return true
-      } else {
-        return false
-      }
+      return this.userInfo.role === 1;
     },
   },
   methods: {
@@ -323,15 +331,15 @@ export default {
           pagenum: this.queryParam.pagenum,
         },
       })
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
-      this.userlist = res.data
-      this.pagination.total = res.total
+      this.userlist = res.data.list
+      this.pagination.total = res.data.total
     },
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
@@ -355,9 +363,9 @@ export default {
         content: '确定要删除该用户吗？一旦删除，无法恢复',
         onOk: async () => {
           const { data: res } = await this.$http.delete(`user/${id}`)
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code !== 200) return this.$message.error(res.message)
           this.$message.success('删除成功')
-          this.getUserList()
+          await this.getUserList()
         },
         onCancel: () => {
           this.$message.info('已取消删除')
@@ -373,11 +381,11 @@ export default {
           password: this.newUser.password,
           role: this.newUser.role,
         })
-        if (res.status != 200) return this.$message.error(res.message)
+        if (res.code !== 200) return this.$message.error(res.message)
         this.$refs.addUserRef.resetFields()
         this.addUserVisible = false
         this.$message.success('添加用户成功')
-        this.getUserList()
+        await this.getUserList()
       })
     },
     addUserCancel() {
@@ -396,7 +404,7 @@ export default {
     async editUser(id) {
       this.editUserVisible = true
       const { data: res } = await this.$http.get(`user/${id}`)
-      this.userInfo = res.data
+      this.userInfo = res.data.list
       this.userInfo.id = id
     },
     editUserOk() {
@@ -406,10 +414,10 @@ export default {
           username: this.userInfo.username,
           role: this.userInfo.role,
         })
-        if (res.status != 200) return this.$message.error(res.message)
+        if (res.code !== 200) return this.$message.error(res.message)
         this.editUserVisible = false
         this.$message.success('更新用户信息成功')
-        this.getUserList()
+        await this.getUserList()
       })
     },
     editUserCancel() {
@@ -417,7 +425,6 @@ export default {
       this.editUserVisible = false
       this.$message.info('编辑已取消')
     },
-
     // 修改密码
     async ChangePassword(id) {
       this.changePasswordVisible = true
@@ -430,10 +437,10 @@ export default {
         const { data: res } = await this.$http.put(`admin/changepw/${this.changePassword.id}`, {
           password: this.changePassword.password,
         })
-        if (res.status != 200) return this.$message.error(res.message)
+        if (res.code !== 200) return this.$message.error(res.message)
         this.changePasswordVisible = false
         this.$message.success('修改密码成功')
-        this.getUserList()
+        await this.getUserList()
       })
     },
     changePasswordCancel() {

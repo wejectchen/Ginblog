@@ -24,6 +24,7 @@
           hide-details
           solo-inverted
           rounded
+          clearable
           placeholder="请输入文章标题查找"
           dark
           append-icon="mdi-text-search"
@@ -50,6 +51,9 @@
                   hint="至少4个字符"
                   counter="12"
                   :rules="nameRules"
+                  prepend-inner-icon="mdi-account"
+                  clearable
+                  outlined
                   label="请输入用户名"
                 ></v-text-field>
                 <v-text-field
@@ -58,12 +62,24 @@
                   counter="20"
                   :rules="passwordRules"
                   label="请输入密码"
-                  type="password"
+                  :type="show1 ? 'text' : 'password'"
+                  prepend-inner-icon="mdi-key"
+                  clearable
+                  outlined
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
                 ></v-text-field>
               </v-card-text>
               <v-card-actions class="justify-end">
-                <v-btn text @click="login">确定</v-btn>
-                <v-btn text @click="dialog.value = false">取消</v-btn>
+                <v-btn
+                    color="primary"
+                    rounded
+                    depressed
+                    text @click="login">登录
+                </v-btn>
+                <v-btn
+                    text @click="dialog.value = false">取消
+                </v-btn>
               </v-card-actions>
             </v-form>
           </v-card>
@@ -82,6 +98,9 @@
                 <v-text-field
                   v-model="formdata.username"
                   hint="至少4个字符"
+                  prepend-inner-icon="mdi-account"
+                  clearable
+                  outlined
                   counter="12"
                   :rules="nameRules"
                   label="请输入用户名"
@@ -92,7 +111,12 @@
                   hint="至少6个字符"
                   counter="20"
                   label="请输入密码"
-                  type="password"
+                  :type="show1 ? 'text' : 'password'"
+                  prepend-inner-icon="mdi-key"
+                  clearable
+                  outlined
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
                 ></v-text-field>
                 <v-text-field
                   v-model="checkPassword"
@@ -100,11 +124,16 @@
                   hint="至少6个字符"
                   counter="20"
                   label="请确认密码"
-                  type="password"
+                  :type="show1 ? 'text' : 'password'"
+                  prepend-inner-icon="mdi-key"
+                  clearable
+                  outlined
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
                 ></v-text-field>
               </v-card-text>
               <v-card-actions class="justify-end">
-                <v-btn text @click="registerUser">确定</v-btn>
+                <v-btn text @click="registerUser">注册</v-btn>
                 <v-btn text @click="dialog.value = false">取消</v-btn>
               </v-card-actions>
             </v-card>
@@ -119,6 +148,8 @@
 export default {
   data() {
     return {
+      show1:false,
+      password: 'Password',
       valid: true,
       registerformvalid: true,
       cateList: [],
@@ -165,7 +196,7 @@ export default {
     // 获取分类
     async GetCateList() {
       const { data: res } = await this.$http.get('category')
-      this.cateList = res.data
+      this.cateList = res.data.list
     },
 
     // 查找文章标题
@@ -181,9 +212,9 @@ export default {
       if (!this.$refs.loginFormRef.validate())
         return this.$message.error('输入数据非法，请检查输入的用户名和密码')
       const { data: res } = await this.$http.post('loginfront', this.formdata)
-      if (res.status !== 200) return this.$message.error(res.message)
-      window.sessionStorage.setItem('username', res.data)
-      window.sessionStorage.setItem('user_id', res.id)
+      if (res.code !== 200) return this.$message.error(res.message)
+      window.sessionStorage.setItem('username', res.data.username)
+      window.sessionStorage.setItem('user_id', res.data.id)
       this.$message.success('登录成功')
       this.$router.go(0)
     },
@@ -205,7 +236,7 @@ export default {
         password: this.formdata.password,
         role: 2
       })
-      if (res.status !== 200) return this.$message.error(res.message)
+      if (res.code !== 200) return this.$message.error(res.message)
       this.$message.success('注册成功')
       this.$router.go(0)
     }

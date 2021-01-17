@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="total == 0 && isLoad" class="d-flex justify-center align-center">
+    <div v-if="total === 0 && isLoad" class="d-flex justify-center align-center">
       <div>
         <v-alert class="ma-5" dense outlined type="error">抱歉，你搜索的文章标题不存在！</v-alert>
       </div>
@@ -85,8 +85,8 @@ export default {
         }
       })
 
-      this.artList = res.data
-      this.total = res.total
+      this.artList = res.data.list
+      this.total = res.data.total
       this.isLoad = true
     }
   }

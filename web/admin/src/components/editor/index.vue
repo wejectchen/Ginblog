@@ -8,7 +8,7 @@
 import Editor from '@tinymce/tinymce-vue'
 import './tinymce.min.js'
 import './icons/default/icons.min.js'
-import '../../assets/tinymce/themes/silver/theme.min.js'
+import './themes/silver/theme.min.js'
 
 import './langs/zh_CN'
 
@@ -48,10 +48,10 @@ export default {
         //上传图片
         images_upload_handler: async (blobInfo, succFun, failFun) => {
           let formdata = new FormData()
-          formdata.append('file', blobInfo.blob(), blobInfo.name())
+          formdata.append('image', blobInfo.blob(), blobInfo.name())
           const { data: res } = await this.$http.post('upload', formdata)
           succFun(res.url)
-          failFun(this.$message.error('上传图片失败'))
+          failFun(this.$message.error('图片上传成功'))
         },
         imagetools_cors_hosts: ['*'],
         imagetools_proxy: '',
@@ -71,6 +71,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('../../assets/tinymce/skins/ui/oxide/skin.min.css');
-@import url('../../assets/tinymce/skins/content/default/content.min.css');
+@import url('./skins/ui/oxide/skin.min.css');
+@import url('./skins/content/default/content.min.css');
 </style>

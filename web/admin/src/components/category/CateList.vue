@@ -3,7 +3,7 @@
     <a-card>
       <a-row :gutter="20">
         <a-col :span="4">
-          <a-button type="primary" @click="addCateVisible = true">新增分类</a-button>
+          <a-button icon="folder-add" type="primary" @click="addCateVisible = true">新增分类</a-button>
         </a-col>
       </a-row>
 
@@ -34,11 +34,10 @@
       width="60%"
       @ok="addCateOk"
       @cancel="addCateCancel"
-      destroyOnClose
     >
       <a-form-model :model="newCate" :rules="addCateRules" ref="addCateRef">
         <a-form-model-item label="分类名称" prop="name">
-          <a-input v-model="newCate.name"></a-input>
+          <a-input allow-clear v-model="newCate.name"></a-input>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -55,7 +54,7 @@
     >
       <a-form-model :model="CateInfo" :rules="CateRules" ref="addCateRef">
         <a-form-model-item label="分类名称" prop="name">
-          <a-input v-model="CateInfo.name"></a-input>
+          <a-input allow-clear v-model="CateInfo.name"></a-input>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -154,15 +153,15 @@ export default {
         pagenum: this.queryParam.pagenum,
       })
 
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
-      this.Catelist = res.data
-      this.pagination.total = res.total
+      this.Catelist = res.data.list
+      this.pagination.total = res.data.total
     },
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
@@ -186,9 +185,9 @@ export default {
         content: '确定要删除该分类吗？一旦删除，无法恢复',
         onOk: async () => {
           const { data: res } = await this.$http.delete(`category/${id}`)
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code !== 200) return this.$message.error(res.message)
           this.$message.success('删除成功')
-          this.getCateList()
+          await this.getCateList()
         },
         onCancel: () => {
           this.$message.info('已取消删除')
@@ -202,7 +201,7 @@ export default {
         const { data: res } = await this.$http.post('category/add', {
           name: this.newCate.name,
         })
-        if (res.status != 200) return this.$message.error(res.message)
+        if (res.code !== 200) return this.$message.error(res.message)
         this.$refs.addCateRef.resetFields()
         this.addCateVisible = false
         this.$message.success('添加分类成功')
@@ -227,10 +226,10 @@ export default {
         const { data: res } = await this.$http.put(`category/${this.CateInfo.id}`, {
           name: this.CateInfo.name,
         })
-        if (res.status != 200) return this.$message.error(res.message)
+        if (res.code !== 200) return this.$message.error(res.message)
         this.editCateVisible = false
         this.$message.success('更新分类信息成功')
-        this.getCateList()
+        await this.getCateList()
       })
     },
     editCateCancel() {

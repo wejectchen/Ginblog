@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"ginblog/utils/validator"
@@ -20,28 +21,27 @@ func AddUser(c *gin.Context) {
 	msg, code = validator.Validate(&data)
 	if code != errmsg.SUCCSE {
 		c.JSON(
-			http.StatusOK, gin.H{
-				"status":  code,
-				"message": msg,
+			http.StatusOK, &server.Message1{
+				Code:  code,
+				Message: msg,
 			},
 		)
 		c.Abort()
+	}else {
+		code = model.CheckUser(data.Username)
+		if code == errmsg.SUCCSE {
+			model.CreateUser(&data)
+		}
+		if code == errmsg.ERROR_USERNAME_USED {
+			code = errmsg.ERROR_USERNAME_USED
+		}
+		c.JSON(
+			http.StatusOK, &server.Message1{
+				Code:  code,
+				Message: errmsg.GetErrMsg(code),
+			},
+		)
 	}
-
-	code = model.CheckUser(data.Username)
-	if code == errmsg.SUCCSE {
-		model.CreateUser(&data)
-	}
-	if code == errmsg.ERROR_USERNAME_USED {
-		code = errmsg.ERROR_USERNAME_USED
-	}
-
-	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
-		},
-	)
 }
 
 // 查询单个用户
@@ -52,11 +52,13 @@ func GetUserInfo(c *gin.Context) {
 	maps["username"] = data.Username
 	maps["role"] = data.Role
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"total":   1,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Data:    map[string]interface{}{
+				"list":data,
+				"total":1,
+			},
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 
@@ -83,11 +85,13 @@ func GetUsers(c *gin.Context) {
 
 	code = errmsg.SUCCSE
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"total":   total,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Data:    map[string]interface{}{
+				"list":data,
+				"total":total,
+			},
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }
@@ -107,14 +111,12 @@ func EditUser(c *gin.Context) {
 	}
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }
-
-// 修改密码
 func ChangeUserPassword(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -137,9 +139,9 @@ func DeleteUser(c *gin.Context) {
 	code = model.DeleteUser(id)
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }

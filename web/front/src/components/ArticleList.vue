@@ -1,47 +1,46 @@
 <template>
   <v-col>
     <v-card
-      class="ma-3 d-flex flex-no-wrap justify-space-between align-center"
+      class="ma-3"
       v-for="item in artList"
       :key="item.id"
       link
       @click="$router.push(`/detail/${item.ID}`)"
     >
-      <v-avatar class="ma-3" size="125" tile>
-        <v-img :src="item.img"></v-img>
-      </v-avatar>
-
-      <v-col>
-        <v-card-title>
-          <v-chip color="pink" outlined label class="mr-3 white--text">{{
-            item.Category.name
-          }}</v-chip>
-          <div>{{ item.title }}</div>
-        </v-card-title>
-        <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
-        <v-divider class="mx-4"></v-divider>
-        <v-card-text class="d-flex align-center">
-          <div class="d-flex align-center">
-            <v-icon class="mr-1" small>{{ 'mdi-calendar-month' }}</v-icon>
-            <span>{{ item.CreatedAt | dateformat('YYYY-MM-DD HH:MM') }}</span>
-          </div>
-          <div class="mx-4 d-flex align-center">
-            <v-icon class="mr-1" small>{{ 'mdi-comment' }}</v-icon>
-            <span>{{ item.comment_count }}</span>
-          </div>
-          <div class="mx-1 d-flex align-center">
-            <v-icon class="mr-1" small>{{ 'mdi-eye' }}</v-icon>
-            <span>{{ item.read_count }}</span>
-          </div>
-        </v-card-text>
-      </v-col>
+      <v-row no-gutters class="d-flex align-center">
+        <v-col class="d-flex justify-center align-center ma-3" cols="1">
+          <v-img max-height="100" max-width="100" :src="item.img"></v-img>
+        </v-col>
+        <v-col>
+          <v-card-title>
+            <v-chip color="pink" outlined label class="mr-3 white--text">{{item.Category.name}}</v-chip>
+            <div>{{item.title}}</div>
+          </v-card-title>
+          <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
+          <v-divider class="mx-4"></v-divider>
+          <v-card-text class="d-flex align-center">
+            <div class="d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-calendar-month'}}</v-icon>
+              <span>{{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+            </div>
+            <div class="mx-4 d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-comment'}}</v-icon>
+              <span>{{item.comment_count}}</span>
+            </div>
+            <div class="mx-1 d-flex align-center">
+              <v-icon class="mr-1" small>{{'mdi-eye'}}</v-icon>
+              <span>{{item.read_count}}</span>
+            </div>
+          </v-card-text>
+        </v-col>
+      </v-row>
     </v-card>
     <div class="text-center">
       <v-pagination
         color="indigo"
         total-visible="7"
         v-model="queryParam.pagenum"
-        :length="Math.ceil(total / queryParam.pagesize)"
+        :length="Math.ceil(total/queryParam.pagesize)"
         @input="getArtList()"
       ></v-pagination>
     </div>
@@ -75,8 +74,8 @@ export default {
           pagenum: this.queryParam.pagenum
         }
       })
-      this.artList = res.data
-      this.total = res.total
+      this.artList = res.data.list
+      this.total = res.data.total
     }
   }
 }

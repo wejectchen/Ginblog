@@ -107,8 +107,8 @@ export default {
           pagenum: this.queryParam.pagenum
         }
       })
-      this.commentList = res.data
-      this.total = res.total
+      this.commentList = res.data.list
+      this.total = res.data.total
     },
     // 发送评论
     async pushComment() {
@@ -118,7 +118,7 @@ export default {
         user_id: parseInt(this.headers.user_id),
         username: this.headers.username
       })
-      if (res.status !== 200) return this.$message.error(res.message)
+      if (res.code !== 200) return this.$message.error(res.message)
       this.$message.success('评论成功，待审核后显示')
       this.$router.go(0)
     }

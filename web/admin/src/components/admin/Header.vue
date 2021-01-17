@@ -1,5 +1,5 @@
 <template>
-  <a-button type="danger" @click="loginOut">退出</a-button>
+  <a-button icon="export" type="danger" @click="loginOut">退出</a-button>
 </template>
 
 <script>

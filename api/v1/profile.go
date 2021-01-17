@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"github.com/gin-gonic/gin"
@@ -11,10 +12,10 @@ import (
 func GetProfile(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data, code := model.GetProfile(id)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    data,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -25,8 +26,8 @@ func UpdateProfile(c *gin.Context) {
 
 	code = model.UpdateProfile(id, &data)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }

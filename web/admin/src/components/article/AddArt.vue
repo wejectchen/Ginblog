@@ -7,10 +7,10 @@
         <a-row :gutter="24">
           <a-col :span="16">
             <a-form-model-item label="文章标题" prop="title">
-              <a-input style="width: 300px" v-model="artInfo.title"></a-input>
+              <a-input allowClear style="width: 300px" v-model="artInfo.title"></a-input>
             </a-form-model-item>
             <a-form-model-item label="文章描述" prop="desc">
-              <a-input type="textarea" v-model="artInfo.desc"></a-input>
+              <a-input allowClear type="textarea" v-model="artInfo.desc"></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="8">
@@ -24,6 +24,7 @@
 
             <a-form-model-item label="文章缩略图" prop="img">
               <a-upload
+                accept="image/png, image/jpeg"
                 listType="picture"
                 :defaultFileList="fileList"
                 name="file"
@@ -56,8 +57,9 @@
 </template>
 
 <script>
-import { Url } from '../../plugin/http'
+import {Url} from '@/plugin/http'
 import Editor from '../editor/index'
+
 export default {
   components: { Editor },
   props: ['id'],
@@ -98,10 +100,10 @@ export default {
     // 查询文章信息
     async getArtInfo(id) {
       const { data: res } = await this.$http.get(`admin/article/info/${id}`)
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
@@ -111,14 +113,14 @@ export default {
     // 获取分类列表
     async getCateList() {
       const { data: res } = await this.$http.get('admin/category')
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
-      this.Catelist = res.data
+      this.Catelist = res.data.list
     },
     // 选择分类
     cateChange(value) {
@@ -126,13 +128,12 @@ export default {
     },
     // 上传图片
     upChange(info) {
-      if (info.file.status !== 'uploading') {
+      if (info.file.code !== 'uploading') {
       }
-      if (info.file.status === 'done') {
+      if (info.file.code === 'done') {
         this.$message.success(`图片上传成功`)
-        const imgUrl = info.file.response.url
-        this.artInfo.img = imgUrl
-      } else if (info.file.status === 'error') {
+        this.artInfo.img = info.file.response.url
+      } else if (info.file.code === 'error') {
         this.$message.error(`图片上传失败`)
       }
     },
@@ -142,14 +143,14 @@ export default {
         if (!valid) return this.$message.error('参数验证未通过，请按要求录入文章内容')
         if (id === 0) {
           const { data: res } = await this.$http.post('article/add', this.artInfo)
-          if (res.status !== 200) return this.$message.error(res.message)
-          this.$router.push('/artlist')
+          if (res.code !== 200) return this.$message.error(res.message)
+          await this.$router.push('/artlist')
           this.$message.success('添加文章成功')
         } else {
           const { data: res } = await this.$http.put(`article/${id}`, this.artInfo)
-          if (res.status !== 200) return this.$message.error(res.message)
+          if (res.code !== 200) return this.$message.error(res.message)
 
-          this.$router.push('/artlist')
+          await this.$router.push('/artlist')
           this.$message.success('更新文章成功')
         }
       })

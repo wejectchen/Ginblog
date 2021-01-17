@@ -23,15 +23,11 @@ func InitDb() {
 		utils.DbName,
 	)
 	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
-		// gorm日志模式：silent
-		Logger: logger.Default.LogMode(logger.Silent),
-		// 外键约束
-		DisableForeignKeyConstraintWhenMigrating: true,
-		// 禁用默认事务（提高运行速度）
-		SkipDefaultTransaction: true,
+		Logger:                                   logger.Default.LogMode(logger.Silent), // gorm日志模式：silent
+		DisableForeignKeyConstraintWhenMigrating: true,                                  // 外键约束
+		SkipDefaultTransaction:                   true,                                  // 禁用默认事务（提高运行速度）
 		NamingStrategy: schema.NamingStrategy{
-			// 使用单数表名，启用该选项，此时，`User` 的表名应该是 `user`
-			SingularTable: true,
+			SingularTable: true, // 使用单数表名，启用该选项，此时，`User` 的表名应该是 `user`
 		},
 	})
 

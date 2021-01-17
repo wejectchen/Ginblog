@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"github.com/gin-gonic/gin"
@@ -15,10 +16,10 @@ func AddArticle(c *gin.Context) {
 
 	code = model.CreateArt(&data)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    data,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -41,11 +42,13 @@ func GetCateArt(c *gin.Context) {
 
 	data, code, total := model.GetCateArt(id, pageSize, pageNum)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:   map[string]interface{}{
+			"list":data,
+			"total":total,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -53,10 +56,10 @@ func GetCateArt(c *gin.Context) {
 func GetArtInfo(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data, code := model.GetArtInfo(id)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    data,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -79,11 +82,13 @@ func GetArt(c *gin.Context) {
 
 	data, code, total := model.GetArt(title, pageSize, pageNum)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"total":   total,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    map[string]interface{}{
+			"list":data,
+			"total":total,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -95,9 +100,9 @@ func EditArt(c *gin.Context) {
 
 	code = model.EditArt(id, &data)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -107,8 +112,8 @@ func DeleteArt(c *gin.Context) {
 
 	code = model.DeleteArt(id)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }

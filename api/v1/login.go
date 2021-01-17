@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/middleware"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
@@ -19,12 +20,14 @@ func Login(c *gin.Context) {
 	if code == errmsg.SUCCSE {
 		token, code = middleware.SetToken(formData.Username)
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    formData.Username,
-		"id":      formData.ID,
-		"message": errmsg.GetErrMsg(code),
-		"token":   token,
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Data:    map[string]interface{}{
+			"username":formData.Username,
+			"id":formData.ID,
+			"token":token,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -38,12 +41,14 @@ func LoginFront(c *gin.Context) {
 
 	formData, code = model.CheckLoginFront(formData.Username, formData.Password)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    formData.Username,
-		"id":      formData.ID,
-		"message": errmsg.GetErrMsg(code),
-		"token":   token,
+	c.JSON(http.StatusOK, server.Message1{
+		Code:  code,
+		Data:    map[string]interface{}{
+			"username":formData.Username,
+			"id":formData.ID,
+			"token":token,
+		},
+		Message: errmsg.GetErrMsg(code),
 	})
 }
 
@@ -58,8 +63,8 @@ func CheckToken(c *gin.Context) {
 
 	_, code = middleware.CheckToken(Token.Token)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+	c.JSON(http.StatusOK, server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
 	})
 }

@@ -92,8 +92,7 @@ func EditUser(id int, data *User) int {
 	}
 	return errmsg.SUCCSE
 }
-
-// 修改密码
+//修改密码
 func ChangePassword(id int, data *User) int {
 	//var user User
 	//var maps = make(map[string]interface{})
@@ -104,7 +103,6 @@ func ChangePassword(id int, data *User) int {
 	}
 	return errmsg.SUCCSE
 }
-
 // 删除用户
 func DeleteUser(id int) int {
 	var user User
@@ -120,7 +118,6 @@ func (u *User) BeforeSave(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
 	return nil
 }
-
 func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
 	return nil
@@ -128,60 +125,46 @@ func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
 
 // 生成密码
 func ScryptPw(password string) string {
-	const cost = 10
-
-	HashPw, err := bcrypt.GenerateFromPassword([]byte(password), cost)
+	const KeyLen = 10
+	HashPw, err := bcrypt.GenerateFromPassword([]byte(password), KeyLen)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return string(HashPw)
-	//const KeyLen = 10
-	//salt := make([]byte, 8)
-	//salt = []byte{12, 32, 4, 6, 66, 22, 222, 11}
-	//
-	//HashPw, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, KeyLen)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//fpw := base64.StdEncoding.EncodeToString(HashPw)
-	//return fpw
 }
 
 // 后台登录验证
-func CheckLogin(username string, password string) (User, int) {
+func CheckLogin(username string, password string) (User,int) {
 	var user User
-	var PasswordErr error
+	var PasswordErr = err
 
 	db.Where("username = ?", username).First(&user)
 
-	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-
 	if user.ID == 0 {
-		return user, errmsg.ERROR_USER_NOT_EXIST
+		return user,errmsg.ERROR_USER_NOT_EXIST
 	}
+
 	if PasswordErr != nil {
-		return user, errmsg.ERROR_PASSWORD_WRONG
+		return user,errmsg.ERROR_PASSWORD_WRONG
 	}
 	if user.Role != 1 {
-		return user, errmsg.ERROR_USER_NO_RIGHT
+		return user,errmsg.ERROR_USER_NO_RIGHT
 	}
-	return user, errmsg.SUCCSE
+	return user,errmsg.SUCCSE
 }
 
 // 前台登录
-func CheckLoginFront(username string, password string) (User, int) {
+func CheckLoginFront(username string, password string) (User,int) {
 	var user User
 	var PasswordErr error
 
 	db.Where("username = ?", username).First(&user)
-
 	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if user.ID == 0 {
-		return user, errmsg.ERROR_USER_NOT_EXIST
+		return user,errmsg.ERROR_USER_NOT_EXIST
 	}
-	if PasswordErr != nil {
-		return user, errmsg.ERROR_PASSWORD_WRONG
+	if PasswordErr!= nil{
+		return user,errmsg.ERROR_PASSWORD_WRONG
 	}
-	return user, errmsg.SUCCSE
+	return user,errmsg.SUCCSE
 }

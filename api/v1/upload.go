@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"github.com/gin-gonic/gin"
@@ -14,10 +15,12 @@ func UpLoad(c *gin.Context) {
 
 	url, code := model.UpLoadFile(file, fileSize)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-		"url":     url,
+	c.JSON(http.StatusOK, &server.Message1{
+		Code:  code,
+		Message: errmsg.GetErrMsg(code),
+		Data: map[string]interface{}{
+			"url":url,
+		},
 	})
 
 }

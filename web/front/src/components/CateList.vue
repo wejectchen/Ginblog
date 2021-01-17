@@ -81,8 +81,8 @@ export default {
         }
       })
 
-      this.artList = res.data
-      this.total = res.total
+      this.artList = res.data.list
+      this.total = res.data.total
       this.isLoad = true
     }
   }

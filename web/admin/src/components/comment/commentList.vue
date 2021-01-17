@@ -116,15 +116,15 @@ export default {
         pagenum: this.queryParam.pagenum,
       })
 
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
           this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
-      this.commentList = res.data
-      this.pagination.total = res.total
+      this.commentList = res.data.list
+      this.pagination.total = res.data.total
     },
 
     // 更改分页
@@ -150,11 +150,11 @@ export default {
         content: '要通过审核吗？',
         onOk: async () => {
           const { data: res_status } = await this.$http.get(`comment/info/${id}`)
-          if (res_status.data.status === 1) return this.$message.error('该评论已处于显示状态，无需审核')
+          if (res_status.data.code === 1) return this.$message.error('该评论已处于显示状态，无需审核')
           const { data: res } = await this.$http.put(`checkcomment/${id}`, {
             status: 1,
           })
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code != 200) return this.$message.error(res.message)
           this.$message.success('审核成功')
           this.getCommentList()
         },
@@ -171,11 +171,11 @@ export default {
         content: '要撤下该评论吗？',
         onOk: async () => {
           const { data: res_status } = await this.$http.get(`comment/info/${id}`)
-          if (res_status.data.status === 2) return this.$message.error('该评论已处于未审核状态，无需撤下')
+          if (res_status.data.code === 2) return this.$message.error('该评论已处于未审核状态，无需撤下')
           const { data: res } = await this.$http.put(`uncheckcomment/${id}`, {
             status: 2,
           })
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code != 200) return this.$message.error(res.message)
           this.$message.success('评论已撤下')
           this.getCommentList()
         },
@@ -192,7 +192,7 @@ export default {
         content: '要删除吗？',
         onOk: async () => {
           const { data: res } = await this.$http.delete(`delcomment/${id}`)
-          if (res.status != 200) return this.$message.error(res.message)
+          if (res.code != 200) return this.$message.error(res.message)
           this.$message.success('删除成功')
           this.getCommentList()
         },

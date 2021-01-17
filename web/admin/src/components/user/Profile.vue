@@ -3,31 +3,31 @@
     <a-card>
       <a-form-model>
         <a-form-model-item label="作者名称">
-          <a-input style="width: 300px" v-model="profileInfo.name"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.name"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="个人简介">
-          <a-input type="textarea" v-model="profileInfo.desc"></a-input>
+          <a-input allow-clear type="textarea" v-model="profileInfo.desc"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="QQ号码">
-          <a-input style="width: 300px" v-model="profileInfo.qq_chat"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.qq_chat"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="微信">
-          <a-input style="width: 300px" v-model="profileInfo.wechat"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.wechat"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="微博">
-          <a-input style="width: 300px" v-model="profileInfo.weibo"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.weibo"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="B站地址">
-          <a-input style="width: 300px" v-model="profileInfo.bili"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.bili"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="Email">
-          <a-input style="width: 300px" v-model="profileInfo.email"></a-input>
+          <a-input allow-clear style="width: 300px" v-model="profileInfo.email"></a-input>
         </a-form-model-item>
 
         <a-form-model-item label="头像">
@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-import { Url } from '../../plugin/http'
+import {Url} from '@/plugin/http'
 
 export default {
   data() {
@@ -87,10 +87,10 @@ export default {
     // 获取个人设置
     async getProfileInfo() {
       const { data: res } = await this.$http.get(`admin/profile/${this.profileInfo.id}`)
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
+      if (res.code !== 200) {
+        if (res.code === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
-          this.$router.push('/login')
+          await this.$router.push('/login')
         }
         this.$message.error(res.message)
       }
@@ -99,26 +99,24 @@ export default {
 
     // 上传头像
     avatarChange(info) {
-      if (info.file.status !== 'uploading') {
+      if (info.file.code !== 'uploading') {
       }
-      if (info.file.status === 'done') {
+      if (info.file.code === 'done') {
         this.$message.success(`图片上传成功`)
-        const imgUrl = info.file.response.url
-        this.profileInfo.avatar = imgUrl
-      } else if (info.file.status === 'error') {
+        this.profileInfo.avatar = info.file.response.url
+      } else if (info.file.code === 'error') {
         this.$message.error(`图片上传失败`)
       }
     },
 
     // 上传头像背景图
     imgChange(info) {
-      if (info.file.status !== 'uploading') {
+      if (info.file.code !== 'uploading') {
       }
-      if (info.file.status === 'done') {
+      if (info.file.code === 'done') {
         this.$message.success(`图片上传成功`)
-        const imgUrl = info.file.response.url
-        this.profileInfo.img = imgUrl
-      } else if (info.file.status === 'error') {
+        this.profileInfo.img = info.file.response.url
+      } else if (info.file.code === 'error') {
         this.$message.error(`图片上传失败`)
       }
     },
@@ -126,9 +124,9 @@ export default {
     // 更新
     async updateProfile() {
       const { data: res } = await this.$http.put(`profile/${this.profileInfo.id}`, this.profileInfo)
-      if (res.status !== 200) return this.$message.error(res.message)
+      if (res.code !== 200) return this.$message.error(res.message)
       this.$message.success(`个人信息更新成功`)
-      this.$router.push('/index')
+      await this.$router.push('/index')
     },
   },
 }

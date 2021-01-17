@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"ginblog/api/server"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
 	"github.com/gin-gonic/gin"
@@ -21,10 +22,10 @@ func AddCategory(c *gin.Context) {
 	}
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Data:    data,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }
@@ -36,10 +37,10 @@ func GetCateInfo(c *gin.Context) {
 	data, code := model.GetCateInfo(id)
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Data:    data,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 
@@ -64,11 +65,13 @@ func GetCate(c *gin.Context) {
 	data, total := model.GetCate(pageSize, pageNum)
 	code = errmsg.SUCCSE
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"total":   total,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Data:    map[string]interface{}{
+				"list":data,
+				"total":total,
+			},
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }
@@ -79,10 +82,10 @@ func GetCate(c *gin.Context) {
 //
 //	data,code := model.GetCateInfo(id)
 //
-//	c.JSON(http.StatusOK, gin.H{
-//		"status":  code,
-//		"data":    data,
-//		"message": errmsg.GetErrMsg(code),
+//	c.JSON(http.StatusOK, &server.Message1{
+//		Code:  code,
+//		Data:    data,
+//		Message: errmsg.GetErrMsg(code),
 //	})
 //}
 
@@ -100,9 +103,9 @@ func EditCate(c *gin.Context) {
 	}
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }
@@ -114,9 +117,9 @@ func DeleteCate(c *gin.Context) {
 	code = model.DeleteCate(id)
 
 	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
+		http.StatusOK, &server.Message1{
+			Code:  code,
+			Message: errmsg.GetErrMsg(code),
 		},
 	)
 }

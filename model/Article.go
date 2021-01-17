@@ -55,7 +55,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var articleList []Article
 	var err error
 	var total int64
-	
+
 	if title == "" {
 		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Preload("Category").Find(&articleList).Error
 		// 单独计数
@@ -66,11 +66,11 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 		return articleList, errmsg.SUCCSE, total
 	}
 	err = db.Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Preload("Category").Where("title LIKE ?",
-		title+"%",
+		"%"+title+"%",
 	).Find(&articleList).Error
 	// 单独计数
-	db.Model(&articleList).Where("title LIKE ?", title+"%").Count(&total)
-	
+	db.Model(&articleList).Where("title LIKE ?", "%"+title+"%").Count(&total)
+
 	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
@@ -86,7 +86,7 @@ func EditArt(id int, data *Article) int {
 	maps["desc"] = data.Desc
 	maps["content"] = data.Content
 	maps["img"] = data.Img
-	
+
 	err = db.Model(&art).Where("id = ? ", id).Updates(maps).Error
 	if err != nil {
 		return errmsg.ERROR
