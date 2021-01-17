@@ -5,9 +5,14 @@
         >{{ new Date().getFullYear() }} - GinBlog
       </v-col>
 
-      <v-col cols="12" class="py-2 text-center white--text">
-        蜀ICP备19035448号
-      </v-col>
+      <div class="text-center white--text">
+        <a
+          class="text-center white--text"
+          href="https://www.beian.miit.gov.cn/"
+        >
+          蜀ICP备19035448号
+        </a>
+      </div>
     </v-row>
   </v-footer>
 </template>

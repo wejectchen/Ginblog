@@ -7,12 +7,8 @@
       link
       @click="$router.push(`/detail/${item.ID}`)"
     >
-      <v-avatar class="ma-3"
-                size="120"
-                tile>
-        <v-img
-          :src="item.img"
-        ></v-img>
+      <v-avatar class="ma-3" size="125" tile>
+        <v-img :src="item.img"></v-img>
       </v-avatar>
 
       <v-col>
