@@ -136,7 +136,7 @@ func ScryptPw(password string) string {
 // 后台登录验证
 func CheckLogin(username string, password string) (User,int) {
 	var user User
-	var PasswordErr = err
+	var PasswordErr = error
 
 	db.Where("username = ?", username).First(&user)
 
