@@ -252,10 +252,6 @@ enjoy~~~~
 [第五节 完成文章详情页面](https://www.bilibili.com/video/BV1Eo4y1Z7c9)
 
 
-## Docker部署
-
-### 	一、如何安装docker
-=======
 ##  Docker部署
 
 ### 一、如何安装docker
