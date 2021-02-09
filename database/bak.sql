@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql8.0.22
- Source Server Type    : MySQL
- Source Server Version : 80022
+ Source Server         : mariaDB
+ Source Server Type    : MariaDB
+ Source Server Version : 100508
  Source Host           : localhost:3306
  Source Schema         : ginblog
 
- Target Server Type    : MySQL
- Target Server Version : 80022
+ Target Server Type    : MariaDB
+ Target Server Version : 100508
  File Encoding         : 65001
 
- Date: 04/01/2021 22:57:50
+ Date: 09/02/2021 17:06:05
 */
 
 SET NAMES utf8mb4;
@@ -22,21 +22,21 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,
   `deleted_at` datetime(3) NULL DEFAULT NULL,
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `cid` bigint UNSIGNED NOT NULL,
+  `cid` bigint(20) UNSIGNED NOT NULL,
   `desc` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `img` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `comment_count` bigint NOT NULL DEFAULT 0,
-  `read_count` bigint NOT NULL DEFAULT 0,
+  `comment_count` bigint(20) NOT NULL DEFAULT 0,
+  `read_count` bigint(20) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_article_deleted_at`(`deleted_at`) USING BTREE,
   INDEX `fk_article_category`(`cid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 574 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 574 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of article
@@ -48,10 +48,10 @@ INSERT INTO `article` VALUES (1, '2021-01-04 22:47:34.425', '2021-01-04 22:47:34
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of category
@@ -63,20 +63,20 @@ INSERT INTO `category` VALUES (1, 'Ginblog');
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,
   `deleted_at` datetime(3) NULL DEFAULT NULL,
-  `user_id` bigint UNSIGNED NULL DEFAULT NULL,
-  `article_id` bigint UNSIGNED NULL DEFAULT NULL,
+  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
+  `article_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
   `content` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `status` tinyint NULL DEFAULT 2,
+  `status` tinyint(4) NULL DEFAULT 2,
   `article_title` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `username` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `title` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_comment_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comment
@@ -89,7 +89,7 @@ INSERT INTO `comment` VALUES (2, '2021-01-04 22:49:04.785', '2021-01-04 22:49:12
 -- ----------------------------
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `desc` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `qqchat` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE `profile`  (
   `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 574 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 574 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of profile
@@ -112,21 +112,20 @@ INSERT INTO `profile` VALUES (1, 'weject', '请输入个人介绍', 'QQ号码', 
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,
   `deleted_at` datetime(3) NULL DEFAULT NULL,
   `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role` bigint NULL DEFAULT 2,
+  `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` bigint(20) NULL DEFAULT 2,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, NULL, NULL, NULL, 'admin', 'JNDo6/pbVgBrXw==', 1);
-INSERT INTO `user` VALUES (2, '2021-01-04 22:48:48.273', '2021-01-04 22:48:48.273', NULL, 'weject', 'iSTyoBYfM8gbRQ==', 2);
+INSERT INTO `user` VALUES (1, '2021-02-09 17:05:14.764', '2021-02-09 17:05:14.764', NULL, 'admin', '$2a$10$YGL5a9z7ykG6BWOo.XhJU.h8r98BD5IvAmLISBB9rFIefbDzrv58O', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

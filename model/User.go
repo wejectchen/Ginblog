@@ -10,7 +10,7 @@ import (
 type User struct {
 	gorm.Model
 	Username string `gorm:"type:varchar(20);not null " json:"username" validate:"required,min=4,max=12" label:"用户名"`
-	Password string `gorm:"type:varchar(200);not null" json:"password" validate:"required,min=6,max=120" label:"密码"`
+	Password string `gorm:"type:varchar(500);not null" json:"password" validate:"required,min=6,max=120" label:"密码"`
 	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 }
 
@@ -136,16 +136,6 @@ func ScryptPw(password string) string {
 	}
 
 	return string(HashPw)
-	//const KeyLen = 10
-	//salt := make([]byte, 8)
-	//salt = []byte{12, 32, 4, 6, 66, 22, 222, 11}
-	//
-	//HashPw, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, KeyLen)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//fpw := base64.StdEncoding.EncodeToString(HashPw)
-	//return fpw
 }
 
 // 后台登录验证
