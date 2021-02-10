@@ -3,9 +3,9 @@
 ## 重要更新
 - 2021.2.10 增加了展示页面的移动端适配
   
-  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" style="max-width:25%" />
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" width="250px" />
   
-  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile2.png" style="max-width:25%" />
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile2.png"  width="250px" />
   
   
   
