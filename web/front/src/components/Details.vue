@@ -1,24 +1,39 @@
-<template >
+<template>
   <div>
-    <div class="d-flex justify-center pa-3 ma-1 text-h4 font-weight-bold">{{artInfo.title}}</div>
+    <div class="d-flex justify-center pa-3 ma-1 text-h4 font-weight-bold">
+      {{ artInfo.title }}
+    </div>
     <div class="d-flex justify-center align-center">
       <div class="d-flex mx-10 justify-center">
-        <v-icon class="mr-1" color="indigo" small>{{'mdi-calendar-month'}}</v-icon>
-        <span>{{artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</span>
+        <v-icon class="mr-1" color="indigo" small>{{
+          'mdi-calendar-month'
+        }}</v-icon>
+        <span>{{ artInfo.CreatedAt | dateformat('YYYY-MM-DD HH:MM') }}</span>
       </div>
       <div class="d-flex mr-10 justify-center">
-        <v-icon class="mr-1" color="pink" small>{{'mdi-comment'}}</v-icon>
-        <span>{{total}}</span>
+        <v-icon class="mr-1" color="pink" small>{{ 'mdi-comment' }}</v-icon>
+        <span>{{ total }}</span>
       </div>
       <div class="d-flex mr-10 justify-center">
-        <v-icon class="mr-1" color="green" small>{{'mdi-eye'}}</v-icon>
-        <span>{{artInfo.read_count}}</span>
+        <v-icon class="mr-1" color="green" small>{{ 'mdi-eye' }}</v-icon>
+        <span>{{ artInfo.read_count }}</span>
       </div>
     </div>
     <v-divider class="pa-3 ma-3"></v-divider>
-    <v-alert class="ma-4" elevation="1" color="indigo" dark border="left" outlined>{{artInfo.desc}}</v-alert>
+    <v-alert
+      class="ma-4"
+      elevation="1"
+      color="indigo"
+      dark
+      border="left"
+      outlined
+      >{{ artInfo.desc }}</v-alert
+    >
     <div class="content_box">
-      <div class="content ma-5 pa-3 text-justify" v-html="artInfo.content"></div>
+      <div
+        class="content ma-5 pa-3 text-justify"
+        v-html="artInfo.content"
+      ></div>
     </div>
 
     <v-divider class="ma-5"></v-divider>
@@ -34,8 +49,15 @@
           <template>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title>{{item.username}} {{item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')}}</v-list-item-title>
-                <v-list-item-subtitle class="mr-3">{{item.content}}</v-list-item-subtitle>
+                <v-list-item-title
+                  >{{ item.username }}
+                  {{
+                    item.CreatedAt | dateformat('YYYY-MM-DD HH:MM')
+                  }}</v-list-item-title
+                >
+                <v-list-item-subtitle class="mr-3">{{
+                  item.content
+                }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </template>
@@ -46,17 +68,35 @@
           class="my-2"
           total-visible="7"
           v-model="queryParam.pagenum"
-          :length="Math.ceil(total/queryParam.pagesize)"
+          :length="Math.ceil(total / queryParam.pagesize)"
           @input="getCommentList()"
         ></v-pagination>
       </div>
       <div>
         <template>
           <v-card flat>
-            <v-alert v-if="!headers.username" class="ma-3" dense outlined type="error">你还未登录，请登录后留言</v-alert>
+            <v-alert
+              v-if="!headers.username"
+              class="ma-3"
+              dense
+              outlined
+              type="error"
+              >你还未登录，请登录后留言</v-alert
+            >
             <div v-if="headers.username">
-              <v-textarea class="mx-3" outlined v-model="comment.content"></v-textarea>
-              <v-btn class="ml-3 mb-1" dark color="indigo" small @click="pushComment()">确定</v-btn>
+              <v-textarea
+                class="mx-3"
+                outlined
+                v-model="comment.content"
+              ></v-textarea>
+              <v-btn
+                class="ml-3 mb-1"
+                dark
+                color="indigo"
+                small
+                @click="pushComment()"
+                >确定</v-btn
+              >
             </div>
           </v-card>
         </template>
@@ -128,9 +168,14 @@ export default {
 <style scoped>
 .content_box {
   max-width: 100%;
+  overflow: hidden;
 }
-
-.content >>> img {
+.span {
+  width: 100%;
+}
+.content >>> div,
+img,
+span {
   width: auto;
   max-width: 100%;
 }

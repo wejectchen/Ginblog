@@ -5,12 +5,12 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
-          <v-col cols="3">
+          <v-col cols="12" md="3">
             <Nav></Nav>
           </v-col>
-          <v-col>
-            <v-sheet max-width="65vw" min-height="80vh" rounded="lg">
-              <router-view :key="$route.path"></router-view>
+          <v-col cols="12" md="9">
+            <v-sheet min-height="80vh" rounded="lg">
+              <router-view :key="$route.fullPath"></router-view>
             </v-sheet>
           </v-col>
         </v-row>
