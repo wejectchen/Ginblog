@@ -1,9 +1,18 @@
 # Ginblog（项目已完成，欢迎使用)
 
 ## 重要更新
+- 2021.2.10 增加了展示页面的移动端适配
+  
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" style="zoom:50%;" />)
+  
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile2.png" style="zoom:50%;" />)
+  
+  
+  
 - 2021.1.2 加入注册、登录、评论功能，后台管理加入评论审核功能
+
 - 2021.1.3 增加 登录、注册验证功能；增加评论数量显示；增加阅读数量显示
-           增加：文章页面评论数、阅读数
+         增加：文章页面评论数、阅读数
 
 ## 介绍
 
