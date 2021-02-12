@@ -1,6 +1,9 @@
 # Ginblog（项目已完成，欢迎使用)
 
 ## 重要更新
+
+- 2021.2.12 为了交流方便，建立了一个QQ群：951736723，如果有问题，欢迎进群交流。
+
 - 2021.2.10 增加了展示页面的移动端适配
   
   <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" width="250px" />
