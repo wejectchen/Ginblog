@@ -1,5 +1,7 @@
 # Ginblog（项目已完成，欢迎使用)
 
+[![star](https://gitee.com/wejectchan/ginblog/badge/star.svg?theme=white)](https://gitee.com/wejectchan/ginblog/stargazers)
+
 ## 重要更新
 
 - 2021.2.12 为了交流方便，建立了一个QQ群：951736723，如果有问题，欢迎进群交流。
@@ -494,7 +496,7 @@ DbName = ginblog
 
 - 最后我们在确定下前端 `web` 文件夹下的axios请求地址
 
-```vue
+```js
 // 在 web/admin/src/plugin/http.js 和 web/front/src/plugin/http.js 两个文件夹中,将 baseURL地址改为部署的服务器线上地址
 
 axios.defaults.baseURL = 'http://localhost:3000/api/v1'
