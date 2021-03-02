@@ -39,7 +39,8 @@ func InitDb() {
 		fmt.Println("连接数据库失败，请检查参数：", err)
 	}
 
-	_ = db.AutoMigrate(&User{}, &Article{}, &Category{}, Profile{}, Comment{})
+	// 迁移数据表，在没有数据表结构变更时候，建议注释不执行
+	//_ = db.AutoMigrate(&User{}, &Article{}, &Category{}, Profile{}, Comment{})
 
 	sqlDB, _ := db.DB()
 	// SetMaxIdleCons 设置连接池中的最大闲置连接数。
@@ -51,5 +52,4 @@ func InitDb() {
 	// SetConnMaxLifetiment 设置连接的最大可复用时间。
 	sqlDB.SetConnMaxLifetime(10 * time.Second)
 
-	//db.Close()
 }

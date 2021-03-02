@@ -30,9 +30,9 @@ func CreateArt(data *Article) int {
 func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	var cateArtList []Article
 	var total int64
-	db.Preload("Category").Where("cid =?", id).Find(&cateArtList).Count(&total)
 	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
 		"cid =?", id).Find(&cateArtList).Error
+	db.Model(&cateArtList).Count(&total)
 	if err != nil {
 		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
 	}
@@ -42,7 +42,7 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 //  查询单个文章
 func GetArtInfo(id int) (Article, int) {
 	var art Article
-	err := db.Preload("Category").Where("id = ?", id).First(&art).Error
+	err := db.Where("id = ?", id).Preload("Category").First(&art).Error
 	db.Model(&art).Where("id = ?", id).UpdateColumn("read_count", gorm.Expr("read_count + ?", 1))
 	if err != nil {
 		return art, errmsg.ERROR_ART_NOT_EXIST
@@ -57,7 +57,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var total int64
 	
 	if title == "" {
-		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Preload("Category").Find(&articleList).Error
+		err = db.Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&articleList).Error
 		// 单独计数
 		db.Model(&articleList).Count(&total)
 		if err != nil {
@@ -69,7 +69,7 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 		title+"%",
 	).Find(&articleList).Error
 	// 单独计数
-	db.Model(&articleList).Where("title LIKE ?", title+"%").Count(&total)
+	db.Model(&articleList).Count(&total)
 	
 	if err != nil {
 		return nil, errmsg.ERROR, 0
@@ -87,7 +87,7 @@ func EditArt(id int, data *Article) int {
 	maps["content"] = data.Content
 	maps["img"] = data.Img
 	
-	err = db.Model(&art).Where("id = ? ", id).Updates(maps).Error
+	err = db.Model(&art).Where("id = ? ", id).Updates(&maps).Error
 	if err != nil {
 		return errmsg.ERROR
 	}

@@ -10,7 +10,7 @@
           </v-col>
           <v-col cols="12" md="9">
             <v-sheet min-height="80vh" rounded="lg">
-              <router-view :key="$route.fullPath"></router-view>
+              <router-view :key="$route.path"></router-view>
             </v-sheet>
           </v-col>
         </v-row>

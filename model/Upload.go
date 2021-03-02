@@ -4,8 +4,8 @@ import (
 	"context"
 	"ginblog/utils"
 	"ginblog/utils/errmsg"
-	"github.com/qiniu/api.v7/v7/auth/qbox"
-	"github.com/qiniu/api.v7/v7/storage"
+	"github.com/qiniu/go-sdk/v7/auth/qbox"
+	"github.com/qiniu/go-sdk/v7/storage"
 	"mime/multipart"
 )
 
