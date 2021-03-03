@@ -11,5 +11,5 @@
 .idea
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-/log/log*.log
+/log/
 config/config.ini
