@@ -32,7 +32,8 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	var total int64
 	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
 		"cid =?", id).Find(&cateArtList).Error
-	db.Model(&cateArtList).Count(&total)
+	db.Model(&cateArtList).Where(
+		"cid =?", id).Count(&total)
 	if err != nil {
 		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
 	}
@@ -69,7 +70,9 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 		title+"%",
 	).Find(&articleList).Error
 	// 单独计数
-	db.Model(&articleList).Count(&total)
+	db.Model(&articleList).Where("title LIKE ?",
+		title+"%",
+	).Count(&total)
 	
 	if err != nil {
 		return nil, errmsg.ERROR, 0
