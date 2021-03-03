@@ -1,11 +1,7 @@
 <template>
   <div>
     <v-app-bar mobileBreakpoint="sm" app dark flat color="indigo darken-2">
-      <v-app-bar-nav-icon
-        dark
-        class="hidden-md-and-up"
-        @click.stop="drawer = !drawer"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-app-bar-nav-icon class="mx-15 hidden-md-and-down">
           <v-avatar size="40" color="grey">
@@ -21,8 +17,7 @@
           :key="item.id"
           text
           @click="gotoCate(item.id)"
-          >{{ item.name }}</v-tab
-        >
+        >{{ item.name }}</v-tab>
       </v-tabs>
 
       <v-spacer></v-spacer>
@@ -44,21 +39,10 @@
 
       <v-dialog max-width="800">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on"
-            >请登录</v-btn
-          >
+          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on">请登录</v-btn>
 
-          <v-btn v-if="headers.username" text dark
-            >欢迎你{{ headers.username }}</v-btn
-          >
-          <v-btn
-            class="hidden-md-and-down"
-            v-if="headers.username"
-            text
-            dark
-            @click="loginout"
-            >退出</v-btn
-          >
+          <v-btn v-if="headers.username" text dark>欢迎你{{ headers.username }}</v-btn>
+          <v-btn class="hidden-md-and-down" v-if="headers.username" text dark @click="loginout">退出</v-btn>
         </template>
 
         <template v-slot:default="dialog">
@@ -93,9 +77,7 @@
 
       <v-dialog max-width="800">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on"
-            >注册</v-btn
-          >
+          <v-btn v-if="!headers.username" text dark v-bind="attrs" v-on="on">注册</v-btn>
         </template>
         <template v-slot:default="dialog">
           <v-form ref="registerformRef" v-model="registerformvalid">
@@ -180,21 +162,21 @@ export default {
         username: ''
       },
       nameRules: [
-        v => !!v || '用户名不能为空',
-        v =>
+        (v) => !!v || '用户名不能为空',
+        (v) =>
           (v && v.length >= 4 && v.length <= 12) ||
           '用户名必须在4到12个字符之间'
       ],
       passwordRules: [
-        v => !!v || '密码不能为空',
-        v =>
+        (v) => !!v || '密码不能为空',
+        (v) =>
           (v && v.length >= 6 && v.length <= 20) || '密码必须在6到20个字符之间'
       ],
       checkPasswordRules: [
-        v => !!v || '密码不能为空',
-        v =>
+        (v) => !!v || '密码不能为空',
+        (v) =>
           (v && v.length >= 6 && v.length <= 20) || '密码必须在6到20个字符之间',
-        v => v === this.formdata.password || '密码两次输入不一致，请检查'
+        (v) => v === this.formdata.password || '密码两次输入不一致，请检查'
       ]
     }
   },
@@ -217,7 +199,6 @@ export default {
     async GetCateList() {
       const { data: res } = await this.$http.get('category')
       this.cateList = res.data
-      console.log('this.cateList: ', this.cateList)
     },
 
     // 查找文章标题
@@ -226,7 +207,7 @@ export default {
     },
 
     gotoCate(cid) {
-      this.$router.push(`/category/${cid}`).catch(err => err)
+      this.$router.push(`/category/${cid}`).catch((err) => err)
     },
     // 登录
     async login() {

@@ -15,6 +15,7 @@ type Profile struct {
 	Email  string `gorm:"type:varchar(200)" json:"email"`
 	Img    string `gorm:"type:varchar(200)" json:"img"`
 	Avatar string `gorm:"type:varchar(200)" json:"avatar"`
+	IcpRecord string `gorm:"type:varchar(200)" json:"icp_record"`
 }
 
 // 获取个人信息设置

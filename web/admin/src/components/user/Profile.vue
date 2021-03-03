@@ -1,61 +1,79 @@
 <template>
-  <div>
-    <a-card>
-      <a-form-model>
-        <a-form-model-item label="作者名称">
-          <a-input style="width: 300px" v-model="profileInfo.name"></a-input>
-        </a-form-model-item>
+  <a-card>
+    <a-form-model labelAlign="left" :label-col="{ span: 2 }" :wrapper-col="{ span: 12 }">
+      <a-form-model-item label="作者名称">
+        <a-input style="width: 300px" v-model="profileInfo.name"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="个人简介">
-          <a-input type="textarea" v-model="profileInfo.desc"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="个人简介">
+        <a-input type="textarea" v-model="profileInfo.desc"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="QQ号码">
-          <a-input style="width: 300px" v-model="profileInfo.qq_chat"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="网站备案号">
+        <a-input style="width: 300px" v-model="profileInfo.icp_record"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="微信">
-          <a-input style="width: 300px" v-model="profileInfo.wechat"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="QQ号码">
+        <a-input style="width: 300px" v-model="profileInfo.qq_chat"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="微博">
-          <a-input style="width: 300px" v-model="profileInfo.weibo"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="微信">
+        <a-input style="width: 300px" v-model="profileInfo.wechat"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="B站地址">
-          <a-input style="width: 300px" v-model="profileInfo.bili"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="微博">
+        <a-input style="width: 300px" v-model="profileInfo.weibo"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="Email">
-          <a-input style="width: 300px" v-model="profileInfo.email"></a-input>
-        </a-form-model-item>
+      <a-form-model-item label="B站地址">
+        <a-input style="width: 300px" v-model="profileInfo.bili"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="头像">
-          <a-upload listType="picture" name="file" :action="upUrl" :headers="headers" @change="avatarChange">
-            <a-button> <a-icon type="upload" />点击上传 </a-button>
-            <br />
-            <template v-if="profileInfo.avatar">
-              <img :src="profileInfo.avatar" style="width: 120px; height: 100px" />
-            </template>
-          </a-upload>
-        </a-form-model-item>
+      <a-form-model-item label="Email">
+        <a-input style="width: 300px" v-model="profileInfo.email"></a-input>
+      </a-form-model-item>
 
-        <a-form-model-item label="头像背景图">
-          <a-upload listType="picture" name="file" :action="upUrl" :headers="headers" @change="imgChange">
-            <a-button> <a-icon type="upload" />点击上传 </a-button>
-            <br />
-            <template v-if="profileInfo.img">
-              <img :src="profileInfo.img" style="width: 120px; height: 100px" />
-            </template>
-          </a-upload>
-        </a-form-model-item>
+      <a-form-model-item label="头像">
+        <a-upload
+          listType="picture"
+          name="file"
+          :action="upUrl"
+          :headers="headers"
+          @change="avatarChange"
+        >
+          <a-button style="margin-right:10px">
+            <a-icon type="upload" />点击上传
+          </a-button>
 
-        <a-form-model-item>
-          <a-button type="danger" style="margin-right: 15px" @click="updateProfile">更新</a-button>
-        </a-form-model-item>
-      </a-form-model>
-    </a-card>
-  </div>
+          <template v-if="profileInfo.avatar">
+            <img :src="profileInfo.avatar" style="width: 120px; height: 100px" />
+          </template>
+        </a-upload>
+      </a-form-model-item>
+
+      <a-form-model-item label="头像背景图">
+        <a-upload
+          listType="picture"
+          name="file"
+          :action="upUrl"
+          :headers="headers"
+          @change="imgChange"
+        >
+          <a-button style="margin-right:10px">
+            <a-icon type="upload" />点击上传
+          </a-button>
+
+          <template v-if="profileInfo.img">
+            <img :src="profileInfo.img" style="width: 120px; height: 100px" />
+          </template>
+        </a-upload>
+      </a-form-model-item>
+
+      <a-form-model-item>
+        <a-button type="danger" style="margin-right: 15px" @click="updateProfile">更新</a-button>
+      </a-form-model-item>
+    </a-form-model>
+  </a-card>
 </template>
 <script>
 import { Url } from '../../plugin/http'
@@ -74,6 +92,7 @@ export default {
         email: '',
         img: '',
         avatar: '',
+        icp_record: '',
       },
       upUrl: Url + 'upload',
       headers: {},
@@ -133,5 +152,9 @@ export default {
   },
 }
 </script>
-<style lang="">
+
+<style scoped>
+.upBtn {
+  margin-right: 10px;
+}
 </style>
