@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
+	"os"
 	"time"
 )
 
@@ -37,6 +38,7 @@ func InitDb() {
 
 	if err != nil {
 		fmt.Println("连接数据库失败，请检查参数：", err)
+		os.Exit(1)
 	}
 
 	// 迁移数据表，在没有数据表结构变更时候，建议注释不执行

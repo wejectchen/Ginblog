@@ -13,9 +13,11 @@
 
       <v-col>
         <v-card-title>
-          <v-chip color="pink" outlined label class="mr-3 white--text">{{
+          <v-chip color="pink" outlined label class="mr-3 white--text">
+            {{
             item.Category.name
-          }}</v-chip>
+            }}
+          </v-chip>
           <div>{{ item.title }}</div>
         </v-card-title>
         <v-card-subtitle class="mt-1" v-text="item.desc"></v-card-subtitle>
@@ -23,7 +25,7 @@
         <v-card-text class="d-flex align-center">
           <div class="d-flex align-center">
             <v-icon class="mr-1" small>{{ 'mdi-calendar-month' }}</v-icon>
-            <span>{{ item.CreatedAt | dateformat('YYYY-MM-DD HH:MM') }}</span>
+            <span>{{ item.CreatedAt | dateformat('YYYY-MM-DD') }}</span>
           </div>
           <div class="mx-4 d-flex align-center">
             <v-icon class="mr-1" small>{{ 'mdi-comment' }}</v-icon>
