@@ -150,13 +150,19 @@ export default {
   max-width: 100%;
   overflow: hidden;
 }
-.span {
-  width: 100%;
-}
 .content >>> div,
 img,
 span {
   width: auto;
   max-width: 100%;
+}
+.content >>> pre,
+code {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
 }
 </style>

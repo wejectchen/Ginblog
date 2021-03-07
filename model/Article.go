@@ -30,10 +30,10 @@ func CreateArt(data *Article) int {
 func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	var cateArtList []Article
 	var total int64
-
+	
 	err := db.Select("article.id,title, `cid`, img, created_at, `desc`, comment_count, read_count").Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
 		"cid =?", id).Find(&cateArtList).Error
-
+	
 	db.Model(&cateArtList).Where(
 		"cid =?", id).Count(&total)
 	if err != nil {
@@ -58,9 +58,9 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var articleList []Article
 	var err error
 	var total int64
-
+	
 	if title == "" {
-		err = db.Select("article.id, title, img, created_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&articleList).Error
+		err = db.Select("article.id, title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&articleList).Error
 		// 单独计数
 		db.Model(&articleList).Count(&total)
 		if err != nil {
@@ -68,14 +68,14 @@ func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 		}
 		return articleList, errmsg.SUCCSE, total
 	}
-	err = db.Select("article.id,title, img, created_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Preload("Category").Where("title LIKE ?",
+	err = db.Select("article.id,title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Preload("Category").Where("title LIKE ?",
 		title+"%",
 	).Find(&articleList).Error
 	// 单独计数
 	db.Model(&articleList).Where("title LIKE ?",
 		title+"%",
 	).Count(&total)
-
+	
 	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
@@ -91,7 +91,7 @@ func EditArt(id int, data *Article) int {
 	maps["desc"] = data.Desc
 	maps["content"] = data.Content
 	maps["img"] = data.Img
-
+	
 	err = db.Model(&art).Where("id = ? ", id).Updates(&maps).Error
 	if err != nil {
 		return errmsg.ERROR
