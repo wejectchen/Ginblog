@@ -98,6 +98,7 @@ func ChangePassword(id int, data *User) int {
 	//var user User
 	//var maps = make(map[string]interface{})
 	//maps["password"] = data.Password
+	
 	err = db.Select("password").Where("id = ?", id).Updates(&data).Error
 	if err != nil {
 		return errmsg.ERROR

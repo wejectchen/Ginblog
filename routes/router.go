@@ -42,6 +42,7 @@ func InitRouter() {
 		auth.GET("admin/users", v1.GetUsers)
 		auth.PUT("user/:id", v1.EditUser)
 		auth.DELETE("user/:id", v1.DeleteUser)
+		    //修改密码
 		auth.PUT("admin/changepw/:id", v1.ChangeUserPassword)
 		// 分类模块的路由接口
 		auth.GET("admin/category", v1.GetCate)

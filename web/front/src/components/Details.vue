@@ -28,9 +28,8 @@
       border="left"
       outlined
     >{{ artInfo.desc }}</v-alert>
-    <div class="content_box">
-      <div class="content ma-5 pa-3 text-justify" v-html="artInfo.content"></div>
-    </div>
+
+    <div v-html="artInfo.content" class="content ma-5 pa-3 text-justify"></div>
 
     <v-divider class="ma-5"></v-divider>
     <v-sheet class="ma-3 pa-3">
@@ -146,23 +145,25 @@ export default {
 }
 </script>
 <style scoped>
-.content_box {
-  max-width: 100%;
-  overflow: hidden;
-}
 .content >>> div,
 img,
 span {
   width: auto;
   max-width: 100%;
 }
+
 .content >>> pre,
 code {
-  padding: 16px;
+  margin: 10px;
+  padding: 14px;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f6f8fa;
-  border-radius: 3px;
+  background-color: rgba(27, 31, 35, 0.05);
+
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  margin: 1rem 0;
+  border-color: #303f9f;
 }
 </style>
