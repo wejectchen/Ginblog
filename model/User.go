@@ -119,7 +119,7 @@ func DeleteUser(id int) int {
 // 密码加密&权限控制
 func (u *User) BeforeSave(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
-	u.Role = 1
+	u.Role = 2
 	return nil
 }
 
