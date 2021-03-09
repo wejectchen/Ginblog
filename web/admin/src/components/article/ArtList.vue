@@ -17,7 +17,11 @@
 
         <a-col :span="3">
           <a-select placeholder="请选择分类" style="width: 200px" @change="CateChange">
-            <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{ item.name }}</a-select-option>
+            <a-select-option
+              v-for="item in Catelist"
+              :key="item.id"
+              :value="item.id"
+            >{{ item.name }}</a-select-option>
           </a-select>
         </a-col>
         <a-col :span="1">
@@ -44,11 +48,14 @@
               icon="edit"
               style="margin-right: 15px"
               @click="$router.push(`/addart/${data.ID}`)"
-              >编辑</a-button
-            >
-            <a-button size="small" type="danger" icon="delete" style="margin-right: 15px" @click="deleteArt(data.ID)"
-              >删除</a-button
-            >
+            >编辑</a-button>
+            <a-button
+              size="small"
+              type="danger"
+              icon="delete"
+              style="margin-right: 15px"
+              @click="deleteArt(data.ID)"
+            >删除</a-button>
           </div>
         </template>
       </a-table>
@@ -57,7 +64,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import day from 'dayjs'
 
 const columns = [
   {
@@ -74,7 +81,7 @@ const columns = [
     key: 'UpdatedAt',
     align: 'center',
     customRender: (val) => {
-      return val ? moment(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
+      return val ? day(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
     },
   },
   {
