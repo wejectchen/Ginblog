@@ -15,17 +15,19 @@ var code int
 func AddUser(c *gin.Context) {
 	var data model.User
 	var msg string
+	var validCode int
 	_ = c.ShouldBindJSON(&data)
 
-	msg, code = validator.Validate(&data)
-	if code != errmsg.SUCCSE {
+	msg, validCode = validator.Validate(&data)
+	if validCode != errmsg.SUCCSE {
 		c.JSON(
 			http.StatusOK, gin.H{
-				"status":  code,
+				"status":  validCode,
 				"message": msg,
 			},
 		)
 		c.Abort()
+		return
 	}
 
 	code = model.CheckUser(data.Username)

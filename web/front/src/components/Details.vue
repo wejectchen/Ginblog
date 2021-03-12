@@ -160,10 +160,8 @@ code {
   font-size: 85%;
   line-height: 1.45;
   background-color: rgba(27, 31, 35, 0.05);
-
   border-left-width: 0.5rem;
   border-left-style: solid;
-  margin: 1rem 0;
   border-color: #303f9f;
 }
 </style>

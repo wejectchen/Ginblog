@@ -34,7 +34,10 @@ func InitRouter() {
 	r.GET("/admin", func(c *gin.Context) {
 		c.HTML(200, "admin", nil)
 	})
-
+	
+	/*
+	后台管理路由接口
+	 */
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	{
@@ -66,6 +69,10 @@ func InitRouter() {
 		auth.PUT("checkcomment/:id", v1.Checkcomment)
 		auth.PUT("uncheckcomment/:id", v1.UnCheckcomment)
 	}
+	
+	/*
+	前端展示页面接口
+	 */
 	router := r.Group("api/v1")
 	{
 		router.POST("admin/check_token", v1.CheckToken)
