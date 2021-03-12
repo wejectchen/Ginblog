@@ -50,7 +50,7 @@ func CreateUser(data *User) int {
 // 查询用户
 func GetUser(id int) (User, int) {
 	var user User
-	err := db.Where("ID = ?", id).First(&user).Error
+	err := db.Limit(1).Where("ID = ?", id).Find(&user).Error
 	if err != nil {
 		return user, errmsg.ERROR
 	}
@@ -117,7 +117,7 @@ func DeleteUser(id int) int {
 }
 
 // 密码加密&权限控制
-func (u *User) BeforeSave(_ *gorm.DB) (err error) {
+func (u *User) BeforeCreate(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
 	u.Role = 2
 	return nil
