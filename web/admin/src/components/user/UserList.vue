@@ -8,7 +8,7 @@
             placeholder="输入用户名查找"
             enter-button
             allowClear
-            @search="getUserList"
+            @search="searchUser"
           />
         </a-col>
         <a-col :span="4">
@@ -27,10 +27,18 @@
         <span slot="role" slot-scope="data">{{ data == 1 ? '管理员' : '订阅者' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editUser(data.ID)">编辑</a-button>
-            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteUser(data.ID)"
-              >删除</a-button
-            >
+            <a-button
+              type="primary"
+              icon="edit"
+              style="margin-right: 15px"
+              @click="editUser(data.ID)"
+            >编辑</a-button>
+            <a-button
+              type="danger"
+              icon="delete"
+              style="margin-right: 15px"
+              @click="deleteUser(data.ID)"
+            >删除</a-button>
             <a-button type="info" icon="info" @click="ChangePassword(data.ID)">修改密码</a-button>
           </div>
         </template>
@@ -75,7 +83,12 @@
           <a-input v-model="userInfo.username"></a-input>
         </a-form-model-item>
         <a-form-model-item label="是否为管理员">
-          <a-switch :checked="IsAdmin" checked-children="是" un-checked-children="否" @change="adminChange" />
+          <a-switch
+            :checked="IsAdmin"
+            checked-children="是"
+            un-checked-children="否"
+            @change="adminChange"
+          />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -333,6 +346,23 @@ export default {
       this.userlist = res.data
       this.pagination.total = res.total
     },
+
+    // 搜索用户
+    async searchUser() {
+      this.queryParam.pagenum = 1
+      this.pagination.current = 1
+      const { data: res } = await this.$http.get('admin/users', {
+        params: {
+          username: this.queryParam.username,
+          pagesize: this.queryParam.pagesize,
+          pagenum: this.queryParam.pagenum,
+        },
+      })
+      if (res.status !== 200) return this.$message.error(res.message)
+      this.userlist = res.data
+      this.pagination.total = res.total
+    },
+
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
       var pager = { ...this.pagination }
