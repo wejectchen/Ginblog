@@ -86,7 +86,6 @@ export default {
           pagenum: this.queryParam.pagenum
         }
       })
-
       this.artList = res.data
       this.total = res.total
       this.isLoad = true

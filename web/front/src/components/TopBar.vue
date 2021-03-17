@@ -203,6 +203,7 @@ export default {
 
     // 查找文章标题
     searchTitle(title) {
+      if (title.length == 0) return this.$message.error('你还没填入搜索内容哦')
       this.$router.push(`/search/${title}`)
     },
 

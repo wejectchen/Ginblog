@@ -71,21 +71,22 @@ export default {
       isLoad: false
     }
   },
-  created() {
+  mounted() {
     this.getArtList()
   },
   methods: {
     // 获取文章列表
     async getArtList() {
-      const { data: res } = await this.$http.get(`article`, {
-        params: {
-          title: this.title,
-          pagesize: this.queryParam.pagesize,
-          pagenum: this.queryParam.pagenum
-        }
-      })
+      const { data: res } = await this.$http.get(`article?pagesize=${this.pagesize}&pagenum=${this.pagenum}&title=${this.title}`, 
+//       {params:{
+//  title: this.title,
+//         pagesize: this.queryParam.pagesize,
+//         pagenum: this.queryParam.pagenum
+//       }}
+      )
 
       this.artList = res.data
+      console.log('res.data: ', res.data)
       this.total = res.total
       this.isLoad = true
     }

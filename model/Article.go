@@ -31,11 +31,9 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	var cateArtList []Article
 	var total int64
 	
-	err := db.Select("article.id,title, `cid`, img, created_at, `desc`, comment_count, read_count").Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
+	err = db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where(
 		"cid =?", id).Find(&cateArtList).Error
-	
-	db.Model(&cateArtList).Where(
-		"cid =?", id).Count(&total)
+	db.Model(&cateArtList).Where("cid =?", id).Count(&total)
 	if err != nil {
 		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
 	}
@@ -45,7 +43,7 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 //  查询单个文章
 func GetArtInfo(id int) (Article, int) {
 	var art Article
-	err := db.Where("id = ?", id).Preload("Category").First(&art).Error
+	err = db.Where("id = ?", id).Preload("Category").First(&art).Error
 	db.Model(&art).Where("id = ?", id).UpdateColumn("read_count", gorm.Expr("read_count + ?", 1))
 	if err != nil {
 		return art, errmsg.ERROR_ART_NOT_EXIST
@@ -54,27 +52,31 @@ func GetArtInfo(id int) (Article, int) {
 }
 
 //  查询文章列表
-func GetArt(title string, pageSize int, pageNum int) ([]Article, int, int64) {
+func GetArt( pageSize int, pageNum int) ([]Article, int, int64) {
 	var articleList []Article
 	var err error
 	var total int64
 	
-	if title == "" {
-		err = db.Select("article.id, title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&articleList).Error
-		// 单独计数
-		db.Model(&articleList).Count(&total)
+	err = db.Select("article.id, title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&articleList).Error
+	// 单独计数
+	db.Model(&articleList).Count(&total)
 		if err != nil {
 			return nil, errmsg.ERROR, 0
 		}
 		return articleList, errmsg.SUCCSE, total
-	}
-	err = db.Select("article.id,title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Preload("Category").Where("title LIKE ?",
+	
+}
+
+// 搜索文章标题
+func SearchArtile(title string, pageSize int, pageNum int) ([]Article, int, int64) {
+	var articleList []Article
+	var err error
+	var total int64
+	err = db.Select("article.id,title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(pageSize).Offset((pageNum-1)*pageSize).Order("Created_At DESC").Joins("Category").Where("title LIKE ?",
 		title+"%",
-	).Find(&articleList).Error
+	).Find(&articleList).Count(&total).Error
 	// 单独计数
-	db.Model(&articleList).Where("title LIKE ?",
-		title+"%",
-	).Count(&total)
+	//db.Model(&articleList).Count(&total)
 	
 	if err != nil {
 		return nil, errmsg.ERROR, 0
