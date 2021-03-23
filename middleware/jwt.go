@@ -31,7 +31,7 @@ func SetToken(username string) (string, int) {
 	reqClaim := jwt.NewWithClaims(jwt.SigningMethodHS256, SetClaims)
 	token, err := reqClaim.SignedString(JwtKey)
 	if err != nil {
-		return "", errmsg.ERROR
+		return "Bad Token!", errmsg.ERROR
 	}
 	return token, errmsg.SUCCSE
 
