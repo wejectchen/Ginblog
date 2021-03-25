@@ -22,7 +22,7 @@ func InitRouter() {
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
-
+	
 	r.Static("/static", "./web/front/dist/static")
 	r.Static("/admin", "./web/admin/dist")
 	r.StaticFile("/favicon.ico", "/web/front/dist/favicon.ico")
@@ -75,7 +75,6 @@ func InitRouter() {
 	 */
 	router := r.Group("api/v1")
 	{
-		router.POST("admin/check_token", v1.CheckToken)
 		// 用户信息模块
 		router.POST("user/add", v1.AddUser)
 		router.GET("user/:id", v1.GetUserInfo)

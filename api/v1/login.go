@@ -4,10 +4,11 @@ import (
 	"ginblog/middleware"
 	"ginblog/model"
 	"ginblog/utils/errmsg"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
-
 
 // 后台登陆
 func Login(c *gin.Context) {
@@ -19,15 +20,17 @@ func Login(c *gin.Context) {
 	formData, code = model.CheckLogin(formData.Username, formData.Password)
 	
 	if code == errmsg.SUCCSE {
-		token, code = middleware.SetToken(formData.Username)
+		setToken(c, formData)
+	}else {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  code,
+			"data":    formData.Username,
+			"id":      formData.ID,
+			"message": errmsg.GetErrMsg(code),
+			"token":   token,
+		})
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    formData.Username,
-		"id":      formData.ID,
-		"message": errmsg.GetErrMsg(code),
-		"token":   token,
-	})
+	
 }
 
 // 前台登录
@@ -46,19 +49,35 @@ func LoginFront(c *gin.Context) {
 	})
 }
 
-type UpToken struct {
-	Token string `json:"token"`
-}
 
-// 验证token
-func CheckToken(c *gin.Context) {
-	var Token UpToken
-	_ = c.ShouldBindJSON(&Token)
+// token生成函数
+func setToken(c *gin.Context, user model.User) {
+	j := middleware.NewJWT()
+	claims := middleware.MyClaims{
+		Username: user.Username,
+		StandardClaims: jwt.StandardClaims{
+			NotBefore: time.Now().Unix() - 100,
+			ExpiresAt: time.Now().Unix() + 7200,
+			Issuer:    "GinBlog",
+		},
+	}
 	
-	_, code = middleware.CheckToken(Token.Token)
+	token, err := j.CreateToken(claims)
+	
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  errmsg.ERROR,
+			"message": errmsg.GetErrMsg(errmsg.ERROR),
+			"token":   token,
+		})
+	}
 	
 	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
+		"status":  200,
+		"data":    user.Username,
+		"id":      user.ID,
+		"message": errmsg.GetErrMsg(200),
+		"token":   token,
 	})
+	return
 }
