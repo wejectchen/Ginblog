@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// 新增评论
+// AddComment 新增评论
 func AddComment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
@@ -21,7 +21,7 @@ func AddComment(c *gin.Context) {
 	})
 }
 
-// 获取单个评论信息
+// GetComment 获取单个评论信息
 func GetComment(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data,code := model.GetComment(id)
@@ -32,7 +32,7 @@ func GetComment(c *gin.Context)  {
 	})
 }
 
-// 删除评论
+// DeleteComment 删除评论
 func DeleteComment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	code = model.DeleteComment(uint(id))
@@ -42,7 +42,7 @@ func DeleteComment(c *gin.Context) {
 	})
 }
 
-// 获取评论数量
+// GetCommentCount 获取评论数量
 func GetCommentCount(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	total := model.GetCommentCount(id)
@@ -51,7 +51,7 @@ func GetCommentCount(c *gin.Context) {
 	})
 }
 
-// 后台查询评论列表
+// GetCommentList 后台查询评论列表
 func GetCommentList(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -78,7 +78,7 @@ func GetCommentList(c *gin.Context) {
 
 }
 
-// 展示页面显示评论列表
+// GetCommentListFront 展示页面显示评论列表
 func GetCommentListFront(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
@@ -106,9 +106,8 @@ func GetCommentListFront(c *gin.Context) {
 
 }
 
-
-// 通过审核
-func Checkcomment(c *gin.Context) {
+// CheckComment 通过审核
+func CheckComment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))

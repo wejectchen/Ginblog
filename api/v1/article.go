@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// 添加文章
+// AddArticle 添加文章
 func AddArticle(c *gin.Context) {
 	var data model.Article
 	_ = c.ShouldBindJSON(&data)
@@ -22,7 +22,7 @@ func AddArticle(c *gin.Context) {
 	})
 }
 
-//  查询分类下的所有文章
+// GetCateArt 查询分类下的所有文章
 func GetCateArt(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -49,7 +49,7 @@ func GetCateArt(c *gin.Context) {
 	})
 }
 
-// 查询单个文章信息
+// GetArtInfo 查询单个文章信息
 func GetArtInfo(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data, code := model.GetArtInfo(id)
@@ -60,7 +60,7 @@ func GetArtInfo(c *gin.Context) {
 	})
 }
 
-// 查询文章列表
+// GetArt 查询文章列表
 func GetArt(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -96,7 +96,7 @@ func GetArt(c *gin.Context) {
 	})
 }
 
-// 编辑文章
+// EditArt 编辑文章
 func EditArt(c *gin.Context) {
 	var data model.Article
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -110,7 +110,7 @@ func EditArt(c *gin.Context) {
 	})
 }
 
-// 删除文章
+// DeleteArt 删除文章
 func DeleteArt(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	

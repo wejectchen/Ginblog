@@ -14,7 +14,7 @@ type User struct {
 	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 }
 
-// 查询用户是否存在
+// CheckUser 查询用户是否存在
 func CheckUser(name string) (code int) {
 	var user User
 	db.Select("id").Where("username = ?", name).First(&user)
@@ -24,7 +24,7 @@ func CheckUser(name string) (code int) {
 	return errmsg.SUCCSE
 }
 
-// 更新查询
+// CheckUpUser 更新查询
 func CheckUpUser(id int, name string) (code int) {
 	var user User
 	db.Select("id, username").Where("username = ?", name).First(&user)
@@ -37,7 +37,7 @@ func CheckUpUser(id int, name string) (code int) {
 	return errmsg.SUCCSE
 }
 
-// 新增用户
+// CreateUser 新增用户
 func CreateUser(data *User) int {
 	//data.Password = ScryptPw(data.Password)
 	err := db.Create(&data).Error
@@ -47,7 +47,7 @@ func CreateUser(data *User) int {
 	return errmsg.SUCCSE
 }
 
-// 查询用户
+// GetUser 查询用户
 func GetUser(id int) (User, int) {
 	var user User
 	err := db.Limit(1).Where("ID = ?", id).Find(&user).Error
@@ -57,7 +57,7 @@ func GetUser(id int) (User, int) {
 	return user, errmsg.SUCCSE
 }
 
-// 查询用户列表
+// GetUsers 查询用户列表
 func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 	var users []User
 	var total int64
@@ -80,7 +80,7 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 	return users, total
 }
 
-// 编辑用户信息
+// EditUser 编辑用户信息
 func EditUser(id int, data *User) int {
 	var user User
 	var maps = make(map[string]interface{})
@@ -93,7 +93,7 @@ func EditUser(id int, data *User) int {
 	return errmsg.SUCCSE
 }
 
-// 修改密码
+// ChangePassword 修改密码
 func ChangePassword(id int, data *User) int {
 	//var user User
 	//var maps = make(map[string]interface{})
@@ -106,7 +106,7 @@ func ChangePassword(id int, data *User) int {
 	return errmsg.SUCCSE
 }
 
-// 删除用户
+// DeleteUser 删除用户
 func DeleteUser(id int) int {
 	var user User
 	err = db.Where("id = ? ", id).Delete(&user).Error
@@ -116,7 +116,7 @@ func DeleteUser(id int) int {
 	return errmsg.SUCCSE
 }
 
-// 密码加密&权限控制
+// BeforeCreate 密码加密&权限控制
 func (u *User) BeforeCreate(_ *gorm.DB) (err error) {
 	u.Password = ScryptPw(u.Password)
 	u.Role = 2
@@ -128,7 +128,7 @@ func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
 	return nil
 }
 
-// 生成密码
+// ScryptPw 生成密码
 func ScryptPw(password string) string {
 	const cost = 10
 
@@ -140,7 +140,7 @@ func ScryptPw(password string) string {
 	return string(HashPw)
 }
 
-// 后台登录验证
+// CheckLogin 后台登录验证
 func CheckLogin(username string, password string) (User, int) {
 	var user User
 	var PasswordErr error
@@ -161,7 +161,7 @@ func CheckLogin(username string, password string) (User, int) {
 	return user, errmsg.SUCCSE
 }
 
-// 前台登录
+// CheckLoginFront 前台登录
 func CheckLoginFront(username string, password string) (User, int) {
 	var user User
 	var PasswordErr error

@@ -15,7 +15,7 @@ type Comment struct {
 	Status    int8   `gorm:"type:tinyint;default:2" json:"status"`
 }
 
-// 新增评论
+// AddComment 新增评论
 func AddComment(data *Comment) int {
 	err = db.Create(&data).Error
 	if err != nil {
@@ -24,7 +24,7 @@ func AddComment(data *Comment) int {
 	return errmsg.SUCCSE
 }
 
-// 查询单个评论
+// GetComment 查询单个评论
 func GetComment(id int) (Comment, int) {
 	var comment Comment
 	err = db.Where("id = ?", id).First(&comment).Error
@@ -34,7 +34,7 @@ func GetComment(id int) (Comment, int) {
 	return comment, errmsg.SUCCSE
 }
 
-// 后台所有获取评论列表
+// GetCommentList 后台所有获取评论列表
 func GetCommentList(pageSize int, pageNum int) ([]Comment, int64, int) {
 	
 	var commentList []Comment
@@ -47,7 +47,7 @@ func GetCommentList(pageSize int, pageNum int) ([]Comment, int64, int) {
 	return commentList, total, errmsg.SUCCSE
 }
 
-// 获取评论数量
+// GetCommentCount 获取评论数量
 func GetCommentCount(id int) int64 {
 	var comment Comment
 	var total int64
@@ -55,7 +55,7 @@ func GetCommentCount(id int) int64 {
 	return total
 }
 
-// 展示页面获取评论列表
+// GetCommentListFront 展示页面获取评论列表
 func GetCommentListFront(id int, pageSize int, pageNum int) ([]Comment, int64, int) {
 	var commentList []Comment
 	var total int64
@@ -70,7 +70,7 @@ func GetCommentListFront(id int, pageSize int, pageNum int) ([]Comment, int64, i
 
 // 编辑评论（暂不允许编辑评论）
 
-// 删除评论
+// DeleteComment 删除评论
 func DeleteComment(id uint) int {
 	var comment Comment
 	err = db.Where("id = ?", id).Delete(&comment).Error
@@ -80,7 +80,7 @@ func DeleteComment(id uint) int {
 	return errmsg.SUCCSE
 }
 
-// 通过评论
+// CheckComment 通过评论
 func CheckComment(id int, data *Comment) int {
 	var comment Comment
 	var res Comment
@@ -96,7 +96,7 @@ func CheckComment(id int, data *Comment) int {
 	return errmsg.SUCCSE
 }
 
-// 撤下评论
+// UncheckComment 撤下评论
 func UncheckComment(id int, data *Comment) int {
 	var comment Comment
 	var res Comment

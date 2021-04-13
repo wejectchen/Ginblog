@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// 添加分类
+// AddCategory 添加分类
 func AddCategory(c *gin.Context) {
 	var data model.Category
 	_ = c.ShouldBindJSON(&data)
@@ -29,7 +29,7 @@ func AddCategory(c *gin.Context) {
 	)
 }
 
-// 查询分类信息
+// GetCateInfo 查询分类信息
 func GetCateInfo(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -45,7 +45,7 @@ func GetCateInfo(c *gin.Context) {
 
 }
 
-// 查询分类列表
+// GetCate 查询分类列表
 func GetCate(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -86,7 +86,7 @@ func GetCate(c *gin.Context) {
 //	})
 //}
 
-// 编辑分类名
+// EditCate 编辑分类名
 func EditCate(c *gin.Context) {
 	var data model.Category
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -107,7 +107,7 @@ func EditCate(c *gin.Context) {
 	)
 }
 
-// 删除用户
+// DeleteCate 删除用户
 func DeleteCate(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 

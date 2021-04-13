@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// 后台登陆
+// Login 后台登陆
 func Login(c *gin.Context) {
 	var formData model.User
 	_ = c.ShouldBindJSON(&formData)
@@ -33,7 +33,7 @@ func Login(c *gin.Context) {
 	
 }
 
-// 前台登录
+// LoginFront 前台登录
 func LoginFront(c *gin.Context) {
 	var formData model.User
 	_ = c.ShouldBindJSON(&formData)
