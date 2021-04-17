@@ -87,7 +87,7 @@ func GetArt(c *gin.Context) {
 		return
 	}
 	
-	data, code, total := model.SearchArtile(title,pageSize,pageNum)
+	data, code, total := model.SearchArticle(title,pageSize,pageNum)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"data":    data,

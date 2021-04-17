@@ -18,7 +18,7 @@ type Profile struct {
 	IcpRecord string `gorm:"type:varchar(200)" json:"icp_record"`
 }
 
-// 获取个人信息设置
+// GetProfile 获取个人信息设置
 func GetProfile(id int) (Profile, int) {
 	var profile Profile
 	err = db.Where("ID = ?", id).First(&profile).Error
@@ -28,7 +28,7 @@ func GetProfile(id int) (Profile, int) {
 	return profile, errmsg.SUCCSE
 }
 
-// 更新个人信息设置
+// UpdateProfile 更新个人信息设置
 func UpdateProfile(id int, data *Profile) int {
 	var profile Profile
 	err = db.Model(&profile).Where("ID = ?", id).Updates(&data).Error
