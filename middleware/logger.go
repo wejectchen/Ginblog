@@ -6,7 +6,6 @@ import (
 	retalog "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
-	"math"
 	"os"
 	"time"
 )
@@ -49,8 +48,8 @@ func Log() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		startTime := time.Now()
 		c.Next()
-		stopTime := time.Since(startTime)
-		spendTime := fmt.Sprintf("%d ms", int(math.Ceil(float64(stopTime.Nanoseconds())/1000000.0)))
+		stopTime := time.Since(startTime).Milliseconds()
+		spendTime := fmt.Sprintf("%d ms", stopTime)
 		hostName, err := os.Hostname()
 		if err != nil {
 			hostName = "unknown"
