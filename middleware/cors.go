@@ -9,7 +9,8 @@ import (
 func Cors() gin.HandlerFunc {
 	return cors.New(
 		cors.Config{
-			AllowAllOrigins:  true,
+			//AllowAllOrigins:  true,
+			AllowOrigins:     []string{"*"}, // 等同于允许所有域名
 			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 			AllowHeaders:     []string{"*"},
 			ExposeHeaders:    []string{"Content-Length", "text/plain", "Authorization", "Content-Type"},
