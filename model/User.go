@@ -63,7 +63,7 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 	var total int64
 
 	if username != "" {
-		db.Select("id,username,role").Where(
+		db.Select("id,username,role,created_at").Where(
 			"username LIKE ?", username+"%",
 		).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
 		db.Model(&users).Where(
@@ -71,7 +71,7 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int64) {
 		).Count(&total)
 		return users, total
 	}
-	db.Select("id,username,role").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
+	db.Select("id,username,role,created_at").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
 	db.Model(&users).Count(&total)
 
 	if err != nil {

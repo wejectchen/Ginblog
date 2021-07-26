@@ -116,6 +116,8 @@
 </template>
 
 <script>
+import day from 'dayjs'
+
 const columns = [
   {
     title: 'ID',
@@ -130,6 +132,16 @@ const columns = [
     width: '20%',
     key: 'username',
     align: 'center',
+  },
+  {
+    title: '注册时间',
+    dataIndex: 'CreatedAt',
+    width: '20%',
+    key: 'CreatedAt',
+    align: 'center',
+    customRender: (val) => {
+      return val ? day(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
+    },
   },
   {
     title: '角色',

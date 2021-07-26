@@ -12,15 +12,24 @@
         <span slot="status" slot-scope="data">{{ data == 1 ? '审核通过' : '未审核' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="commentCheck(data.ID)"
-              >通过审核</a-button
-            >
-            <a-button type="primary" icon="info" style="margin-right: 15px" @click="commentUncheck(data.ID)"
-              >撤下评论</a-button
-            >
-            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteComment(data.ID)"
-              >删除</a-button
-            >
+            <a-button
+              type="primary"
+              icon="edit"
+              style="margin-right: 15px"
+              @click="commentCheck(data.ID)"
+            >通过审核</a-button>
+            <a-button
+              type="primary"
+              icon="info"
+              style="margin-right: 15px"
+              @click="commentUncheck(data.ID)"
+            >撤下评论</a-button>
+            <a-button
+              type="danger"
+              icon="delete"
+              style="margin-right: 15px"
+              @click="deleteComment(data.ID)"
+            >删除</a-button>
           </div>
         </template>
       </a-table>
@@ -28,7 +37,7 @@
   </div>
 </template>
 <script>
-import moment from 'moment'
+import day from 'dayjs'
 const columns = [
   {
     title: 'ID',
@@ -44,7 +53,7 @@ const columns = [
     key: 'CreatedAt',
     align: 'center',
     customRender: (val) => {
-      return val ? moment(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
+      return val ? day(val).format('YYYY年MM月DD日 HH:mm') : '暂无'
     },
   },
   {
