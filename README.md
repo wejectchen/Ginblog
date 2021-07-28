@@ -39,7 +39,7 @@ gin+vue 全栈制作一个博客。
 ├─  .gitignore
 │  go.mod // 项目依赖
 │  go.sum
-│  latest_log.log
+│  latest_log.log #最新log日志软连接
 │  LICENSE
 │  main.go //主程序
 │  README.md
