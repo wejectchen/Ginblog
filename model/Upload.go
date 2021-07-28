@@ -22,7 +22,7 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	upToken := putPolicy.UploadToken(mac)
 
 	cfg := storage.Config{
-		Zone:          &storage.ZoneHuadong,
+		// Zone:          &storage.ZoneHuadong, // 自动获取地区，不另外指定
 		UseCdnDomains: false,
 		UseHTTPS:      false,
 	}
