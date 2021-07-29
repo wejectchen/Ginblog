@@ -32,18 +32,22 @@ func AddUser(c *gin.Context) {
 
 	code = model.CheckUser(data.Username)
 	if code == errmsg.SUCCSE {
-		model.CreateUser(&data)
-	}
-	if code == errmsg.ERROR_USERNAME_USED {
-		code = errmsg.ERROR_USERNAME_USED
-	}
+		thisCode := model.CreateUser(&data)
+		c.JSON(
+			http.StatusOK, gin.H{
+				"status":  thisCode,
+				"message": errmsg.GetErrMsg(thisCode),
+			},
+		)
 
-	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"message": errmsg.GetErrMsg(code),
-		},
-	)
+	} else {
+		c.JSON(
+			http.StatusOK, gin.H{
+				"status":  code,
+				"message": errmsg.GetErrMsg(code),
+			},
+		)
+	}
 }
 
 // GetUserInfo 查询单个用户
@@ -121,7 +125,7 @@ func ChangeUserPassword(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
-	
+
 	code = model.ChangePassword(id, &data)
 
 	c.JSON(
