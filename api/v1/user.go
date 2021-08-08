@@ -116,7 +116,7 @@ func EditUser(c *gin.Context) {
 	)
 }
 
-// 修改密码
+// ChangeUserPassword 修改密码
 func ChangeUserPassword(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -132,7 +132,7 @@ func ChangeUserPassword(c *gin.Context) {
 	)
 }
 
-// 删除用户
+// DeleteUser 删除用户
 func DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
