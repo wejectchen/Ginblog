@@ -9,7 +9,6 @@ import (
 	"strconv"
 )
 
-var code int
 
 // AddUser 添加用户
 func AddUser(c *gin.Context) {
@@ -30,12 +29,9 @@ func AddUser(c *gin.Context) {
 		return
 	}
 
-	code = model.CheckUser(data.Username)
+	code := model.CheckUser(data.Username)
 	if code == errmsg.SUCCSE {
 		model.CreateUser(&data)
-	}
-	if code == errmsg.ERROR_USERNAME_USED {
-		code = errmsg.ERROR_USERNAME_USED
 	}
 
 	c.JSON(
@@ -83,7 +79,7 @@ func GetUsers(c *gin.Context) {
 
 	data, total := model.GetUsers(username, pageSize, pageNum)
 
-	code = errmsg.SUCCSE
+	code := errmsg.SUCCSE
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status":  code,
@@ -100,12 +96,9 @@ func EditUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 
-	code = model.CheckUpUser(id, data.Username)
+	code := model.CheckUpUser(id, data.Username)
 	if code == errmsg.SUCCSE {
 		model.EditUser(id, &data)
-	}
-	if code == errmsg.ERROR_USERNAME_USED {
-		c.Abort()
 	}
 
 	c.JSON(
@@ -122,7 +115,7 @@ func ChangeUserPassword(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 	
-	code = model.ChangePassword(id, &data)
+	code := model.ChangePassword(id, &data)
 
 	c.JSON(
 		http.StatusOK, gin.H{
@@ -136,7 +129,7 @@ func ChangeUserPassword(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code = model.DeleteUser(id)
+	code := model.DeleteUser(id)
 
 	c.JSON(
 		http.StatusOK, gin.H{

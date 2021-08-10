@@ -13,7 +13,7 @@ func AddComment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 
-	code = model.AddComment(&data)
+	code := model.AddComment(&data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"data":    data,
@@ -35,7 +35,7 @@ func GetComment(c *gin.Context)  {
 // DeleteComment 删除评论
 func DeleteComment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	code = model.DeleteComment(uint(id))
+	code := model.DeleteComment(uint(id))
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),
@@ -112,20 +112,20 @@ func CheckComment(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code = model.CheckComment(id, &data)
+	code := model.CheckComment(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),
 	})
 }
 
-// 撤下评论审核
-func UnCheckcomment(c *gin.Context) {
+// UncheckComment 撤下评论审核
+func UncheckComment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
 	
-	code = model.UncheckComment(id, &data)
+	code := model.UncheckComment(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),

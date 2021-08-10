@@ -67,7 +67,7 @@ func InitRouter() {
 		auth.GET("comment/list", v1.GetCommentList)
 		auth.DELETE("delcomment/:id", v1.DeleteComment)
 		auth.PUT("checkcomment/:id", v1.CheckComment)
-		auth.PUT("uncheckcomment/:id", v1.UnCheckcomment)
+		auth.PUT("uncheckcomment/:id", v1.UncheckComment)
 	}
 	
 	/*
