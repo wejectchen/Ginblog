@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// UpLoad 上传图片接口
 func UpLoad(c *gin.Context) {
 	file, fileHeader, _ := c.Request.FormFile("file")
 
@@ -19,5 +20,4 @@ func UpLoad(c *gin.Context) {
 		"message": errmsg.GetErrMsg(code),
 		"url":     url,
 	})
-
 }
