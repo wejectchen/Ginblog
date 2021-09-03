@@ -121,8 +121,10 @@ export default {
     // 获取评论列表
     async getCommentList() {
       const { data: res } = await this.$http.get('comment/list', {
-        pagesize: this.queryParam.pagesize,
-        pagenum: this.queryParam.pagenum,
+        params: {
+          pagesize: this.queryParam.pagesize,
+          pagenum: this.queryParam.pagenum,
+        },
       })
 
       if (res.status !== 200) {
