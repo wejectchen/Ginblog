@@ -117,6 +117,7 @@ export default {
     async getArtInfo() {
       const { data: res } = await this.$http.get(`article/info/${this.id}`)
       this.artInfo = res.data
+      window.sessionStorage.setItem('title', this.artInfo.title)
     },
     // 获取评论
     async getCommentList() {

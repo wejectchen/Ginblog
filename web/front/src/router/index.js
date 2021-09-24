@@ -24,7 +24,7 @@ const routes = [
   {
     path: '/article/detail/:id',
     component: Detail,
-    meta: { title: '文章详情' },
+    meta: { title: window.sessionStorage.getItem('title') },
     props: true
   },
   {
