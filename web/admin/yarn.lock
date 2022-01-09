@@ -34,7 +34,7 @@
   "resolved" "https://registry.npm.taobao.org/@babel/compat-data/download/@babel/compat-data-7.12.7.tgz"
   "version" "7.12.7"
 
-"@babel/core@*", "@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.0":
   "integrity" "sha1-t5ouG59w7T2Eu/ttjE74JfYGvM0="
   "resolved" "https://registry.npm.taobao.org/@babel/core/download/@babel/core-7.12.10.tgz"
   "version" "7.12.10"
@@ -2938,7 +2938,7 @@
   "resolved" "https://registry.npm.taobao.org/core-js/download/core-js-2.6.12.tgz?cache=0&sync_timestamp=1609681993371&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-2.6.12.tgz"
   "version" "2.6.12"
 
-"core-js@^3", "core-js@^3.6.5":
+"core-js@^3.6.5":
   "integrity" "sha1-Ch/WcJJG2pyo7/W7DL0V+6mscEQ="
   "resolved" "https://registry.npm.taobao.org/core-js/download/core-js-3.8.2.tgz?cache=0&sync_timestamp=1609681993371&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.8.2.tgz"
   "version" "3.8.2"
