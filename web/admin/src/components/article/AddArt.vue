@@ -3,12 +3,8 @@
     <a-card>
       <h3>{{ id ? '编辑文章' : '新增文章' }}</h3>
 
-      <a-form-model
-        :model="artInfo"
-        ref="artInfoRef"
-        :rules="artInfoRules"
-        :hideRequiredMark="true"
-      >
+      <a-form-model :model="artInfo" ref="artInfoRef" :rules="artInfoRules"
+        :hideRequiredMark="true">
         <a-row :gutter="24">
           <a-col :span="16">
             <a-form-model-item label="文章标题" prop="title">
@@ -20,28 +16,19 @@
           </a-col>
           <a-col :span="8">
             <a-form-model-item label="文章分类" prop="cid">
-              <a-select
-                style="width: 200px"
-                v-model="artInfo.cid"
-                placeholder="请选择分类"
-                @change="cateChange"
-              >
+              <a-select style="width: 200px" v-model="artInfo.cid" placeholder="请选择分类"
+                @change="cateChange">
                 <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">
                   {{
-                  item.name
+                      item.name
                   }}
                 </a-select-option>
               </a-select>
             </a-form-model-item>
 
             <a-form-model-item label="文章缩略图" prop="img">
-              <a-upload
-                listType="picture"
-                name="file"
-                :action="upUrl"
-                :headers="headers"
-                @change="upChange"
-              >
+              <a-upload listType="picture" name="file" :action="upUrl" :headers="headers"
+                @change="upChange">
                 <a-button>
                   <a-icon type="upload" />点击上传
                 </a-button>
@@ -60,7 +47,7 @@
         <a-form-model-item>
           <a-button type="danger" style="margin-right: 15px" @click="artOk(artInfo.id)">
             {{
-            artInfo.id ? '更新' : '提交'
+                artInfo.id ? '更新' : '提交'
             }}
           </a-button>
           <a-button type="primary" @click="addCancel">取消</a-button>
@@ -97,7 +84,7 @@ export default {
           { required: true, message: '请输入文章描述', trigger: 'change' },
           { max: 120, message: '描述最多可写120个字符', trigger: 'change' },
         ],
-        img: [{ required: true, message: '请选择文章缩略图', trigger: 'change' }],
+        // img: [{ required: true, message: '请选择文章缩略图', trigger: 'change' }],
         content: [{ required: true, message: '请输入文章内容', trigger: 'change' }],
       },
     }
@@ -116,9 +103,12 @@ export default {
       if (res.status !== 200) {
         if (res.status === 1004 || 1005 || 1006 || 1007) {
           window.sessionStorage.clear()
+          this.$message.error(res.message)
           this.$router.push('/login')
+          return
         }
         this.$message.error(res.message)
+        return
       }
       this.artInfo = res.data
       this.artInfo.id = res.data.ID
@@ -126,13 +116,7 @@ export default {
     // 获取分类列表
     async getCateList() {
       const { data: res } = await this.$http.get('admin/category')
-      if (res.status !== 200) {
-        if (res.status === 1004 || 1005 || 1006 || 1007) {
-          window.sessionStorage.clear()
-          this.$router.push('/login')
-        }
-        this.$message.error(res.message)
-      }
+      if (res.status !== 200) return this.$message.error(res.message)
       this.Catelist = res.data
     },
     // 选择分类

@@ -10,7 +10,6 @@ var (
 	HttpPort string
 	JwtKey   string
 
-	Db         string
 	DbHost     string
 	DbPort     string
 	DbUser     string
@@ -40,11 +39,10 @@ func LoadServer(file *ini.File) {
 }
 
 func LoadData(file *ini.File) {
-	Db = file.Section("database").Key("Db").MustString("debug")
 	DbHost = file.Section("database").Key("DbHost").MustString("localhost")
 	DbPort = file.Section("database").Key("DbPort").MustString("3306")
 	DbUser = file.Section("database").Key("DbUser").MustString("ginblog")
-	DbPassWord = file.Section("database").Key("DbPassWord").MustString("admin123")
+	DbPassWord = file.Section("database").Key("DbPassWord").String()
 	DbName = file.Section("database").Key("DbName").MustString("ginblog")
 }
 
