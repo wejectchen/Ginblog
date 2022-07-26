@@ -2,6 +2,13 @@
 
 [![star](https://gitee.com/wejectchan/ginblog/badge/star.svg?theme=white)](https://gitee.com/wejectchan/ginblog/stargazers)
 
+
+
+<div align="center">
+<img  src="https://pic.jitudisk.com/public/2022/07/26/7b8450bb0b7e4.jpg" width="600" height="350"/>
+</div>
+
+
 ## 重要更新
 
 - 2022.4.28 取消后台页面新增文章中上传图片为“必填”的限制，避免在配置七牛云上传不成功时报错。
@@ -14,9 +21,9 @@
 
 - 2021.2.10 增加了展示页面的移动端适配
   
-  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" width="250px" />
+  <img src="https://pic.jitudisk.com/public/2022/07/26/636766d69739b.png" width="250px" />
   
-  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile2.png"  width="250px" />
+  <img src="https://pic.jitudisk.com/public/2022/07/26/a325ee15dc231.png"  width="250px" />
   
   
   
@@ -73,17 +80,17 @@ gin+vue 全栈制作一个博客。
 
 1. 克隆项目
 
-	```shell
-	git clone git@gitee.com:wejectchan/ginblog.git
-	or
-	git clone https://github.com/wejectchen/Ginblog.git
-	```
+```shell
+git clone git@gitee.com:wejectchan/ginblog.git
+#or
+git clone https://github.com/wejectchen/Ginblog.git
+```
 
 2. 转到下面文件夹下
 
-
-	cd yourPath/ginbolg
-
+```shell
+cd yourPath/ginbolg
+```
 
 3. 安装依赖
 
@@ -183,18 +190,18 @@ enjoy~~~~
 ## 项目预览
 
 - 前端展示页面
-  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front1.png)
+  ![](https://pic.jitudisk.com/public/2022/07/26/5699cd57e7a4d.png)
 
 - 前端展示页面
-  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front2.png)
+  ![](https://pic.jitudisk.com/public/2022/07/26/c3be8f20a53dc.png)
 
 - 后台登录页面
 
-  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin.jpg)
+  ![](https://pic.jitudisk.com/public/2022/07/26/9f7c59f2b8233.jpg)
 
 - 后台管理页面
 
-  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin2.jpg)
+  ![](https://pic.jitudisk.com/public/2022/07/26/cd84f23a7a4d1.jpg)
 
 
 
@@ -536,4 +543,4 @@ $ docker run -d -p 3000:3000 --name ginblog ginblog
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/jet.png" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://pic.jitudisk.com/public/2022/07/26/4cf662f67829a.png" height="200" /></a>
