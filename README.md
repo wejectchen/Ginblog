@@ -5,7 +5,7 @@
 
 
 <div align="center">
-<img  src="https://pic.jitudisk.com/public/2022/07/26/7b8450bb0b7e4.jpg" width="600" height="350"/>
+<img  src="https://s3.bmp.ovh/imgs/2022/07/31/cc4d0ebbc896a9eb.jpg" width="600" height="350"/>
 </div>
 
 
@@ -21,9 +21,9 @@
 
 - 2021.2.10 增加了展示页面的移动端适配
   
-  <img src="https://pic.jitudisk.com/public/2022/07/26/636766d69739b.png" width="250px" />
+  <img src="https://s3.bmp.ovh/imgs/2022/07/31/a4e6890fd074d169.png" width="250px" />
   
-  <img src="https://pic.jitudisk.com/public/2022/07/26/a325ee15dc231.png"  width="250px" />
+  <img src="https://s3.bmp.ovh/imgs/2022/07/31/79ab315cdee253bc.png"  width="250px" />
   
   
   
@@ -190,18 +190,18 @@ enjoy~~~~
 ## 项目预览
 
 - 前端展示页面
-  ![](https://pic.jitudisk.com/public/2022/07/26/5699cd57e7a4d.png)
+  ![](https://s3.bmp.ovh/imgs/2022/07/31/05ec23559fec2a13.png)
 
 - 前端展示页面
-  ![](https://pic.jitudisk.com/public/2022/07/26/c3be8f20a53dc.png)
+  ![](https://s3.bmp.ovh/imgs/2022/07/31/233658d4e01e5151.png)
 
 - 后台登录页面
 
-  ![](https://pic.jitudisk.com/public/2022/07/26/9f7c59f2b8233.jpg)
+  ![](https://s3.bmp.ovh/imgs/2022/07/31/1c70342bc57c803c.jpg)
 
 - 后台管理页面
 
-  ![](https://pic.jitudisk.com/public/2022/07/26/cd84f23a7a4d1.jpg)
+  ![](https://s3.bmp.ovh/imgs/2022/07/31/8e42cd300655056b.jpg)
 
 
 
@@ -543,4 +543,4 @@ $ docker run -d -p 3000:3000 --name ginblog ginblog
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="https://pic.jitudisk.com/public/2022/07/26/4cf662f67829a.png" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://s3.bmp.ovh/imgs/2022/07/31/eae1aeef181503fd.png" height="200" /></a>
