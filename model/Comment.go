@@ -1,7 +1,7 @@
 package model
 
 import (
-	"ginblog/utils/errmsg"
+	"github.com/wejectchen/ginblog/utils/errmsg"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +36,7 @@ func GetComment(id int) (Comment, int) {
 
 // GetCommentList 后台所有获取评论列表
 func GetCommentList(pageSize int, pageNum int) ([]Comment, int64, int) {
-	
+
 	var commentList []Comment
 	var total int64
 	db.Find(&commentList).Count(&total)
@@ -87,7 +87,7 @@ func CheckComment(id int, data *Comment) int {
 	var article Article
 	var maps = make(map[string]interface{})
 	maps["status"] = data.Status
-	
+
 	err = db.Model(&comment).Where("id = ?", id).Updates(maps).First(&res).Error
 	db.Model(&article).Where("id = ?", res.ArticleId).UpdateColumn("comment_count", gorm.Expr("comment_count + ?", 1))
 	if err != nil {
@@ -103,7 +103,7 @@ func UncheckComment(id int, data *Comment) int {
 	var article Article
 	var maps = make(map[string]interface{})
 	maps["status"] = data.Status
-	
+
 	err = db.Model(&comment).Where("id = ?", id).Updates(maps).First(&res).Error
 	db.Model(&article).Where("id = ?", res.ArticleId).UpdateColumn("comment_count", gorm.Expr("comment_count - ?", 1))
 	if err != nil {

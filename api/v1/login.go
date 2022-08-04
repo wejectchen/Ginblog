@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"ginblog/middleware"
-	"ginblog/model"
-	"ginblog/utils/errmsg"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/wejectchen/ginblog/middleware"
+	"github.com/wejectchen/ginblog/model"
+	"github.com/wejectchen/ginblog/utils/errmsg"
 	"net/http"
 	"time"
 )

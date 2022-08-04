@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"errors"
-	"ginblog/utils"
-	"ginblog/utils/errmsg"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/wejectchen/ginblog/utils"
+	"github.com/wejectchen/ginblog/utils/errmsg"
 	"net/http"
 	"strings"
 )
@@ -44,7 +44,7 @@ func (j *JWT) ParserToken(tokenString string) (*MyClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return j.JwtKey, nil
 	})
-	
+
 	if err != nil {
 		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
@@ -59,14 +59,14 @@ func (j *JWT) ParserToken(tokenString string) (*MyClaims, error) {
 			}
 		}
 	}
-	
+
 	if token != nil {
 		if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
 			return claims, nil
 		}
 		return nil, TokenInvalid
 	}
-	
+
 	return nil, TokenInvalid
 }
 
@@ -84,7 +84,7 @@ func JwtToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		
+
 		checkToken := strings.Split(tokenHeader, " ")
 		if len(checkToken) == 0 {
 			c.JSON(http.StatusOK, gin.H{
@@ -94,7 +94,7 @@ func JwtToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		
+
 		if len(checkToken) != 2 || checkToken[0] != "Bearer" {
 			c.JSON(http.StatusOK, gin.H{
 				"status":  code,
@@ -103,7 +103,7 @@ func JwtToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		
+
 		j := NewJWT()
 		// 解析token
 		claims, err := j.ParserToken(checkToken[1])
@@ -126,7 +126,7 @@ func JwtToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		
+
 		c.Set("username", claims)
 		c.Next()
 	}

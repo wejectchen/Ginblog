@@ -1,7 +1,7 @@
 package model
 
 import (
-	"ginblog/utils/errmsg"
+	"github.com/wejectchen/ginblog/utils/errmsg"
 	"gorm.io/gorm"
 )
 
@@ -30,10 +30,10 @@ func CreateCate(data *Category) int {
 }
 
 // GetCateInfo 查询单个分类信息
-func GetCateInfo(id int) (Category,int) {
+func GetCateInfo(id int) (Category, int) {
 	var cate Category
-	db.Where("id = ?",id).First(&cate)
-	return cate,errmsg.SUCCSE
+	db.Where("id = ?", id).First(&cate)
+	return cate, errmsg.SUCCSE
 }
 
 // GetCate 查询分类列表
