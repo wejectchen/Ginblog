@@ -13,3 +13,4 @@
 *.out
 /log/
 config/config.ini
+upload/
