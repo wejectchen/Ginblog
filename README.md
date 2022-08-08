@@ -1,13 +1,13 @@
 # Ginblog（项目已完成，欢迎使用)
 
 [![star](https://gitee.com/wejectchan/ginblog/badge/star.svg?theme=white)](https://gitee.com/wejectchan/ginblog/stargazers)
+[![Go Report Card](https://goreportcard.com/badge/github.com/wejectchen/ginblog)](https://goreportcard.com/report/github.com/wejectchen/ginblog)
 
 
 
 <div align="center">
 <img  src="https://s3.bmp.ovh/imgs/2022/07/31/cc4d0ebbc896a9eb.jpg" width="600" height="350"/>
 </div>
-
 
 ## 重要更新
 
@@ -20,17 +20,16 @@
 - 2021.2.12 为了交流方便，建立了一个QQ群：951736723，如果有问题，欢迎进群交流。
 
 - 2021.2.10 增加了展示页面的移动端适配
-  
+
   <img src="https://s3.bmp.ovh/imgs/2022/07/31/a4e6890fd074d169.png" width="250px" />
-  
+
   <img src="https://s3.bmp.ovh/imgs/2022/07/31/79ab315cdee253bc.png"  width="250px" />
-  
-  
-  
+
+
 - 2021.1.2 加入注册、登录、评论功能，后台管理加入评论审核功能
 
 - 2021.1.3 增加 登录、注册验证功能；增加评论数量显示；增加阅读数量显示
-         增加：文章页面评论数、阅读数
+  增加：文章页面评论数、阅读数
 
 ## 介绍
 
@@ -38,9 +37,8 @@ gin+vue 全栈制作一个博客。
 
 这是一个分享全栈制作过程的项目，旨在为有兴趣接触 golang web 开发的朋友分享一些制作经验。
 
-你可以前往 [B 站(https://space.bilibili.com/402177130)](https://space.bilibili.com/402177130) 观看全栈的制作过程，你也可以留言分享你的观点，非常乐意与你交流。
-
-
+你可以前往 [B 站(https://space.bilibili.com/402177130)](https://space.bilibili.com/402177130)
+观看全栈的制作过程，你也可以留言分享你的观点，非常乐意与你交流。
 
 ## 目录结构
 
@@ -73,8 +71,6 @@ gin+vue 全栈制作一个博客。
     ├─admin             
     └─front
 ```
-
-
 
 ## 运行&&部署
 
@@ -120,21 +116,19 @@ DbName = ginblog # 数据库名
 # 七牛储存信息
 AccessKey = # AK
 SecretKey = # SK
-Bucket = 
+Bucket =
 QiniuSever =
 ```
 
 5. 在database中将sql文件导入数据库
 
-	推荐navicat或者其他sql管理工具导入
+   推荐navicat或者其他sql管理工具导入
 
 6. 启动项目
 
 ```shell
  go run main.go
 ```
-
-
 
 此时，项目启动，你可以访问页面
 
@@ -147,44 +141,42 @@ http://localhost:3000/admin
 默认管理员:admin  密码:123456
 ```
 
-
-
 enjoy~~~~
 
 #### ==使用、二开过程中，发现问题或者有功能需求欢迎提交 `Iusse` 或者直接 `PR`==
 
 ## 实现功能
 
-1.  简单的用户管理权限设置
-2.  用户密码加密存储
-3.  文章分类自定义
-4.  列表分页
-5.  图片上传七牛云
-6.  JWT 认证
-7.  自定义日志功能
-8.  跨域 cors 设置
-9.  文章评论功能
+1. 简单的用户管理权限设置
+2. 用户密码加密存储
+3. 文章分类自定义
+4. 列表分页
+5. 图片上传七牛云
+6. JWT 认证
+7. 自定义日志功能
+8. 跨域 cors 设置
+9. 文章评论功能
 
 ## 技术栈
 
 - golang
-  - Gin web framework
-  - gorm(v1 && v2)
-  - jwt-go
-  - scrypt
-  - logrus
-  - gin-contrib/cors
-  - go-playground/validator/v10
-  - go-ini
+    - Gin web framework
+    - gorm(v1 && v2)
+    - jwt-go
+    - scrypt
+    - logrus
+    - gin-contrib/cors
+    - go-playground/validator/v10
+    - go-ini
 - JavaScript
-  - vue
-  - vue cli
-  - vue router
-  - ant design vue
-  - vuetify
-  - axios
-  - tinymce
-  - moment
+    - vue
+    - vue cli
+    - vue router
+    - ant design vue
+    - vuetify
+    - axios
+    - tinymce
+    - moment
 - MySQL version:8.0.21
 
 ## 项目预览
@@ -202,8 +194,6 @@ enjoy~~~~
 - 后台管理页面
 
   ![](https://s3.bmp.ovh/imgs/2022/07/31/8e42cd300655056b.jpg)
-
-
 
 ## 更新进度(制作视频已基本全部更新完毕)
 
@@ -277,8 +267,7 @@ enjoy~~~~
 
 [第五节 完成文章详情页面](https://www.bilibili.com/video/BV1Eo4y1Z7c9)
 
-
-##  Docker部署
+## Docker部署
 
 ### 一、如何安装docker
 
@@ -287,7 +276,6 @@ enjoy~~~~
 选择对应的系统进行查看，以ubuntu 18.04 LTS为例
 
 - 卸载旧版本
-
 
 ```shell
 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -303,7 +291,6 @@ Package 'runc' is not installed, so not removed
 ```
 
 - 添加新版本仓库
-
 
 ```shell
 $ sudo apt-get update
@@ -322,8 +309,6 @@ $ sudo apt-get install \
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-
-
 - 验证key,如果输出的是下列内容，则说明正确
 
 ```shell
@@ -336,7 +321,6 @@ sub  rsa4096 2017-02-22 [S]
 ```
 
 - 添加仓库地址
-
 
 ```shell
 $ sudo add-apt-repository \
@@ -352,7 +336,6 @@ $ sudo add-apt-repository \
   stable"
 ```
 
-
 - 更新仓库和安装
 
 ```shell
@@ -360,6 +343,7 @@ $ sudo add-apt-repository \
 
  $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
+
 - 进行验证，运行hello-world
 
 ```shell
@@ -409,7 +393,8 @@ sudo systemctl restart docker
 
 **首先，个人非常不建议mysql用docker来部署，有几个原因：**
 
-1. **必须做数据卷的映射，`千万不能` 将数据库数据放在docker容器中运行，否则一但删除容器数据将全部清空，所以一定要做数据持久化！！；**
+1. **必须做数据卷的映射，`千万不能`
+   将数据库数据放在docker容器中运行，否则一但删除容器数据将全部清空，所以一定要做数据持久化！！；**
 2. **不利于io，数据读写在容器中读写一次，在绑定的卷中还要读写一次，两倍读写压力，性能上要打折扣。**
 
 如果非要在docker上部署mysql，可以这么做
@@ -455,8 +440,6 @@ mysql>
 # 之后就和一般情况下mysql的操作一样了。
 ```
 
-
-
 ### 制作ginblog项目镜像
 
 - 首相要拉取我们的ginblog项目
@@ -497,7 +480,7 @@ ENTRYPOINT ["./ginblog"]
 # DbHost = ginblog-mysql 是为了后面容器互通做准备，对应的是mysql容器的name
 
 Db = mysql
-DbHost = ginblog-mysql 
+DbHost = ginblog-mysql
 DbPort = 3306
 DbUser = ginblog
 DbPassWord = admin123
@@ -518,7 +501,7 @@ axios.defaults.baseURL = 'http://localhost:3000/api/v1'
 axios.defaults.baseURL = 'http://线上服务器ip或域名:3000/api/v1'
 ```
 
-**别忘了，修改完地址后，重新打包下** 
+**别忘了，修改完地址后，重新打包下**
 
 ```shell
 $ yarn build
@@ -536,8 +519,6 @@ $ docker run -d -p 3000:3000 --name ginblog ginblog
 
 #这样访问服务器IP:3000 就可以访问网站了
 ```
-
-
 
 ## Thanks for free JetBrains Open Source license
 

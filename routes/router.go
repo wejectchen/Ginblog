@@ -23,7 +23,7 @@ func InitRouter() {
 	_ = r.SetTrustedProxies(nil)
 
 	r.HTMLRender = createMyRender()
-	r.Use(middleware.Log())
+	r.Use(middleware.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 

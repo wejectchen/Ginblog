@@ -27,10 +27,10 @@ type MyClaims struct {
 
 // 定义错误
 var (
-	TokenExpired     error = errors.New("Token已过期,请重新登录")
-	TokenNotValidYet error = errors.New("Token无效,请重新登录")
-	TokenMalformed   error = errors.New("Token不正确,请重新登录")
-	TokenInvalid     error = errors.New("这不是一个token,请重新登录")
+	TokenExpired     = errors.New("token已过期,请重新登录")
+	TokenNotValidYet = errors.New("token无效,请重新登录")
+	TokenMalformed   = errors.New("token不正确,请重新登录")
+	TokenInvalid     = errors.New("这不是一个token,请重新登录")
 )
 
 // CreateToken 生成token
@@ -50,7 +50,6 @@ func (j *JWT) ParserToken(tokenString string) (*MyClaims, error) {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
 				return nil, TokenMalformed
 			} else if ve.Errors&jwt.ValidationErrorExpired != 0 {
-				// Token is expired
 				return nil, TokenExpired
 			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
 				return nil, TokenNotValidYet
