@@ -6,7 +6,7 @@
 
 
 <div align="center">
-<img  src="https://s3.bmp.ovh/imgs/2022/07/31/cc4d0ebbc896a9eb.jpg" width="600" height="350"/>
+<img  src="https://s1.328888.xyz/2022/08/13/Tl95d.jpg" width="600" height="350"/>
 </div>
 
 ## 重要更新
@@ -21,9 +21,9 @@
 
 - 2021.2.10 增加了展示页面的移动端适配
 
-  <img src="https://s3.bmp.ovh/imgs/2022/07/31/a4e6890fd074d169.png" width="250px" />
+  <img src="https://s1.328888.xyz/2022/08/13/Tl5FC.jpg" width="250px" />
 
-  <img src="https://s3.bmp.ovh/imgs/2022/07/31/79ab315cdee253bc.png"  width="250px" />
+  <img src="https://s1.328888.xyz/2022/08/13/TlkHy.png"  width="250px" />
 
 
 - 2021.1.2 加入注册、登录、评论功能，后台管理加入评论审核功能
@@ -182,18 +182,19 @@ enjoy~~~~
 ## 项目预览
 
 - 前端展示页面
-  ![](https://s3.bmp.ovh/imgs/2022/07/31/05ec23559fec2a13.png)
+  ![](https://s1.328888.xyz/2022/08/13/Tlb8F.png)
 
 - 前端展示页面
-  ![](https://s3.bmp.ovh/imgs/2022/07/31/233658d4e01e5151.png)
+  ![](https://s1.328888.xyz/2022/08/13/TlwAS.png)
 
 - 后台登录页面
 
-  ![](https://s3.bmp.ovh/imgs/2022/07/31/1c70342bc57c803c.jpg)
+  ![](https://s1.328888.xyz/2022/08/13/Tlhvp.jpg
+  )
 
 - 后台管理页面
 
-  ![](https://s3.bmp.ovh/imgs/2022/07/31/8e42cd300655056b.jpg)
+  ![](https://s1.328888.xyz/2022/08/13/TlBwo.jpg)
 
 ## 更新进度(制作视频已基本全部更新完毕)
 
@@ -524,4 +525,4 @@ $ docker run -d -p 3000:3000 --name ginblog ginblog
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="https://s3.bmp.ovh/imgs/2022/07/31/eae1aeef181503fd.png" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://s1.328888.xyz/2022/08/13/TlC65.png" height="200" /></a>
