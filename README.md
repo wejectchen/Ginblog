@@ -1,4 +1,10 @@
+<div align="center">
+
 # Ginblog（项目已完成，欢迎使用)
+
+</div>
+
+<div align="center">
 
 [![star](https://gitee.com/wejectchan/ginblog/badge/star.svg?theme=white)](https://gitee.com/wejectchan/ginblog/stargazers)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wejectchen/ginblog)](https://goreportcard.com/report/github.com/wejectchen/ginblog)
@@ -9,6 +15,7 @@
 <a href="https://pkg.go.dev/github.com/wejectchen/ginblog#section-readme">
 ![](https://img.shields.io/badge/Go-Package-blue)</a>
 
+</div>
 
 <div align="center">
 <img  src="https://s1.328888.xyz/2022/08/13/Tl95d.jpg" width="600" height="350"/>
@@ -66,7 +73,7 @@ gin+vue 全栈制作一个博客。
 │      router.go // 路由入口    
 ├─static // 打包静态文件
 │  ├─admin  // 后台管理页面 (已废弃，打包静态文件在web/admin/dist下)         
-│  └─front  // 前端展示页面 (已废弃，打包静态文件在web/front/dist下)            
+│  └─front  // 前端展示页面 (已废弃，打包静态文件在web/front/dist下) 
 ├─upload   
 ├─utils // 项目公用工具库
 │  │  setting.go 
@@ -80,7 +87,6 @@ gin+vue 全栈制作一个博客。
 ## 运行&&部署
 
 1. 克隆项目
-
 ```shell
 git clone git@gitee.com:wejectchan/ginblog.git
 #or
@@ -468,8 +474,8 @@ FROM golang:latest
 RUN go env -w GO111MODULE=on
 RUN go env -w GOPROXY=https://goproxy.cn,https://goproxy.io,direct
 
-WORKDIR $GOPATH/src/ginblog
-COPY . $GOPATH/src/ginblog
+WORKDIR /app
+COPY . /app
 
 RUN go build .
 
@@ -495,8 +501,7 @@ DbName = ginblog
 
 这样的话，我们大概就配置好docker的build镜像文件了。
 
-- 最后我们在确定下前端 `web` 文件夹下的axios请求地址
-
+- 最后我们在确定下前端 `web` 文件夹下的axios请求地址。`前端推荐使用 Nginx 部署`
 ```js
 // 在 web/admin/src/plugin/http.js 和 web/front/src/plugin/http.js 两个文件夹中,将 baseURL地址改为部署的服务器线上地址
 
