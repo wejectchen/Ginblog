@@ -9,6 +9,7 @@ import (
 	"mime/multipart"
 )
 
+var Zone = utils.Zone
 var AccessKey = utils.AccessKey
 var SecretKey = utils.SecretKey
 var Bucket = utils.Bucket
@@ -22,7 +23,7 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	upToken := putPolicy.UploadToken(mac)
 
 	cfg := storage.Config{
-		Zone:          &storage.ZoneHuadong,
+		Zone:          selectZone(Zone),
 		UseCdnDomains: false,
 		UseHTTPS:      false,
 	}
@@ -39,4 +40,17 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	url := ImgUrl + ret.Key
 	return url, errmsg.SUCCSE
 
+}
+
+func selectZone(id int) *storage.Zone {
+	switch {
+	case id == 1:
+		return &storage.ZoneHuadong
+	case id == 2:
+		return &storage.ZoneHuabei
+	case id == 3:
+		return &storage.ZoneHuanan
+	default:
+		return &storage.ZoneHuadong
+	}
 }
