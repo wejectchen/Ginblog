@@ -43,12 +43,12 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 }
 
 func selectZone(id int) *storage.Zone {
-	switch {
-	case id == 1:
+	switch id {
+	case 1:
 		return &storage.ZoneHuadong
-	case id == 2:
+	case 2:
 		return &storage.ZoneHuabei
-	case id == 3:
+	case 3:
 		return &storage.ZoneHuanan
 	default:
 		return &storage.ZoneHuadong
