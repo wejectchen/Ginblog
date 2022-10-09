@@ -6,8 +6,8 @@ ENV GOPROXY=https://goproxy.cn,https://goproxy.io,direct \
 
 #设置时区参数
 ENV TZ=Asia/Shanghai
-RUN echo "https://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories \
-    && apk --no-cache add tzdata zeromq \
+RUN sed -i 's!http://dl-cdn.alpinelinux.org/!https://mirrors.ustc.edu.cn/!g' /etc/apk/repositories
+RUN apk --no-cache add tzdata zeromq \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo '$TZ' > /etc/timezone
 
