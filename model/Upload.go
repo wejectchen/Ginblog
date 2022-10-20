@@ -15,6 +15,7 @@ var SecretKey = utils.SecretKey
 var Bucket = utils.Bucket
 var ImgUrl = utils.QiniuSever
 
+// UpLoadFile 上传文件函数
 func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	putPolicy := storage.PutPolicy{
 		Scope: Bucket,
@@ -22,11 +23,7 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	mac := qbox.NewMac(AccessKey, SecretKey)
 	upToken := putPolicy.UploadToken(mac)
 
-	cfg := storage.Config{
-		Zone:          selectZone(Zone),
-		UseCdnDomains: false,
-		UseHTTPS:      false,
-	}
+	cfg := setConfig()
 
 	putExtra := storage.PutExtra{}
 
@@ -39,7 +36,15 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 	}
 	url := ImgUrl + ret.Key
 	return url, errmsg.SUCCSE
+}
 
+func setConfig() storage.Config {
+	cfg := storage.Config{
+		Zone:          selectZone(Zone),
+		UseCdnDomains: false,
+		UseHTTPS:      false,
+	}
+	return cfg
 }
 
 func selectZone(id int) *storage.Zone {

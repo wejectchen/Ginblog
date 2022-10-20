@@ -18,7 +18,7 @@
 </div>
 
 <div align="center">
-<img  src="https://s1.328888.xyz/2022/08/13/Tl95d.jpg" width="600" height="350"/>
+<img  src="https://gitee.com/wejectchan/ginblog/raw/master/upload/zhizuotu_1.jpg" width="550" height="350"/>
 </div>
 
 ## 重要更新
@@ -35,9 +35,9 @@
 
 - 2021.2.10 增加了展示页面的移动端适配
 
-  <img src="https://s1.328888.xyz/2022/08/13/Tl5FC.jpg" width="250px" />
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile.png" width="250px" />
 
-  <img src="https://s1.328888.xyz/2022/08/13/TlkHy.png"  width="250px" />
+  <img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/mobile2.png"  width="250px" />
 
 
 - 2021.1.2 加入注册、登录、评论功能，后台管理加入评论审核功能
@@ -89,6 +89,7 @@ gin+vue 全栈制作一个博客。
 ## 运行&&部署
 
 1. 克隆项目
+
 ```shell
 git clone git@gitee.com:wejectchan/ginblog.git
 #or
@@ -196,19 +197,19 @@ enjoy~~~~
 ## 项目预览
 
 - 前端展示页面
-  ![](https://s1.328888.xyz/2022/08/13/Tlb8F.png)
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front1.png)
 
 - 前端展示页面
-  ![](https://s1.328888.xyz/2022/08/13/TlwAS.png)
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/front2.png)
 
 - 后台登录页面
 
-  ![](https://s1.328888.xyz/2022/08/13/Tlhvp.jpg
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin.jpg
   )
 
 - 后台管理页面
 
-  ![](https://s1.328888.xyz/2022/08/13/TlBwo.jpg)
+  ![](https://gitee.com/wejectchan/ginblog/raw/master/upload/admin2.jpg)
 
 ## 更新进度(制作视频已基本全部更新完毕)
 
@@ -505,6 +506,7 @@ DbName = ginblog
 这样的话，我们大概就配置好docker的build镜像文件了。
 
 - 最后我们在确定下前端 `web` 文件夹下的axios请求地址。`前端推荐使用 Nginx 部署`
+
 ```js
 // 在 web/admin/src/plugin/http.js 和 web/front/src/plugin/http.js 两个文件夹中,将 baseURL地址改为部署的服务器线上地址
 
@@ -538,4 +540,4 @@ $ docker run -d -p 3000:3000 --name ginblog ginblog
 
 感谢JetBrains免费开源授权
 
-<a href="https://www.jetbrains.com" target="_blank"><img src="https://s1.328888.xyz/2022/08/13/TlC65.png" height="200" /></a>
+<a href="https://www.jetbrains.com" target="_blank"><img src="https://gitee.com/wejectchan/ginblog/raw/master/upload/jet.png" height="200" /></a>
