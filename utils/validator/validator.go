@@ -10,7 +10,7 @@ import (
 	"reflect"
 )
 
-func Validate(data interface{}) (string, int) {
+func Validate(data any) (string, int) {
 	validate := validator.New()
 	uni := unTrans.New(zh_Hans_CN.New())
 	trans, _ := uni.GetTranslator("zh_Hans_CN")
