@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/wejectchen/ginblog/middleware"
 	"github.com/wejectchen/ginblog/model"
 	"github.com/wejectchen/ginblog/utils/errmsg"
@@ -54,9 +54,9 @@ func setToken(c *gin.Context, user model.User) {
 	j := middleware.NewJWT()
 	claims := middleware.MyClaims{
 		Username: user.Username,
-		StandardClaims: jwt.StandardClaims{
-			NotBefore: time.Now().Unix() - 100,
-			ExpiresAt: time.Now().Unix() + 604800,
+		RegisteredClaims: jwt.RegisteredClaims{
+			NotBefore: jwt.NewNumericDate(time.Now()),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * 24 * time.Hour)),
 			Issuer:    "GinBlog",
 		},
 	}

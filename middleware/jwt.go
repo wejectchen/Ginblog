@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/wejectchen/ginblog/utils"
 	"github.com/wejectchen/ginblog/utils/errmsg"
 	"net/http"
@@ -22,7 +22,7 @@ func NewJWT() *JWT {
 
 type MyClaims struct {
 	Username string `json:"username"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 // 定义错误
@@ -40,33 +40,23 @@ func (j *JWT) CreateToken(claims MyClaims) (string, error) {
 }
 
 // ParserToken 解析token
-func (j *JWT) ParserToken(tokenString string) (*MyClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
+func (j *JWT) ParserToken(tokenString string) error {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return j.JwtKey, nil
 	})
 
-	if err != nil {
-		if ve, ok := err.(*jwt.ValidationError); ok {
-			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				return nil, TokenMalformed
-			} else if ve.Errors&jwt.ValidationErrorExpired != 0 {
-				return nil, TokenExpired
-			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				return nil, TokenNotValidYet
-			} else {
-				return nil, TokenInvalid
-			}
-		}
+	if token.Valid {
+		return nil
+	} else if errors.Is(err, jwt.ErrTokenMalformed) {
+		return TokenMalformed
+	} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {
+		return TokenExpired
+	} else if errors.Is(err, jwt.ErrTokenSignatureInvalid) {
+		return TokenInvalid
+	} else {
+		return TokenNotValidYet
 	}
 
-	if token != nil {
-		if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
-			return claims, nil
-		}
-		return nil, TokenInvalid
-	}
-
-	return nil, TokenInvalid
 }
 
 // JwtToken jwt中间件
@@ -105,9 +95,9 @@ func JwtToken() gin.HandlerFunc {
 
 		j := NewJWT()
 		// 解析token
-		claims, err := j.ParserToken(checkToken[1])
+		err := j.ParserToken(checkToken[1])
 		if err != nil {
-			if err == TokenExpired {
+			if errors.Is(err, TokenExpired) {
 				c.JSON(http.StatusOK, gin.H{
 					"status":  errmsg.ERROR,
 					"message": "token授权已过期,请重新登录",
@@ -126,7 +116,7 @@ func JwtToken() gin.HandlerFunc {
 			return
 		}
 
-		c.Set("username", claims)
+		//c.Set("username",)
 		c.Next()
 	}
 }
