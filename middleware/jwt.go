@@ -27,10 +27,10 @@ type MyClaims struct {
 
 // 定义错误
 var (
-	TokenExpired     = errors.New("token已过期,请重新登录")
-	TokenNotValidYet = errors.New("token无效,请重新登录")
-	TokenMalformed   = errors.New("token不正确,请重新登录")
-	TokenInvalid     = errors.New("这不是一个token,请重新登录")
+	TokenExpired     = errors.New("token已过期,请重新登录。")
+	TokenNotValidYet = errors.New("token无效,请重新登录。")
+	TokenMalformed   = errors.New("token不正确,请重新登录。")
+	TokenInvalid     = errors.New("这不是一个token,请重新登录。")
 )
 
 // CreateToken 生成token
@@ -44,7 +44,7 @@ func (j *JWT) ParserToken(tokenString string) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return j.JwtKey, nil
 	})
-
+	// 验证token
 	if token.Valid {
 		return nil
 	} else if errors.Is(err, jwt.ErrTokenMalformed) {
@@ -56,10 +56,10 @@ func (j *JWT) ParserToken(tokenString string) error {
 	} else {
 		return TokenNotValidYet
 	}
-
 }
 
 // JwtToken jwt中间件
+// todo 优化此类代码
 func JwtToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var code int

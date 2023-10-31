@@ -21,7 +21,7 @@ type Article struct {
 func CreateArt(data *Article) int {
 	err := db.Create(&data).Error
 	if err != nil {
-		return errmsg.ERROR // 500
+		return errmsg.ERROR
 	}
 	return errmsg.SUCCSE
 }

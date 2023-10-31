@@ -11,11 +11,12 @@ type Category struct {
 }
 
 // CheckCategory 查询分类是否存在
+// params name 传过来的name字符串
 func CheckCategory(name string) (code int) {
 	var cate Category
 	db.Select("id").Where("name = ?", name).First(&cate)
 	if cate.ID > 0 {
-		return errmsg.ERROR_CATENAME_USED //2001
+		return errmsg.ERROR_CATENAME_USED
 	}
 	return errmsg.SUCCSE
 }
