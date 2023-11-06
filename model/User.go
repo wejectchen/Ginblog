@@ -21,7 +21,7 @@ func CheckUser(name string) (code int) {
 	if user.ID > 0 {
 		return errmsg.ERROR_USERNAME_USED //1001
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // CheckUpUser 更新查询
@@ -29,12 +29,12 @@ func CheckUpUser(id int, name string) (code int) {
 	var user User
 	db.Select("id, username").Where("username = ?", name).First(&user)
 	if user.ID == uint(id) {
-		return errmsg.SUCCSE
+		return errmsg.SUCCESS
 	}
 	if user.ID > 0 {
 		return errmsg.ERROR_USERNAME_USED //1001
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // CreateUser 新增用户
@@ -44,7 +44,7 @@ func CreateUser(data *User) int {
 	if err != nil {
 		return errmsg.ERROR // 500
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // GetUser 查询用户
@@ -54,7 +54,7 @@ func GetUser(id int) (User, int) {
 	if err != nil {
 		return user, errmsg.ERROR
 	}
-	return user, errmsg.SUCCSE
+	return user, errmsg.SUCCESS
 }
 
 // GetUsers 查询用户列表
@@ -90,7 +90,7 @@ func EditUser(id int, data *User) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // ChangePassword 修改密码
@@ -103,7 +103,7 @@ func ChangePassword(id int, data *User) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // DeleteUser 删除用户
@@ -113,7 +113,7 @@ func DeleteUser(id int) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // BeforeCreate 密码加密&权限控制
@@ -158,7 +158,7 @@ func CheckLogin(username string, password string) (User, int) {
 	if user.Role != 1 {
 		return user, errmsg.ERROR_USER_NO_RIGHT
 	}
-	return user, errmsg.SUCCSE
+	return user, errmsg.SUCCESS
 }
 
 // CheckLoginFront 前台登录
@@ -175,5 +175,5 @@ func CheckLoginFront(username string, password string) (User, int) {
 	if PasswordErr != nil {
 		return user, errmsg.ERROR_PASSWORD_WRONG
 	}
-	return user, errmsg.SUCCSE
+	return user, errmsg.SUCCESS
 }

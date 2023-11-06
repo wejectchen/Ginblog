@@ -23,7 +23,7 @@ func CreateArt(data *Article) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // GetCateArt 查询分类下的所有文章
@@ -37,7 +37,7 @@ func GetCateArt(id int, pageSize int, pageNum int) ([]Article, int, int64) {
 	if err != nil {
 		return nil, errmsg.ERROR_CATE_NOT_EXIST, 0
 	}
-	return cateArtList, errmsg.SUCCSE, total
+	return cateArtList, errmsg.SUCCESS, total
 }
 
 // GetArtInfo 查询单个文章
@@ -48,7 +48,7 @@ func GetArtInfo(id int) (Article, int) {
 	if err != nil {
 		return art, errmsg.ERROR_ART_NOT_EXIST
 	}
-	return art, errmsg.SUCCSE
+	return art, errmsg.SUCCESS
 }
 
 // GetArt 查询文章列表
@@ -63,7 +63,7 @@ func GetArt(pageSize int, pageNum int) ([]Article, int, int64) {
 	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
-	return articleList, errmsg.SUCCSE, total
+	return articleList, errmsg.SUCCESS, total
 
 }
 
@@ -83,7 +83,7 @@ func SearchArticle(title string, pageSize int, pageNum int) ([]Article, int, int
 	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
-	return articleList, errmsg.SUCCSE, total
+	return articleList, errmsg.SUCCESS, total
 }
 
 // EditArt 编辑文章
@@ -100,7 +100,7 @@ func EditArt(id int, data *Article) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // DeleteArt 删除文章
@@ -110,5 +110,5 @@ func DeleteArt(id int) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }

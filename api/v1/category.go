@@ -13,7 +13,7 @@ func AddCategory(c *gin.Context) {
 	var data model.Category
 	_ = c.ShouldBindJSON(&data)
 	code := model.CheckCategory(data.Name)
-	if code == errmsg.SUCCSE {
+	if code == errmsg.SUCCESS {
 		model.CreateCate(&data)
 	}
 
@@ -59,7 +59,7 @@ func GetCate(c *gin.Context) {
 	}
 
 	data, total := model.GetCate(pageSize, pageNum)
-	code := errmsg.SUCCSE
+	code := errmsg.SUCCESS
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status":  code,
@@ -89,7 +89,7 @@ func EditCate(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 	code := model.CheckCategory(data.Name)
-	if code == errmsg.SUCCSE {
+	if code == errmsg.SUCCESS {
 		model.EditCate(id, &data)
 	}
 	if code == errmsg.ERROR_CATENAME_USED {

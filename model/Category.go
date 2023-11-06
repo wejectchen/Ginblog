@@ -18,7 +18,7 @@ func CheckCategory(name string) (code int) {
 	if cate.ID > 0 {
 		return errmsg.ERROR_CATENAME_USED
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // CreateCate 新增分类
@@ -27,14 +27,14 @@ func CreateCate(data *Category) int {
 	if err != nil {
 		return errmsg.ERROR // 500
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // GetCateInfo 查询单个分类信息
 func GetCateInfo(id int) (Category, int) {
 	var cate Category
 	db.Where("id = ?", id).First(&cate)
-	return cate, errmsg.SUCCSE
+	return cate, errmsg.SUCCESS
 }
 
 // GetCate 查询分类列表
@@ -59,7 +59,7 @@ func EditCate(id int, data *Category) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }
 
 // DeleteCate 删除分类
@@ -69,5 +69,5 @@ func DeleteCate(id int) int {
 	if err != nil {
 		return errmsg.ERROR
 	}
-	return errmsg.SUCCSE
+	return errmsg.SUCCESS
 }

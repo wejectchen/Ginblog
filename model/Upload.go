@@ -35,7 +35,7 @@ func UpLoadFile(file multipart.File, fileSize int64) (string, int) {
 		return "", errmsg.ERROR
 	}
 	url := ImgUrl + ret.Key
-	return url, errmsg.SUCCSE
+	return url, errmsg.SUCCESS
 }
 
 func setConfig() storage.Config {

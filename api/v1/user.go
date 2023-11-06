@@ -17,7 +17,7 @@ func AddUser(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 
 	msg, validCode = validator.Validate(&data)
-	if validCode != errmsg.SUCCSE {
+	if validCode != errmsg.SUCCESS {
 		c.JSON(
 			http.StatusOK, gin.H{
 				"status":  validCode,
@@ -29,7 +29,7 @@ func AddUser(c *gin.Context) {
 	}
 
 	code := model.CheckUser(data.Username)
-	if code == errmsg.SUCCSE {
+	if code == errmsg.SUCCESS {
 		model.CreateUser(&data)
 	}
 
@@ -78,7 +78,7 @@ func GetUsers(c *gin.Context) {
 
 	data, total := model.GetUsers(username, pageSize, pageNum)
 
-	code := errmsg.SUCCSE
+	code := errmsg.SUCCESS
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status":  code,
@@ -96,7 +96,7 @@ func EditUser(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 
 	code := model.CheckUpUser(id, data.Username)
-	if code == errmsg.SUCCSE {
+	if code == errmsg.SUCCESS {
 		model.EditUser(id, &data)
 	}
 
