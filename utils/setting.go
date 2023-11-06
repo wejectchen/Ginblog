@@ -23,6 +23,7 @@ var (
 	QiniuSever string
 )
 
+// 初始化
 func init() {
 	file, err := ini.Load("config/config.ini")
 	if err != nil {

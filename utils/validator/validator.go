@@ -10,6 +10,7 @@ import (
 	"reflect"
 )
 
+// Validate 数据验证模块
 func Validate(data any) (string, int) {
 	validate := validator.New()
 	uni := unTrans.New(zh_Hans_CN.New())
